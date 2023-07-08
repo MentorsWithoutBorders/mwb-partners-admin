@@ -1,0 +1,13 @@
+# compiled output
+/dist
+/node_modules
+/.next
+/out
+
+.cache
+package-lock.json
+public
+node_modules
+next-env.d.ts
+next.config.ts
+next.config.js
