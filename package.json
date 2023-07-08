@@ -3,10 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "precommit": "lint-staged && npm run lint",
+    "commit": "cz",
+    "dev": "next dev",
+    "eslint:check": "next lint",
+    "eslint:fix": "npm run eslint:check -- --fix",
+    "lint": "npm run eslint:check && npm run prettier:check",
+    "prepare": "husky install",
+    "prettier:check": "prettier --check ./**/*.{js,jsx,ts,tsx,json,*rc}",
+    "prettier:fix": "prettier --write ./**/*.{js,jsx,ts,tsx,json,*rc}",
+    "start": "next start"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "@types/node": "20.4.1",
@@ -18,5 +30,16 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0"
   }
 }
