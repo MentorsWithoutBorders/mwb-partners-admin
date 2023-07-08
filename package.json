@@ -10,7 +10,9 @@
     "eslint:fix": "npm run eslint:check -- --fix",
     "prettier:check": "prettier --check ./**/*.{ts,js,json,*rc}",
     "prettier:fix": "prettier --write ./**/*.{ts,js,json,*rc}",
-    "lint": "npm run eslint:check && npm run prettier:check"
+    "lint": "npm run eslint:check && npm run prettier:check",
+    "prepare": "husky install",
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "@types/node": "20.4.1",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "husky": "^8.0.0"
   }
 }
