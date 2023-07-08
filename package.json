@@ -12,7 +12,8 @@
     "prettier:fix": "prettier --write ./**/*.{ts,js,json,*rc}",
     "lint": "npm run eslint:check && npm run prettier:check",
     "prepare": "husky install",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "commit": "cz"
   },
   "dependencies": {
     "@types/node": "20.4.1",
@@ -26,8 +27,14 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
     "eslint-config-prettier": "^8.8.0",
-    "prettier": "^3.0.0",
-    "husky": "^8.0.0"
+    "husky": "^8.0.0",
+    "prettier": "^3.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
