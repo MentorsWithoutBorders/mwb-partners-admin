@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import Image from 'next/image'
 
 import DashboardItem from '@/components/DashboardItem'
-import { DashboardLayout } from '@/containers/DashboardLayout'
+import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 
 const SAMPLE_DATA = [
   {

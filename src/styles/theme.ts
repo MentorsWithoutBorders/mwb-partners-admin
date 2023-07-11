@@ -11,6 +11,10 @@ export const theme = createTheme({
     secondary: {
       main: '#0A0047'
     },
+    text: {
+      primary: '#000',
+      secondary: '#989595'
+    },
     zircon: '#F1F4FF',
     mineShaft: 'Mine Shaft'
   },

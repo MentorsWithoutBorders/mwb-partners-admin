@@ -12,7 +12,7 @@ import {
   LayoutHeader,
   LayoutSidebar,
   SidebarLink
-} from '@/components/Layout'
+} from '@/components/layout/Layout'
 
 const SIDEBAR_LINKS: SidebarLink[] = [
   { link: '/app', title: 'Dashboard', icon: DashboardOutlined, exact: true },
