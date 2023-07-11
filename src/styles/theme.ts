@@ -1,4 +1,4 @@
-import { ThemeOptions, createTheme } from '@mui/material'
+import { createTheme } from '@mui/material'
 import { Montserrat } from 'next/font/google'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
@@ -10,6 +10,10 @@ export const theme = createTheme({
     },
     secondary: {
       main: '#0A0047'
+    },
+    text: {
+      primary: '#000',
+      secondary: '#989595'
     }
   },
   typography: {
