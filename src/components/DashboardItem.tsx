@@ -15,7 +15,8 @@ const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
     <Box
       sx={{
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        gap: '20px'
       }}
     >
       <Box
@@ -25,15 +26,16 @@ const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: theme.palette.zircon
+          backgroundColor: theme.palette.zircon,
+          borderRadius: '100%'
         }}
       >
         {icon}
       </Box>
       <Box>
         <Typography
-          variant="h6"
           sx={{
+            fontSize: '16px',
             fontWeight: '500',
             color: theme.palette.mineShaft
           }}
@@ -43,6 +45,7 @@ const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
         <Typography
           variant="h3"
           sx={{
+            fontSize: '40px',
             fontWeight: '700',
             color: theme.palette.mineShaft
           }}
