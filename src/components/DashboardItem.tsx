@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import React from 'react'
 
 interface DashboardItemProps {
@@ -8,6 +9,8 @@ interface DashboardItemProps {
 }
 
 const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
+  const theme = useTheme()
+
   return (
     <Box
       sx={{
@@ -21,7 +24,8 @@ const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
           height: '46px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          backgroundColor: theme.palette.zircon
         }}
       >
         {icon}
@@ -30,7 +34,8 @@ const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
         <Typography
           variant="h6"
           sx={{
-            fontWeight: '500'
+            fontWeight: '500',
+            color: theme.palette.mineShaft
           }}
         >
           {title}
@@ -38,7 +43,8 @@ const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
         <Typography
           variant="h3"
           sx={{
-            fontWeight: '700'
+            fontWeight: '700',
+            color: theme.palette.mineShaft
           }}
         >
           {value}
