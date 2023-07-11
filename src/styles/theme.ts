@@ -1,9 +1,17 @@
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
+import { ThemeOptions, createTheme } from '@mui/material'
 import { Montserrat } from 'next/font/google'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#0046CF'
+    },
+    secondary: {
+      main: '#0A0047'
+    }
+  },
   typography: {
     fontFamily: montserrat.style.fontFamily
   },
@@ -17,11 +25,19 @@ export const theme = createTheme({
     },
     MuiAppBar: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           backgroundColor: 'white',
           boxShadow: 'none',
-          color: '#0A0047'
-        }
+          color: theme.palette.secondary.main
+        })
+      }
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          backgroundColor: theme.palette.secondary.main,
+          color: 'white'
+        })
       }
     }
   }

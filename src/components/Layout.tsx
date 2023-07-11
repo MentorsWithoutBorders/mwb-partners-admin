@@ -92,8 +92,6 @@ export function LayoutSidebar({ links }: { links: SidebarLink[] }) {
         sx={{
           display: { xs: 'block', sm: 'none' },
           '& .MuiDrawer-paper': {
-            bgcolor: '#0A0047',
-            color: 'white',
             boxSizing: 'border-box',
             width: SIDEBAR_WIDTH
           }
@@ -108,8 +106,6 @@ export function LayoutSidebar({ links }: { links: SidebarLink[] }) {
         sx={{
           display: { xs: 'none', sm: 'block' },
           '& .MuiDrawer-paper': {
-            bgcolor: '#0A0047',
-            color: 'white',
             boxSizing: 'border-box',
             width: SIDEBAR_WIDTH
           }
