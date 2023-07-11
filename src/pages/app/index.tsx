@@ -1,5 +1,5 @@
-import { MenuOutlined } from '@mui/icons-material'
 import { Box } from '@mui/material'
+import Image from 'next/image'
 
 import DashboardItem from '@/components/DashboardItem'
 import { DashboardLayout } from '@/containers/DashboardLayout'
@@ -8,22 +8,22 @@ const SAMPLE_DATA = [
   {
     title: 'Total students',
     value: '20',
-    icon: <MenuOutlined />
+    icon: './icons/students.svg'
   },
   {
     title: 'Total courses',
     value: '3',
-    icon: <MenuOutlined />
+    icon: './icons/courses.svg'
   },
   {
     title: 'Total hours',
     value: '32',
-    icon: <MenuOutlined />
+    icon: './icons/total-hours.svg'
   },
   {
     title: 'Total mentors',
     value: '20',
-    icon: <MenuOutlined />
+    icon: './icons/mentors-blue.svg'
   }
 ]
 
@@ -49,7 +49,9 @@ export default function DashboardPage() {
             key={index}
             title={item.title}
             value={item.value}
-            icon={item.icon}
+            icon={
+              <Image src={item.icon} width={25} height={25} alt={item.title} />
+            }
           />
         ))}
       </Box>
