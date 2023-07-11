@@ -50,7 +50,13 @@ export default function DashboardPage() {
             title={item.title}
             value={item.value}
             icon={
-              <Image src={item.icon} width={25} height={25} alt={item.title} />
+              <Image
+                src={item.icon}
+                width={25}
+                height={25}
+                alt={item.title}
+                priority
+              />
             }
           />
         ))}
