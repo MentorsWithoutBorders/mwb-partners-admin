@@ -14,7 +14,9 @@ export const theme = createTheme({
     text: {
       primary: '#000',
       secondary: '#989595'
-    }
+    },
+    zircon: '#F1F4FF',
+    mineShaft: 'Mine Shaft'
   },
   typography: {
     fontFamily: montserrat.style.fontFamily
