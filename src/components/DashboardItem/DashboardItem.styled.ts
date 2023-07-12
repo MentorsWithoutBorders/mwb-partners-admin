@@ -28,3 +28,14 @@ export const DashboardItemValue = styled(Typography)(({ theme }) => ({
   fontWeight: '700',
   color: theme.palette.mineShaft
 }))
+
+export const DashboardItemsWrapper = styled(Box)(() => ({
+  display: 'flex',
+  gap: '20px',
+  flexWrap: 'wrap',
+  padding: '20px',
+  backgroundColor: '#E0E8F8',
+  borderRadius: '10px',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+}))

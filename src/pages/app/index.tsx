@@ -1,8 +1,8 @@
-import { Box } from '@mui/material'
 import Image from 'next/image'
 
 import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 
 const SAMPLE_DATA = [
   {
@@ -32,18 +32,7 @@ export default function DashboardPage() {
     <DashboardLayout title="Dashboard">
       <div>Dashboard Page</div>
 
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '20px',
-          flexWrap: 'wrap',
-          padding: '20px',
-          backgroundColor: '#E0E8F8',
-          borderRadius: '10px',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}
-      >
+      <DashboardItemsWrapper>
         {SAMPLE_DATA.map((item, index) => (
           <DashboardItem
             key={index}
@@ -60,7 +49,7 @@ export default function DashboardPage() {
             }
           />
         ))}
-      </Box>
+      </DashboardItemsWrapper>
     </DashboardLayout>
   )
 }
