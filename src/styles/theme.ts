@@ -3,21 +3,23 @@ import { Montserrat } from 'next/font/google'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
-export const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#0046CF'
-    },
-    secondary: {
-      main: '#0A0047'
-    },
-    text: {
-      primary: '#000',
-      secondary: '#989595'
-    },
-    zircon: '#F1F4FF',
-    mineShaft: 'Mine Shaft'
+export const palette = {
+  primary: {
+    main: '#0046CF'
   },
+  secondary: {
+    main: '#0A0047'
+  },
+  text: {
+    primary: '#000',
+    secondary: '#989595'
+  },
+  zircon: '#F1F4FF',
+  mineShaft: '#232323'
+} as const
+
+export const theme = createTheme({
+  palette,
   typography: {
     fontFamily: montserrat.style.fontFamily
   },
