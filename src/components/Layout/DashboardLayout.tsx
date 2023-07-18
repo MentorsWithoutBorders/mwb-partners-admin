@@ -3,7 +3,6 @@ import {
   SchoolOutlined,
   StarOutlined
 } from '@mui/icons-material'
-import { Typography } from '@mui/material'
 import { ReactNode } from 'react'
 
 import {
