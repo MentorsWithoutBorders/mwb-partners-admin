@@ -123,18 +123,25 @@ export function LayoutHeader({ children }: { children: ReactNode }) {
   return <TopBar>{children}</TopBar>
 }
 
-export function LayoutContent({ children }: { children: ReactNode }) {
+export function LayoutContent({
+  children,
+  header
+}: {
+  children: ReactNode
+  header?: ReactNode
+}) {
   return (
     <Box
       component="main"
       sx={{
         flexGrow: 1,
-        p: 3,
         backgroundColor: '#F9F9F9',
         minHeight: '100vh'
       }}
     >
-      {children}
+      {header}
+
+      <Box sx={{ flexGrow: 1, p: 3 }}>{children}</Box>
     </Box>
   )
 }

@@ -31,13 +31,15 @@ export function DashboardLayout({
     <Layout>
       <LayoutSidebar links={SIDEBAR_LINKS} />
 
-      <LayoutHeader>
-        <Typography variant="h6" noWrap component="h2">
-          {title}
-        </Typography>
-      </LayoutHeader>
-
-      <LayoutContent>{children}</LayoutContent>
+      <LayoutContent
+        header={
+          <LayoutHeader>
+            <Typography variant="h6">{title}</Typography>
+          </LayoutHeader>
+        }
+      >
+        {children}
+      </LayoutContent>
     </Layout>
   )
 }
