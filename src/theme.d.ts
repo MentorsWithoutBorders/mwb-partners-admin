@@ -3,6 +3,12 @@ import { PaletteOptions, Theme, ThemeOptions } from '@mui/material/styles'
 interface CustomPalette extends PaletteOptions {
   zircon?: string
   mineShaft?: string
+  primary?: {
+    main: string
+  }
+  secondary?: {
+    main: string
+  }
 }
 
 interface CustomTheme extends Theme {
