@@ -13,6 +13,7 @@ import {
   LayoutSidebar,
   SidebarLink
 } from '@/components/layout/Layout'
+import UserDetails from '@/components/UserDetails/UserDatails'
 
 const SIDEBAR_LINKS: SidebarLink[] = [
   { link: '/app', title: 'Dashboard', icon: DashboardOutlined, exact: true },
@@ -31,13 +32,15 @@ export function DashboardLayout({
     <Layout>
       <LayoutSidebar links={SIDEBAR_LINKS} />
 
-      <LayoutHeader>
-        <Typography variant="h6" noWrap component="h2">
-          {title}
-        </Typography>
-      </LayoutHeader>
-
-      <LayoutContent>{children}</LayoutContent>
+      <LayoutContent
+        header={
+          <LayoutHeader>
+            <UserDetails name="John Doe" email="test@email.com" avatar="" />
+          </LayoutHeader>
+        }
+      >
+        {children}
+      </LayoutContent>
     </Layout>
   )
 }

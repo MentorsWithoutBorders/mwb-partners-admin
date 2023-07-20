@@ -23,6 +23,7 @@ import {
   useContext,
   useState
 } from 'react'
+import { TopBar } from './Layout.styled'
 
 const SIDEBAR_WIDTH = 240
 
@@ -119,45 +120,28 @@ export function LayoutSidebar({ links }: { links: SidebarLink[] }) {
 }
 
 export function LayoutHeader({ children }: { children: ReactNode }) {
-  const setIsSidebarOpen = useContext(SidebarActionContext)
-
-  return (
-    <AppBar
-      position="fixed"
-      sx={{
-        width: { sm: `calc(100% - ${SIDEBAR_WIDTH}px)` },
-        ml: { sm: `${SIDEBAR_WIDTH}px` }
-      }}
-    >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open sidebar"
-          edge="start"
-          onClick={() => setIsSidebarOpen?.((v) => !v)}
-          sx={{ mr: 2, display: { sm: 'none' } }}
-        >
-          <MenuOutlined />
-        </IconButton>
-
-        {children}
-      </Toolbar>
-    </AppBar>
-  )
+  return <TopBar>{children}</TopBar>
 }
 
-export function LayoutContent({ children }: { children: ReactNode }) {
+export function LayoutContent({
+  children,
+  header
+}: {
+  children: ReactNode
+  header?: ReactNode
+}) {
   return (
     <Box
       component="main"
       sx={{
         flexGrow: 1,
-        p: 3,
-        width: { sm: `calc(100% - ${SIDEBAR_WIDTH}px)` }
+        backgroundColor: '#F9F9F9',
+        minHeight: '100vh'
       }}
     >
-      <Toolbar />
-      {children}
+      {header}
+
+      <Box sx={{ flexGrow: 1, p: 3 }}>{children}</Box>
     </Box>
   )
 }
