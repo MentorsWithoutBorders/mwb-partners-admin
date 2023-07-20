@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
-import { DashboardLayout } from '@/components/Layout/DashboardLayout'
+import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 
 const SAMPLE_DATA = [
   {

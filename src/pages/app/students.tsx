@@ -1,4 +1,4 @@
-import { DashboardLayout } from '@/components/Layout/DashboardLayout'
+import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 
 export default function StudentsPage() {
   return (
