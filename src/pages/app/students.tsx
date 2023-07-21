@@ -11,25 +11,25 @@ import { useState } from 'react'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 
 const items = [
-  { value: 10, label: 'Ten' },
-  { value: 20, label: 'Twenty' },
-  { value: 30, label: 'Thirty' },
-  { value: 40, label: 'Fourty' }
+  { id: 0, label: 'All centers' },
+  { id: 1, label: 'Center A' },
+  { id: 2, label: 'Center B' },
+  { id: 3, label: 'Center C' }
 ]
 
 export default function StudentsPage() {
-  const [age, setAge] = useState<number>(10)
+  const [center, setCenter] = useState<number>(0)
 
-  const handleChange = (event: SelectChangeEvent<number>) => {
-    setAge(Number(event.target.value))
+  const handleCenterChange = (event: SelectChangeEvent<number>) => {
+    setCenter(Number(event.target.value))
   }
 
-  const menuItems = items.map((item) => {
-    const selected = item.value === age
+  const centerMenuItems = items.map((item) => {
+    const selected = item.id === center
     const style = selected ? { display: 'none' } : {}
 
     return (
-      <MenuItem value={item.value} style={style} key={item.value}>
+      <MenuItem value={item.id} style={style} key={item.id}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {selected && <ApartmentIcon style={{ marginRight: '10px' }} />}
           <div>{item.label}</div>
@@ -42,13 +42,13 @@ export default function StudentsPage() {
     <DashboardLayout title="Students">
       <div>Students Page</div>
 
-      <FormControl fullWidth>
+      <FormControl size="small">
         <Select
-          value={age}
-          onChange={handleChange}
-          style={{ borderRadius: '15px' }}
+          value={center}
+          onChange={handleCenterChange}
+          style={{ borderRadius: '15px', width: '300px' }}
         >
-          {menuItems}
+          {centerMenuItems}
         </Select>
       </FormControl>
     </DashboardLayout>
