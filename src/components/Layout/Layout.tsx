@@ -23,6 +23,7 @@ import {
   useContext,
   useState
 } from 'react'
+
 import { TopBar } from './Layout.styled'
 
 const SIDEBAR_WIDTH = 240
