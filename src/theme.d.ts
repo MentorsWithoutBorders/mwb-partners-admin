@@ -1,9 +1,8 @@
 import { PaletteOptions, Theme, ThemeOptions } from '@mui/material/styles'
 
-interface CustomPalette extends PaletteOptions {
-  zircon?: string
-  mineShaft?: string
-}
+import { palette } from './styles/theme'
+
+type CustomPalette = PaletteOptions & typeof palette
 
 interface CustomTheme extends Theme {
   palette: CustomPalette
