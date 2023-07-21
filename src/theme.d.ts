@@ -1,4 +1,5 @@
 import { PaletteOptions, Theme, ThemeOptions } from '@mui/material/styles'
+
 import { palette } from './styles/theme'
 
 type CustomPalette = PaletteOptions & typeof palette

@@ -12,7 +12,7 @@ import {
   LayoutHeader,
   LayoutSidebar,
   SidebarLink
-} from '@/components/layout/Layout'
+} from '@/components/Layout/Layout'
 import UserDetails from '@/components/UserDetails/UserDatails'
 
 const SIDEBAR_LINKS: SidebarLink[] = [

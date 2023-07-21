@@ -1,10 +1,11 @@
+import PersonIcon from '@mui/icons-material/Person'
 import { Box, Typography } from '@mui/material'
+
 import {
-  UserDetailsContainer,
   UserDetailsAvatar,
+  UserDetailsContainer,
   UserDetailsName
 } from './UserDetails.styled'
-import PersonIcon from '@mui/icons-material/Person'
 
 interface UserDetailsProps {
   name: string
