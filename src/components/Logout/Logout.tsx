@@ -1,6 +1,13 @@
-import PersonIcon from '@mui/icons-material/Person'
-import { Button } from '@mui/material'
+import { LogoutContainer, LogoutIconContainer } from './Logout.styled'
+import Image from 'next/image'
 
 export default function Logout() {
-  return <Button variant="text">Logout</Button>
+  return (
+    <LogoutContainer>
+      <LogoutIconContainer>
+        <Image src="/icons/logout.svg" alt="Logout" fill={true} />
+      </LogoutIconContainer>
+      Logout
+    </LogoutContainer>
+  )
 }
