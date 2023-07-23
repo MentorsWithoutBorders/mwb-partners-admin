@@ -14,6 +14,7 @@ import {
   SidebarLink
 } from '@/components/Layout/Layout'
 import UserDetails from '@/components/UserDetails/UserDatails'
+import Logout from '@/components/Logout/Logout'
 
 const SIDEBAR_LINKS: SidebarLink[] = [
   { link: '/app', title: 'Dashboard', icon: DashboardOutlined, exact: true },
@@ -36,6 +37,7 @@ export function DashboardLayout({
         header={
           <LayoutHeader>
             <UserDetails name="John Doe" email="test@email.com" avatar="" />
+            <Logout />
           </LayoutHeader>
         }
       >
