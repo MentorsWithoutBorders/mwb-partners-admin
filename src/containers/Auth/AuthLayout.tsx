@@ -1,21 +1,21 @@
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 
-import {
-  SignUpFormContainer,
-  SignUpLayoutContainer
-} from './SignUpLayout.styled'
+import { AuthFormContainer, AuthLayoutContainer } from './AuthLayout.styled'
 
-import SignUpForm from '@/components/Form/SignUp/SignUpForm'
 import WelcomeBanner from '@/components/WelcomeBanner/WelcomeBanner'
 
-export default function SignUpLayout() {
+type AuthLayoutProps = {
+  children?: React.ReactNode
+}
+
+export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <SignUpLayoutContainer container component="main">
+    <AuthLayoutContainer container component="main">
       <Grid item xs={false} sm={6} md={6}>
         <WelcomeBanner />
       </Grid>
-      <SignUpFormContainer
+      <AuthFormContainer
         item
         xs={12}
         sm={6}
@@ -24,8 +24,8 @@ export default function SignUpLayout() {
         elevation={6}
         square
       >
-        <SignUpForm />
-      </SignUpFormContainer>
-    </SignUpLayoutContainer>
+        {children}
+      </AuthFormContainer>
+    </AuthLayoutContainer>
   )
 }

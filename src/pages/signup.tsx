@@ -1,5 +1,10 @@
-import SignUpLayout from '@/containers/SignUp/SignUpLayout'
+import SignUpForm from '@/components/Form/SignUp/SignUpForm'
+import AuthLayout from '@/containers/Auth/AuthLayout'
 
 export default function SignUpPage() {
-  return <SignUpLayout />
+  return (
+    <AuthLayout>
+      <SignUpForm />
+    </AuthLayout>
+  )
 }

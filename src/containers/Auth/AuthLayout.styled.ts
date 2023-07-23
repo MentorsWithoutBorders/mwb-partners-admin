@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
 import Grid from '@mui/material/Grid'
 
-export const SignUpLayoutContainer = styled(Grid)(({ theme }) => ({
+export const AuthLayoutContainer = styled(Grid)(({ theme }) => ({
   height: '100vh'
 })) as typeof Grid
 
-export const SignUpFormContainer = styled(Grid)(({ theme }) => ({
+export const AuthFormContainer = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper
 })) as typeof Grid
