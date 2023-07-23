@@ -1,6 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useForm } from 'react-hook-form'
 
+import { SignUpFormValue, signUpFormSchema } from './SignUpForm.schema'
 import {
   StyledSignUpFormButton,
   StyledSignUpFormLinkContainer,
@@ -9,19 +12,23 @@ import {
   StyledSignUpFormTitleContainer
 } from './SignUpForm.styled'
 
-import { TextField } from '@/components/Input/TextField/TextField'
+import TextField from '@/components/Input/TextField/TextField'
 import Link from '@/components/Link/Link'
 import { theme } from '@/styles/theme'
 
 export default function SignUpForm() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password')
-    })
+  const onSubmit = (values: SignUpFormValue) => {
+    // TODO: backend integration
+    console.log(values)
   }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<SignUpFormValue>({
+    resolver: yupResolver(signUpFormSchema)
+  })
 
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), {
     defaultMatches: true
@@ -39,16 +46,18 @@ export default function SignUpForm() {
           Sign up
         </StyledSignUpFormTitle>
       </StyledSignUpFormTitleContainer>
-      <Box component="form" noValidate onSubmit={handleSubmit}>
+      <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <TextField
           margin="normal"
           required
           fullWidth
           id="name"
           label="Name"
-          name="name"
-          autoComplete="name"
+          autoComplete="given-name"
           autoFocus
+          {...register('name')}
+          error={!!errors.name}
+          helperText={errors.name?.message ?? null}
         />
         <TextField
           margin="normal"
@@ -56,18 +65,34 @@ export default function SignUpForm() {
           fullWidth
           id="email"
           label="Email Address"
-          name="email"
           autoComplete="email"
+          {...register('email')}
+          error={!!errors.email}
+          helperText={errors.email?.message ?? null}
         />
         <TextField
           margin="normal"
           required
           fullWidth
-          name="password"
           label="Password"
           type="password"
           id="password"
           autoComplete="new-password"
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password?.message ?? null}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          label="Confirm Password"
+          type="password"
+          id="confirmPassword"
+          autoComplete="confirm-password"
+          {...register('confirmPassword')}
+          error={!!errors.confirmPassword}
+          helperText={errors.confirmPassword?.message ?? null}
         />
         <StyledSignUpFormButton type="submit" fullWidth variant="contained">
           Create account

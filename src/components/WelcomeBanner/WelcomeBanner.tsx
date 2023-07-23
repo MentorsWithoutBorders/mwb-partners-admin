@@ -18,6 +18,7 @@ export default function WelcomeBanner() {
             alt="MWB Logo"
             width={126}
             height={131}
+            priority
           />
         </LogoContainer>
         <WelcomeTypography>Welcome to</WelcomeTypography>
