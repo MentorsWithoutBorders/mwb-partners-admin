@@ -3,6 +3,7 @@ import Image from 'next/image'
 import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import { DownloadCsvForm } from '@/containers/DownloadCsvForm/DownloadCsvForm'
 
 const SAMPLE_DATA = [
   {
@@ -30,7 +31,7 @@ const SAMPLE_DATA = [
 export default function DashboardPage() {
   return (
     <DashboardLayout title="Dashboard">
-      <div>Dashboard Page</div>
+      <DownloadCsvForm sx={{ mb: 4 }} />
 
       <DashboardItemsWrapper>
         {SAMPLE_DATA.map((item, index) => (
