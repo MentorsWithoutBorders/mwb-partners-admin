@@ -5,8 +5,7 @@ import TextField from '@mui/material/TextField'
 export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
   color: theme.palette.text?.primary,
   fontWeight: 500,
-  fontSize: 16,
-  marginBottom: theme.spacing(1)
+  fontSize: 16
 }))
 
 export const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -22,5 +21,6 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
     '&::placeholder': {
       color: theme.palette.text?.secondary
     }
-  }
+  },
+  marginBottom: theme.spacing(3)
 }))

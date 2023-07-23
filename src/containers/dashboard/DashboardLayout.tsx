@@ -13,8 +13,8 @@ import {
   LayoutSidebar,
   SidebarLink
 } from '@/components/Layout/Layout'
-import UserDetails from '@/components/UserDetails/UserDatails'
 import Logout from '@/components/Logout/Logout'
+import UserDetails from '@/components/UserDetails/UserDatails'
 
 const SIDEBAR_LINKS: SidebarLink[] = [
   { link: '/app', title: 'Dashboard', icon: DashboardOutlined, exact: true },
