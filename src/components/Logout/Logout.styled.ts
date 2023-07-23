@@ -13,7 +13,8 @@ export const LogoutContainer = styled.button(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: '10px',
-  padding: '0 15px'
+  padding: '0 15px',
+  cursor: 'pointer'
 }))
 
 export const LogoutIconContainer = styled.div({
