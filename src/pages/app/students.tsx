@@ -6,16 +6,32 @@ import {
   Select,
   SelectChangeEvent
 } from '@mui/material'
+import { SxProps, Theme } from '@mui/material/styles'
 import { useState } from 'react'
 
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 
+// TODO (#54): Use real data to populate the dropdown.
 const items = [
   { id: 0, label: 'All centers' },
   { id: 1, label: 'Center A' },
   { id: 2, label: 'Center B' },
   { id: 3, label: 'Center C' }
 ]
+
+const selectButtonStyle: SxProps<Theme> = {
+  borderRadius: '15px',
+  width: '300px'
+}
+
+const selectMenuStyle = {
+  display: 'flex',
+  alignItems: 'center'
+}
+
+const selectIconStyle: SxProps<Theme> = {
+  marginRight: '10px'
+}
 
 export default function StudentsPage() {
   const [center, setCenter] = useState<number>(0)
@@ -26,12 +42,12 @@ export default function StudentsPage() {
 
   const centerMenuItems = items.map((item) => {
     const selected = item.id === center
-    const style = selected ? { display: 'none' } : {}
+    const visibilityStyle = selected ? { display: 'none' } : {}
 
     return (
-      <MenuItem value={item.id} style={style} key={item.id}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {selected && <ApartmentIcon style={{ marginRight: '10px' }} />}
+      <MenuItem value={item.id} style={visibilityStyle} key={item.id}>
+        <div style={selectMenuStyle}>
+          {selected && <ApartmentIcon sx={selectIconStyle} />}
           <div>{item.label}</div>
         </div>
       </MenuItem>
@@ -46,7 +62,7 @@ export default function StudentsPage() {
         <Select
           value={center}
           onChange={handleCenterChange}
-          style={{ borderRadius: '15px', width: '300px' }}
+          sx={selectButtonStyle}
         >
           {centerMenuItems}
         </Select>
