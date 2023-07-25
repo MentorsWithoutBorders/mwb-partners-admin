@@ -1,5 +1,6 @@
-import { LogoutContainer, LogoutIconContainer } from './Logout.styled'
 import Image from 'next/image'
+
+import { LogoutContainer, LogoutIconContainer } from './Logout.styled'
 
 export default function Logout() {
   return (
