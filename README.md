@@ -32,3 +32,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## References
 
 - <https://github.com/nvm-sh/nvm>
+- <https://nextjs.org/docs>
+- <https://nextjs.org/docs/api-routes/introduction>
