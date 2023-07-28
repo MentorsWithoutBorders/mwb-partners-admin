@@ -1,3 +1,5 @@
+import Popup from '@/components/Popup/Popup'
+import { Box } from '@mui/material'
 import Head from 'next/head'
 
 export default function Home() {
@@ -11,6 +13,10 @@ export default function Home() {
       </Head>
 
       <main>Mentors Without Borders</main>
+
+      <Popup title="Test">
+        <div></div>
+      </Popup>
     </>
   )
 }
