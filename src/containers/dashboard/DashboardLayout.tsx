@@ -13,6 +13,7 @@ import {
   LayoutSidebar,
   SidebarLink
 } from '@/components/Layout/Layout'
+import Logout from '@/components/Logout/Logout'
 import UserDetails from '@/components/UserDetails/UserDatails'
 
 const SIDEBAR_LINKS: SidebarLink[] = [
@@ -36,6 +37,7 @@ export function DashboardLayout({
         header={
           <LayoutHeader>
             <UserDetails name="John Doe" email="test@email.com" avatar="" />
+            <Logout />
           </LayoutHeader>
         }
       >

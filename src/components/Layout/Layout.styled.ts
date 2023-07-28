@@ -5,5 +5,6 @@ export const TopBar = styled(Box)(({ theme }) => ({
   padding: '20px 30px',
   display: 'flex',
   alignItems: 'flex-end',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  gap: '15px'
 }))
