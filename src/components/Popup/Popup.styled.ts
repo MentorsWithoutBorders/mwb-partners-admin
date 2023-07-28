@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
-import { Box, Typography } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { Box, Typography } from '@mui/material'
 
 export const PopupBody = styled(Box)(({ theme }) => ({
   position: 'relative',
