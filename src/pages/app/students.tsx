@@ -1,15 +1,17 @@
 import ApartmentIcon from '@mui/icons-material/Apartment'
-import {
-  FormControl,
-  FormHelperText,
-  MenuItem,
-  Select,
-  SelectChangeEvent
-} from '@mui/material'
-import { SxProps, Theme } from '@mui/material/styles'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import { SelectChangeEvent } from '@mui/material/Select'
 import { useState } from 'react'
 
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import {
+  selectButtonStyle,
+  selectIconStyle,
+  selectMenuStyle
+} from '@/styles/pages/app/students.styled'
 
 // TODO (#54): Use real data to populate the dropdown.
 const items = [
@@ -18,20 +20,6 @@ const items = [
   { id: 2, label: 'Center B' },
   { id: 3, label: 'Center C' }
 ]
-
-const selectButtonStyle: SxProps<Theme> = {
-  borderRadius: '15px',
-  width: '300px'
-}
-
-const selectMenuStyle = {
-  display: 'flex',
-  alignItems: 'center'
-}
-
-const selectIconStyle: SxProps<Theme> = {
-  marginRight: '10px'
-}
 
 export default function StudentsPage() {
   const [center, setCenter] = useState<number>(0)
