@@ -19,6 +19,7 @@ export const CloseButton = styled(CloseIcon)(({ theme }) => ({
   top: '20px',
   right: '20px',
   cursor: 'pointer',
+
   '& path': {
     pointerEvents: 'none'
   }
