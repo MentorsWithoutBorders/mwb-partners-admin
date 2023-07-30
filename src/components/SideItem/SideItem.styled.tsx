@@ -9,7 +9,12 @@ export const SideItemWrapper = styled(Box)<{ active: boolean }>(
     display: 'flex',
     alignItems: 'center',
     gap: '16px',
-    fontWeight: 500
+    fontWeight: 500,
+    transition: 'background-color 0.2s ease-in-out',
+
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main
+    }
   })
 )
 
