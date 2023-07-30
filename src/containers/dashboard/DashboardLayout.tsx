@@ -17,9 +17,14 @@ import Logout from '@/components/Logout/Logout'
 import UserDetails from '@/components/UserDetails/UserDatails'
 
 const SIDEBAR_LINKS: SidebarLink[] = [
-  { link: '/app', title: 'Dashboard', icon: DashboardOutlined, exact: true },
-  { link: '/app/mentors', title: 'Mentors', icon: StarOutlined },
-  { link: '/app/students', title: 'Students', icon: SchoolOutlined }
+  {
+    link: '/app',
+    title: 'Dashboard',
+    icon: <DashboardOutlined />,
+    exact: true
+  },
+  { link: '/app/mentors', title: 'Mentors', icon: <StarOutlined /> },
+  { link: '/app/students', title: 'Students', icon: <SchoolOutlined /> }
 ]
 
 export function DashboardLayout({
