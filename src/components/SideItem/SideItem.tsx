@@ -1,12 +1,7 @@
-import {
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText
-} from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { SideItemWrapper, SidebarText } from './SideItem.styled'
 
 interface SideItemProps {
   link: string
@@ -24,15 +19,11 @@ export default function SideItem({ link, title, icon, exact }: SideItemProps) {
   }
 
   return (
-    <ListItem key={link} disablePadding>
-      <ListItemButton
-        selected={isLinkActive(link, exact)}
-        href={link}
-        LinkComponent={Link}
-      >
-        <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText primary={title} />
-      </ListItemButton>
-    </ListItem>
+    <Link href={link} style={{ textDecoration: 'none' }}>
+      <SideItemWrapper active={isLinkActive(link, exact)}>
+        {icon}
+        <SidebarText>{title}</SidebarText>
+      </SideItemWrapper>
+    </Link>
   )
 }

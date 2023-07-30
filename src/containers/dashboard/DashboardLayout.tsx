@@ -1,9 +1,3 @@
-import {
-  DashboardOutlined,
-  SchoolOutlined,
-  StarOutlined
-} from '@mui/icons-material'
-import { Typography } from '@mui/material'
 import { ReactNode } from 'react'
 
 import {
@@ -16,15 +10,19 @@ import {
 import Logout from '@/components/Logout/Logout'
 import UserDetails from '@/components/UserDetails/UserDatails'
 
+import DashboardIcon from '~/icons/dashboard.svg'
+import MentorIcon from '~/icons/mentors-white.svg'
+import StudentIcon from '~/icons/students-white.svg'
+
 const SIDEBAR_LINKS: SidebarLink[] = [
   {
     link: '/app',
     title: 'Dashboard',
-    icon: <DashboardOutlined />,
+    icon: <DashboardIcon />,
     exact: true
   },
-  { link: '/app/mentors', title: 'Mentors', icon: <StarOutlined /> },
-  { link: '/app/students', title: 'Students', icon: <SchoolOutlined /> }
+  { link: '/app/mentors', title: 'Mentors', icon: <MentorIcon /> },
+  { link: '/app/students', title: 'Students', icon: <StudentIcon /> }
 ]
 
 export function DashboardLayout({
