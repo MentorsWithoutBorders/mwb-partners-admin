@@ -1,19 +1,5 @@
-import { MenuOutlined } from '@mui/icons-material'
-import {
-  AppBar,
-  Box,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar
-} from '@mui/material'
+import { Box, Drawer, List } from '@mui/material'
 import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import {
   Dispatch,
   FunctionComponent,
@@ -25,6 +11,7 @@ import {
 } from 'react'
 
 import { TopBar } from './Layout.styled'
+import SideItem from '@/components/SideItem/SideItem'
 
 const SIDEBAR_WIDTH = 240
 
@@ -36,19 +23,12 @@ const SidebarActionContext = createContext<Dispatch<
 export type SidebarLink = {
   link: string
   title: string
-  icon: FunctionComponent
+  icon: React.ReactNode
   exact?: boolean
 }
 export function LayoutSidebar({ links }: { links: SidebarLink[] }) {
-  const router = useRouter()
-
   const isSidebarOpen = useContext(SidebarStateContext)
   const setIsSidebarOpen = useContext(SidebarActionContext)
-
-  const isLinkActive = (path: string, exact: boolean = false) => {
-    if (exact) return path === router.pathname
-    return router.pathname.startsWith(path)
-  }
 
   const drawer = (
     <div>
@@ -62,19 +42,14 @@ export function LayoutSidebar({ links }: { links: SidebarLink[] }) {
       </Box>
 
       <List>
-        {links.map(({ link, title, icon: Icon, exact }) => (
-          <ListItem key={link} disablePadding>
-            <ListItemButton
-              selected={isLinkActive(link, exact)}
-              href={link}
-              LinkComponent={Link}
-            >
-              <ListItemIcon>
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={title} />
-            </ListItemButton>
-          </ListItem>
+        {links.map(({ link, title, icon, exact }) => (
+          <SideItem
+            key={title}
+            title={title}
+            icon={icon}
+            exact={exact}
+            link={link}
+          />
         ))}
       </List>
     </div>
