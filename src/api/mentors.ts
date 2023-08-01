@@ -278,3 +278,18 @@ export const fetchMentorsAPI = (
     count: 87
   }
 }
+
+export const fetchMentorAPI = (id: number) => {
+  console.log('Fetching data based on id')
+
+  return {
+    data: {
+      id: 'dfffbad3-0cad-493e-a66d-cf3161616323',
+      name: 'Mentor 2',
+      email: 'm2@test.fake',
+      courses: 20,
+      students: 100,
+      hours: 20
+    }
+  }
+}

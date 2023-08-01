@@ -11,4 +11,8 @@ export interface APIListResponse {
   count: number
 }
 
+export interface APIDataResponse {
+  data: any
+}
+
 export type OrderType = 'asc' | 'desc'

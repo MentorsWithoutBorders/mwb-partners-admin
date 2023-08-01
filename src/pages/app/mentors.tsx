@@ -4,7 +4,8 @@ import { SxProps, Theme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 
-import { fetchMentorsAPI } from '@/api/mentors'
+import { fetchMentorAPI, fetchMentorsAPI } from '@/api/mentors'
+import DataModal from '@/components/table/DataModal'
 import DataTable from '@/components/table/DataTable'
 import { Column } from '@/components/table/interfaces'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
@@ -33,43 +34,41 @@ const columns: readonly Column[] = [
   }
 ]
 
-const innerModalStyle: SxProps<Theme> = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4
-}
+const filterValues = [
+  'By name',
+  'By email',
+  'By student name',
+  'By student organization'
+]
 
 export default function MentorsPage() {
   const [openModal, setOpenModal] = React.useState(false)
-  const handleOpenModal = () => setOpenModal(true)
+  const [dataId, setDataId] = React.useState<number>()
+  const handleOpenModal = (id: number) => {
+    setDataId(id)
+    setOpenModal(true)
+  }
   const handleClose = () => setOpenModal(false)
+
+  // TODO properly implement download data for each page
+  const downloadMentorsData = () => {
+    console.log('Downlaod menthors Data')
+  }
   return (
     <DashboardLayout title="Mentors">
-      <Modal
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={innerModalStyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
+      <DataModal
+        openModal={openModal}
+        handleClose={handleClose}
+        title="Mentor Data"
+        fetchData={fetchMentorAPI}
+        dataId={dataId}
+      />
       <DataTable
         openModal={handleOpenModal}
+        downloadData={downloadMentorsData}
         fetchData={fetchMentorsAPI}
         columns={columns}
+        filterValues={filterValues}
       />
     </DashboardLayout>
   )

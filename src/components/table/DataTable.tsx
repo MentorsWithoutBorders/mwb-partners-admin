@@ -1,6 +1,3 @@
-import styled from '@emotion/styled'
-import { Button } from '@mui/material'
-import { OutlinedInput } from '@mui/material'
 import Box from '@mui/material/Box'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
@@ -16,40 +13,17 @@ import TableRow from '@mui/material/TableRow'
 import TableSortLabel from '@mui/material/TableSortLabel'
 import { visuallyHidden } from '@mui/utils'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 import InfoIcon from '../../../public/info-details.svg'
 
+import { FilterButton } from './FilterButton.styled'
+import { FilterOutlinedInput } from './FilterOutlinedInput.styled'
 import { SearchFilterField } from './SearchFilterField'
 
 import { Column } from '@/components/table/interfaces'
 import { OrderType } from '@/components/table/interfaces'
 import { APIListResponse } from '@/components/table/interfaces'
-
-const FilterButton = styled(Button)(({ theme }) => ({
-  height: 32,
-  //   fontSize: 10,
-  border: '1px solid',
-  borderRadius: 10,
-  borderColor: '#0046cf',
-  backgroundColor: '#0046cf'
-}))
-
-const FilterOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
-  borderRadius: 10,
-  fontWeight: 400,
-  height: 32,
-  // minWidth: 156,
-  backgroundColor: '#ffffff',
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderColor: '#6e6b6b',
-  left: 0,
-  top: 0,
-  fontSize: 16,
-  margin: 6,
-  padding: 10,
-  fieldset: { padding: 0, margin: 0 }
-}))
 
 const tablePaperStyle: SxProps<Theme> = {
   borderRadius: 6,
@@ -59,13 +33,6 @@ const tablePaperStyle: SxProps<Theme> = {
   fontSize: 16,
   width: '100%',
   overflow: 'hidden'
-}
-
-const labelStyle: SxProps<Theme> = {
-  color: 'text.primary',
-  fontWeight: 400,
-  fontSize: 14,
-  mb: 1
 }
 
 const tableThStyle: SxProps<Theme> = {
@@ -82,6 +49,7 @@ const tableTdsStyle: SxProps<Theme> = {
 
 interface DataTableProps {
   openModal: (id: number) => void
+  downloadData: () => void
   fetchData: (
     page: number,
     rowsPerPage: number,
@@ -93,29 +61,23 @@ interface DataTableProps {
     toDate: string | undefined
   ) => APIListResponse
   columns: readonly Column[]
+  filterValues: string[]
 }
 
-const filterValues = [
-  'By name',
-  'By email',
-  'By student name',
-  'By student organization'
-]
-
 export default function DataTable(props: DataTableProps) {
-  const { openModal, fetchData, columns } = props
-  const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(10)
-  const [order, setOrder] = React.useState<OrderType>('asc')
-  const [orderBy, setOrderBy] = React.useState<string>()
-  const [searchText, setSearchText] = React.useState<string>()
-  const [searchBy, setSearchBy] = React.useState<string>('')
-  const [rows, setRows] = React.useState<any[]>([])
-  const [dataCount, setDataCount] = React.useState(0)
-  const [fromDate, setFromDate] = React.useState<string>()
-  const [toDate, setToDate] = React.useState<string>()
+  const { openModal, downloadData, fetchData, columns, filterValues } = props
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [order, setOrder] = useState<OrderType>('asc')
+  const [orderBy, setOrderBy] = useState<string>()
+  const [searchText, setSearchText] = useState<string>()
+  const [searchBy, setSearchBy] = useState<string>('')
+  const [rows, setRows] = useState<any[]>([])
+  const [dataCount, setDataCount] = useState(0)
+  const [fromDate, setFromDate] = useState<string>()
+  const [toDate, setToDate] = useState<string>()
 
-  React.useEffect(() => {
+  useEffect(() => {
     const response = fetchData(
       page,
       rowsPerPage,
@@ -166,7 +128,6 @@ export default function DataTable(props: DataTableProps) {
     }
 
   const onInfoClick = (id: number) => {
-    console.log(id)
     openModal(id)
   }
 
@@ -225,7 +186,9 @@ export default function DataTable(props: DataTableProps) {
               />
             </Grid>
             <Grid item xs={4}>
-              <FilterButton variant="contained">Download CSV</FilterButton>
+              <FilterButton variant="contained" onClick={downloadData}>
+                Download CSV
+              </FilterButton>
             </Grid>
           </Grid>
         </Grid>
