@@ -1,3 +1,5 @@
+import { CustomSelect } from '@/components/Dropdown/Dropdown'
+import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
 import Popup from '@/components/Popup/Popup'
 import { Box } from '@mui/material'
 import Head from 'next/head'
@@ -17,6 +19,13 @@ export default function Home() {
       <Popup title="Test">
         <div></div>
       </Popup>
+
+      <CustomSelect defaultValue={10}>
+        <StyledOption value={1}>Test1</StyledOption>
+        <StyledOption value={2}>Testsd</StyledOption>
+        <StyledOption value={3}>Test1wd</StyledOption>
+        <StyledOption value={10}>Test2</StyledOption>
+      </CustomSelect>
     </>
   )
 }
