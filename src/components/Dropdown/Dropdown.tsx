@@ -20,7 +20,7 @@ export const CustomDropdownButton = React.forwardRef(function Button<
   )
 })
 
-export const CustomSelect = React.forwardRef(function CustomSelect<
+export const CommonDropdown = React.forwardRef(function CustomSelect<
   TValue extends {},
   Multiple extends boolean
 >(
