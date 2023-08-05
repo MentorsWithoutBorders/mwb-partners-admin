@@ -36,8 +36,6 @@ export const StyledListbox = styled('ul')(
     color: ${theme.palette.text.primary};
     background-color: ${theme.palette.background.paper};
     border: 1px solid ${theme.palette.doveGray};
-
-
     `
 )
 
@@ -47,7 +45,8 @@ export const StyledOption = styled(Option)(
     font-weight: 500;
     padding: 5px 10px;
     border-radius: 5px;
-    
+    transition: all 0.2s ease-in-out;
+
     &:not(:last-child) {
         margin-bottom: 5px;
     }
