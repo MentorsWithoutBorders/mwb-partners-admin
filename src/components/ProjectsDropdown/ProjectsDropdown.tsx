@@ -10,6 +10,7 @@ import AddIcon from '@mui/icons-material/Add'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import { KeyboardEvent, useState } from 'react'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const DUMMY_DATA = [
   {
@@ -81,7 +82,11 @@ export default function ProjectsDropdown() {
             onClick={handleCloseCreateProject}
             disabled={isLoading}
           >
-            <CloseIcon color="inherit" fontSize="small" />
+            {isLoading ? (
+              <CircularProgress size={20} />
+            ) : (
+              <CloseIcon color="inherit" fontSize="small" />
+            )}
           </IconContainer>
         </Box>
       )}
