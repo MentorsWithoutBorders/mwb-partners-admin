@@ -29,7 +29,7 @@ const DUMMY_DATA = [
 
 export default function ProjectsDropdown() {
   const [projects, setProjects] = useState<typeof DUMMY_DATA>(DUMMY_DATA)
-  const [selectedProject, setSelectedProject] = useState<string | null>(null)
+  const [selectedProject, setSelectedProject] = useState<string>('all')
   const [createProject, setCreateProject] = useState<boolean>(false)
   const [projectName, setProjectName] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -102,7 +102,7 @@ export default function ProjectsDropdown() {
 
           <Divider />
 
-          <StyledOption value={null}>All Projects</StyledOption>
+          <StyledOption value="all">All Projects</StyledOption>
           {projects.map((project) => (
             <StyledOption key={project.id} value={project.id}>
               {project.name}
