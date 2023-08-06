@@ -7,12 +7,12 @@ export const StyledButton = styled('button')(
     font-size: 14px;
     font-weight: 500;
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px;
     border-radius: 10px;
     text-align: left;
     border: 1px solid ${theme.palette.doveGray};
     color: ${theme.palette.text.primary};
-    background-color: ${theme.palette.background.paper};
+    background-color: white;
     position: relative;
     
 
