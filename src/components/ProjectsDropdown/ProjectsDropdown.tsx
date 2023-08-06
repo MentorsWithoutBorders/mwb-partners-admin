@@ -9,19 +9,59 @@ import CloseIcon from '@mui/icons-material/Close'
 import AddIcon from '@mui/icons-material/Add'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
-import { useState } from 'react'
+import { KeyboardEvent, useState } from 'react'
+
+const DUMMY_DATA = [
+  {
+    id: '1',
+    name: 'Project 1'
+  },
+  {
+    id: '2',
+    name: 'Project 2'
+  },
+  {
+    id: '3',
+    name: 'Project 3'
+  }
+]
 
 export default function ProjectsDropdown() {
-  const [value, setValue] = useState<string | null>(null)
+  const [projects, setProjects] = useState<typeof DUMMY_DATA>(DUMMY_DATA)
+  const [selectedProject, setSelectedProject] = useState<string | null>(null)
   const [createProject, setCreateProject] = useState<boolean>(false)
   const [projectName, setProjectName] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleChange = (_: any, value: unknown) => {
     if (value === 'create') {
       setCreateProject(true)
     } else {
-      setValue(value as string)
+      setSelectedProject(value as string)
     }
+  }
+
+  const handleCreateProject = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Enter') return
+    setIsLoading(true)
+
+    setTimeout(() => {
+      setIsLoading(false)
+      setProjects((prev) => [
+        ...prev,
+        {
+          id: Math.random().toString(),
+          name: projectName
+        }
+      ])
+
+      handleCloseCreateProject()
+    }, 2000)
+  }
+
+  const handleCloseCreateProject = () => {
+    setCreateProject(false)
+    setProjectName('')
   }
 
   return (
@@ -32,13 +72,14 @@ export default function ProjectsDropdown() {
             placeholder="Project Name"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
+            onKeyUp={handleCreateProject}
+            disabled={isLoading}
+            autoFocus
           />
 
           <IconContainer
-            onClick={() => {
-              setCreateProject(false)
-              setProjectName('')
-            }}
+            onClick={handleCloseCreateProject}
+            disabled={isLoading}
           >
             <CloseIcon color="inherit" fontSize="small" />
           </IconContainer>
@@ -46,19 +87,22 @@ export default function ProjectsDropdown() {
       )}
 
       {!createProject && (
-        <CommonDropdown value={value} onChange={handleChange}>
+        <CommonDropdown value={selectedProject} onChange={handleChange}>
           <StyledOption value="create">
             <Box display="flex" alignItems="center" gap={0.5}>
               <AddIcon color="inherit" fontSize="small" />
               Create New Project
             </Box>
           </StyledOption>
+
           <Divider />
 
           <StyledOption value={null}>All Projects</StyledOption>
-          <StyledOption value={1}>Test1</StyledOption>
-          <StyledOption value={2}>Testsd</StyledOption>
-          <StyledOption value={3}>Test1wd</StyledOption>
+          {projects.map((project) => (
+            <StyledOption key={project.id} value={project.id}>
+              {project.name}
+            </StyledOption>
+          ))}
         </CommonDropdown>
       )}
     </Container>

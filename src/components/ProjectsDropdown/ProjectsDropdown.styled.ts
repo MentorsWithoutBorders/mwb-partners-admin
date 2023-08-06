@@ -23,7 +23,8 @@ export const CreateProjectInput = styled(StyledTextField)(({ theme }) => ({
   marginBottom: 0
 }))
 
-export const IconContainer = styled.div`
+export const IconContainer = styled.button`
+  all: unset;
   position: absolute;
   right: 20px;
   display: flex;
