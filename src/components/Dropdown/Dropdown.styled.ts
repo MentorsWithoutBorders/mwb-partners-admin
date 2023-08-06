@@ -36,6 +36,7 @@ export const StyledListbox = styled('ul')(
     color: ${theme.palette.text.primary};
     background-color: ${theme.palette.background.paper};
     border: 1px solid ${theme.palette.doveGray};
+    width: 100%;
     `
 )
 
@@ -62,7 +63,6 @@ export const StyledOption = styled(Option)(
 export const StyledPopper = styled(Popper)(
   ({ theme }) => `
   z-index: 1;
-  width: 100%;
   gap: 5px;
 `
 )
