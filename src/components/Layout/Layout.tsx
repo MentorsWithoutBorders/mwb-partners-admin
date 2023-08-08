@@ -11,6 +11,7 @@ import {
 } from 'react'
 
 import { TopBar } from './Layout.styled'
+
 import SideItem from '@/components/SideItem/SideItem'
 
 const SIDEBAR_WIDTH = 240

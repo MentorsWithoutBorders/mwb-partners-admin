@@ -9,7 +9,6 @@ import {
 } from '@/components/Layout/Layout'
 import Logout from '@/components/Logout/Logout'
 import UserDetails from '@/components/UserDetails/UserDatails'
-
 import DashboardIcon from '~/icons/dashboard.svg'
 import MentorIcon from '~/icons/mentors-white.svg'
 import StudentIcon from '~/icons/students-white.svg'

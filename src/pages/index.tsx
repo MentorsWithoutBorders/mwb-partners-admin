@@ -1,6 +1,7 @@
-import Popup from '@/components/Popup/Popup'
 import { Box } from '@mui/material'
 import Head from 'next/head'
+
+import Popup from '@/components/Popup/Popup'
 
 export default function Home() {
   return (
