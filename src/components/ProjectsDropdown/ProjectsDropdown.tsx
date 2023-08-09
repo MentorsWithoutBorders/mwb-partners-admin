@@ -1,16 +1,18 @@
-import { CommonDropdown } from '@/components/Dropdown/Dropdown'
-import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
+import AddIcon from '@mui/icons-material/Add'
+import CloseIcon from '@mui/icons-material/Close'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
+import Divider from '@mui/material/Divider'
+import { KeyboardEvent, useState } from 'react'
+
 import {
   Container,
   CreateProjectInput,
   IconContainer
 } from './ProjectsDropdown.styled'
-import CloseIcon from '@mui/icons-material/Close'
-import AddIcon from '@mui/icons-material/Add'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import { KeyboardEvent, useState } from 'react'
-import CircularProgress from '@mui/material/CircularProgress'
+
+import { CommonDropdown } from '@/components/Dropdown/Dropdown'
+import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
 
 const DUMMY_DATA = [
   {

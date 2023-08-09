@@ -1,8 +1,9 @@
+import { Box } from '@mui/material'
+import Head from 'next/head'
+
 import { CommonDropdown } from '@/components/Dropdown/Dropdown'
 import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
 import Popup from '@/components/Popup/Popup'
-import { Box } from '@mui/material'
-import Head from 'next/head'
 
 export default function Home() {
   return (

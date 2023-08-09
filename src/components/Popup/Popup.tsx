@@ -1,7 +1,8 @@
-import * as React from 'react'
-import Popper from '@mui/material/Popper'
-import { CloseButton, PopupBody, Title } from './Popup.styled'
 import { Backdrop } from '@mui/material'
+import Popper from '@mui/material/Popper'
+import * as React from 'react'
+
+import { CloseButton, PopupBody, Title } from './Popup.styled'
 
 interface IPopupProps {
   children: React.ReactNode
