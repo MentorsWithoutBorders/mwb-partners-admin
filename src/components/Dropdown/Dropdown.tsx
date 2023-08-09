@@ -1,6 +1,7 @@
-import React from 'react'
 import Select, { SelectProps, SelectRootSlotProps } from '@mui/base/Select'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import React from 'react'
+
 import { StyledButton, StyledListbox, StyledPopper } from './Dropdown.styled'
 
 export const CustomDropdownButton = React.forwardRef(function Button<
