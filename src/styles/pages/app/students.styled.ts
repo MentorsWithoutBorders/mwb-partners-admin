@@ -14,8 +14,10 @@ export const selectMenuStyle = {
   alignItems: 'center'
 }
 
-export default {
+const allStyles = {
   selectButtonStyle,
   selectIconStyle,
   selectMenuStyle
 }
+
+export default allStyles

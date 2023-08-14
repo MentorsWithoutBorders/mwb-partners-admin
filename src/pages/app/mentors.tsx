@@ -1,16 +1,19 @@
-// import TextField from '@mui/material/TextField'
 import TuneIcon from '@mui/icons-material/Tune'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Box from '@mui/material/Box'
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormGroup from '@mui/material/FormGroup'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import Popper from '@mui/material/Popper'
+// import TextField from '@mui/material/TextField'
 import * as React from 'react'
 
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
-import { roundedInput } from '@/styles/pages/app/mentors.styled'
+import { popperContent, roundedInput } from '@/styles/pages/app/mentors.styled'
 
 export default function MentorsPage() {
   const myRef = React.useRef(null)
@@ -33,7 +36,6 @@ export default function MentorsPage() {
         <OutlinedInput
           ref={myRef}
           aria-describedby={id}
-          label="Outlined"
           size="small"
           placeholder="Search"
           sx={roundedInput}
@@ -67,8 +69,19 @@ export default function MentorsPage() {
             }
           ]}
         >
-          <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-            The content of the input Popper.
+          <Box sx={popperContent}>
+            <FormGroup>
+              <FormControlLabel control={<Checkbox />} label="By name" />
+              <FormControlLabel control={<Checkbox />} label="By email" />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="By student name"
+              />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="By student organization"
+              />
+            </FormGroup>
           </Box>
         </Popper>
       </div>
