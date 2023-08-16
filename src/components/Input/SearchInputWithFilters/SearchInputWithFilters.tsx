@@ -11,17 +11,73 @@ import * as React from 'react'
 
 import { popperContent, roundedInput } from './SearchInputWithFilters.styled'
 
-const POPPER_ID = `input-filter-popper=${new Date().getTime()}`
+const POPPER_ID = `input-filter-popper_${new Date().getTime()}`
 
-function SearchInputWithFilters({ placeholder }: { placeholder: string }) {
+function SearchInputWithFilters({
+  filtersLabels,
+  onInputChange,
+  onMenuChange,
+  onValuesChange,
+  placeholder
+}: {
+  filtersLabels: Array<string>
+  onInputChange?: Function
+  onMenuChange?: Function
+  onValuesChange?: Function
+  placeholder?: string
+}) {
   const inputRef = React.useRef(null)
+  const [filtersValues, setFiltersValues] = React.useState(
+    filtersLabels.map((label, index) => index === 0)
+  )
+  const [inputValue, setInputValue] = React.useState('')
   const [showPopperMenu, setShowPopperMenu] = React.useState(false)
 
   const handleIconBtnClick = (event: React.MouseEvent<HTMLElement>) => {
-    setShowPopperMenu((show) => !show)
+    const newValue = !showPopperMenu
+
+    setShowPopperMenu(newValue)
+    if (onMenuChange) {
+      onMenuChange(newValue)
+    }
+  }
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newInput = event.target.value
+
+    setInputValue(newInput)
+    if (onInputChange) {
+      onInputChange(newInput)
+    }
+  }
+
+  const handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLElement>,
+    index: number
+  ) => {
+    let newValues = [...filtersValues]
+    newValues[index] = !filtersValues[index]
+
+    setFiltersValues(newValues)
+    if (onValuesChange) {
+      onValuesChange(newValues)
+    }
   }
 
   const popperId = showPopperMenu ? POPPER_ID : undefined
+
+  const filtersElems = filtersLabels.map((label, index) => (
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={filtersValues[index]}
+          onChange={(evt) => handleCheckboxChange(evt, index)}
+        />
+      }
+      label={label}
+      key={label}
+    />
+  ))
 
   return (
     <div>
@@ -31,6 +87,8 @@ function SearchInputWithFilters({ placeholder }: { placeholder: string }) {
         size="small"
         placeholder={placeholder}
         sx={roundedInput}
+        value={inputValue}
+        onChange={handleInputChange}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -62,15 +120,7 @@ function SearchInputWithFilters({ placeholder }: { placeholder: string }) {
         ]}
       >
         <Box sx={popperContent}>
-          <FormGroup>
-            <FormControlLabel control={<Checkbox />} label="By name" />
-            <FormControlLabel control={<Checkbox />} label="By email" />
-            <FormControlLabel control={<Checkbox />} label="By student name" />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="By student organization"
-            />
-          </FormGroup>
+          <FormGroup>{filtersElems}</FormGroup>
         </Box>
       </Popper>
     </div>

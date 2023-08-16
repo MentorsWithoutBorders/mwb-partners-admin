@@ -10,7 +10,15 @@ export default function MentorsPage() {
     <DashboardLayout title="Mentors">
       <div>Mentors Page</div>
 
-      <SearchInputWithFilters placeholder="Test" />
+      <SearchInputWithFilters
+        placeholder="Search"
+        filtersLabels={[
+          'By name',
+          'By email',
+          'By student name',
+          'By student organization'
+        ]}
+      />
     </DashboardLayout>
   )
 }
