@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import SearchInputWithFilters from '@/components/Input/SearchInputWithFilters/SearchInputWithFilters'
+import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 
 export default function MentorsPage() {
@@ -10,9 +10,9 @@ export default function MentorsPage() {
     <DashboardLayout title="Mentors">
       <div>Mentors Page</div>
 
-      <SearchInputWithFilters
+      <InputWithCheckboxes
         placeholder="Search"
-        filtersLabels={[
+        checkboxesLabels={[
           'By name',
           'By email',
           'By student name',

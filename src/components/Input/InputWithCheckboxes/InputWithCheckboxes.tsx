@@ -9,26 +9,26 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import Popper from '@mui/material/Popper'
 import * as React from 'react'
 
-import { popperContent, roundedInput } from './SearchInputWithFilters.styled'
+import { popperContent, roundedInput } from './InputWithCheckboxes.styled'
 
 const POPPER_ID = `input-filter-popper_${new Date().getTime()}`
 
-function SearchInputWithFilters({
-  filtersLabels,
+function InputWithCheckboxes({
+  checkboxesLabels,
   onInputChange,
   onMenuChange,
   onValuesChange,
   placeholder
 }: {
-  filtersLabels: Array<string>
+  checkboxesLabels: Array<string>
   onInputChange?: Function
   onMenuChange?: Function
   onValuesChange?: Function
   placeholder?: string
 }) {
   const inputRef = React.useRef(null)
-  const [filtersValues, setFiltersValues] = React.useState(
-    filtersLabels.map((label, index) => index === 0)
+  const [checkboxesValues, setCheckboxesValues] = React.useState(
+    checkboxesLabels.map((label, index) => index === 0)
   )
   const [inputValue, setInputValue] = React.useState('')
   const [showPopperMenu, setShowPopperMenu] = React.useState(false)
@@ -55,10 +55,10 @@ function SearchInputWithFilters({
     event: React.ChangeEvent<HTMLElement>,
     index: number
   ) => {
-    let newValues = [...filtersValues]
-    newValues[index] = !filtersValues[index]
+    let newValues = [...checkboxesValues]
+    newValues[index] = !checkboxesValues[index]
 
-    setFiltersValues(newValues)
+    setCheckboxesValues(newValues)
     if (onValuesChange) {
       onValuesChange(newValues)
     }
@@ -66,11 +66,11 @@ function SearchInputWithFilters({
 
   const popperId = showPopperMenu ? POPPER_ID : undefined
 
-  const filtersElems = filtersLabels.map((label, index) => (
+  const filtersElems = checkboxesLabels.map((label, index) => (
     <FormControlLabel
       control={
         <Checkbox
-          checked={filtersValues[index]}
+          checked={checkboxesValues[index]}
           onChange={(evt) => handleCheckboxChange(evt, index)}
         />
       }
@@ -127,4 +127,4 @@ function SearchInputWithFilters({
   )
 }
 
-export default SearchInputWithFilters
+export default InputWithCheckboxes
