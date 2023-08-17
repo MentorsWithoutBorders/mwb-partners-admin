@@ -15,39 +15,36 @@ const POPPER_ID = `input-filter-popper_${new Date().getTime()}`
 
 function InputWithCheckboxes({
   checkboxesLabels,
+  checkboxesValues,
+  inputValue,
+  onCheckboxesChange,
   onInputChange,
   onMenuChange,
-  onValuesChange,
   placeholder
 }: {
   checkboxesLabels: Array<string>
+  checkboxesValues: Array<boolean>
+  inputValue: String
+  onCheckboxesChange?: Function
   onInputChange?: Function
   onMenuChange?: Function
-  onValuesChange?: Function
   placeholder?: string
 }) {
   const inputRef = React.useRef(null)
-  const [checkboxesValues, setCheckboxesValues] = React.useState(
-    checkboxesLabels.map((label, index) => index === 0)
-  )
-  const [inputValue, setInputValue] = React.useState('')
   const [showPopperMenu, setShowPopperMenu] = React.useState(false)
 
   const handleIconBtnClick = (event: React.MouseEvent<HTMLElement>) => {
-    const newValue = !showPopperMenu
+    const isVisible = !showPopperMenu
+    setShowPopperMenu(isVisible)
 
-    setShowPopperMenu(newValue)
     if (onMenuChange) {
-      onMenuChange(newValue)
+      onMenuChange(isVisible)
     }
   }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newInput = event.target.value
-
-    setInputValue(newInput)
     if (onInputChange) {
-      onInputChange(newInput)
+      onInputChange(event)
     }
   }
 
@@ -55,12 +52,10 @@ function InputWithCheckboxes({
     event: React.ChangeEvent<HTMLElement>,
     index: number
   ) => {
-    let newValues = [...checkboxesValues]
-    newValues[index] = !checkboxesValues[index]
-
-    setCheckboxesValues(newValues)
-    if (onValuesChange) {
-      onValuesChange(newValues)
+    if (onCheckboxesChange) {
+      let newValues = [...checkboxesValues]
+      newValues[index] = !checkboxesValues[index]
+      onCheckboxesChange(newValues)
     }
   }
 
