@@ -1,7 +1,13 @@
+import Box from '@mui/material/Box'
 import * as React from 'react'
 
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
+import ProjectsDropdown from '@/components/ProjectsDropdown/ProjectsDropdown'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import {
+  filterLeftMargin,
+  flexContainer
+} from '@/styles/pages/app/students.styled'
 
 export default function MentorsPage() {
   const [searchInput, setSearchInput] = React.useState('')
@@ -37,20 +43,26 @@ export default function MentorsPage() {
     <DashboardLayout title="Mentors">
       <div>Mentors Page</div>
 
-      <InputWithCheckboxes
-        placeholder="Search"
-        inputValue={searchInput}
-        onInputChange={handleSearchInputChange}
-        checkboxesLabels={[
-          'By name',
-          'By email',
-          'By student name',
-          'By student organization'
-        ]}
-        checkboxesValues={searchCheckboxes}
-        onCheckboxesChange={setSearchCheckboxes}
-        onMenuChange={handleSearchMenuChange}
-      />
+      <Box sx={flexContainer}>
+        <ProjectsDropdown />
+
+        <Box sx={filterLeftMargin}>
+          <InputWithCheckboxes
+            placeholder="Search"
+            inputValue={searchInput}
+            onInputChange={handleSearchInputChange}
+            checkboxesLabels={[
+              'By name',
+              'By email',
+              'By student name',
+              'By student organization'
+            ]}
+            checkboxesValues={searchCheckboxes}
+            onCheckboxesChange={setSearchCheckboxes}
+            onMenuChange={handleSearchMenuChange}
+          />
+        </Box>
+      </Box>
     </DashboardLayout>
   )
 }

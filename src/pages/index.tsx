@@ -1,6 +1,8 @@
 import { Box } from '@mui/material'
 import Head from 'next/head'
 
+import { CommonDropdown } from '@/components/Dropdown/Dropdown'
+import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
 import Popup from '@/components/Popup/Popup'
 
 export default function Home() {
@@ -18,6 +20,13 @@ export default function Home() {
       <Popup title="Test">
         <div></div>
       </Popup>
+
+      <CommonDropdown defaultValue={10}>
+        <StyledOption value={1}>Test1</StyledOption>
+        <StyledOption value={2}>Testsd</StyledOption>
+        <StyledOption value={3}>Test1wd</StyledOption>
+        <StyledOption value={10}>Test2</StyledOption>
+      </CommonDropdown>
     </>
   )
 }

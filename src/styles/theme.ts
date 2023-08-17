@@ -20,7 +20,8 @@ export const palette = {
   zircon: '#F1F4FF',
   mineShaft: '#232323',
   doveGray: '#6F6B6B',
-  nobel: '#B5B5B5'
+  nobel: '#B5B5B5',
+  mariner: '#1D54E1'
 } as const
 
 export const theme = createTheme({
