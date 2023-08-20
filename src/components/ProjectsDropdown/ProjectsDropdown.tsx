@@ -49,10 +49,10 @@ export default function ProjectsDropdown() {
     if (e.key !== 'Enter') return
     setIsLoading(true)
 
-    const DUMMUY_PARTNER_ID = '1'
+    const DUMMY_PARTNER_ID = '1'
 
     try {
-      await createProjectAPI(DUMMUY_PARTNER_ID, projectName)
+      await createProjectAPI(DUMMY_PARTNER_ID, projectName)
     } catch (error) {
       console.log(error)
     } finally {
