@@ -13,6 +13,7 @@ import {
 
 import { CommonDropdown } from '@/components/Dropdown/Dropdown'
 import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
+import { createProjectAPI } from '@/lib/mentors/mentors-client'
 
 const DUMMY_DATA = [
   {
@@ -44,22 +45,20 @@ export default function ProjectsDropdown() {
     }
   }
 
-  const handleCreateProject = (e: KeyboardEvent<HTMLDivElement>) => {
+  const handleCreateProject = async (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key !== 'Enter') return
     setIsLoading(true)
 
-    setTimeout(() => {
-      setIsLoading(false)
-      setProjects((prev) => [
-        ...prev,
-        {
-          id: Math.random().toString(),
-          name: projectName
-        }
-      ])
+    const DUMMY_PARTNER_ID = '1'
 
+    try {
+      await createProjectAPI(DUMMY_PARTNER_ID, projectName)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
       handleCloseCreateProject()
-    }, 2000)
+    }
   }
 
   const handleCloseCreateProject = () => {
