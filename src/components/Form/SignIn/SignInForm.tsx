@@ -4,6 +4,7 @@ import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { signIn } from 'next-auth/react'
 import { Controller, useForm } from 'react-hook-form'
 
 import { SignInFormValue, signInFormSchema } from './SignInForm.schema'
@@ -18,12 +19,16 @@ import {
 
 import TextField from '@/components/Input/TextField/TextField'
 import Link from '@/components/Link/Link'
+import { frontendRoutes } from '@/config/frontend/frontend-routes'
 import { theme } from '@/styles/theme'
 
 export default function SignInForm() {
-  const onSubmit = (values: SignInFormValue) => {
-    // TODO: backend integration
-    console.log(values)
+  const onSubmit = async (values: SignInFormValue) => {
+    await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      redirect: false
+    })
   }
 
   const {
@@ -106,7 +111,7 @@ export default function SignInForm() {
           <StyledSignInFormText variant="body2">
             {`Don't have an account?`}
           </StyledSignInFormText>
-          <Link href="/signup" variant="body2">
+          <Link href={frontendRoutes.auth.signup} variant="body2">
             {'Sign up now'}
           </Link>
         </StyledSignInFormLinkContainer>

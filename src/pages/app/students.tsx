@@ -1,11 +1,11 @@
 import ApartmentIcon from '@mui/icons-material/Apartment'
 import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import { SelectChangeEvent } from '@mui/material/Select'
-import * as React from 'react'
+import { NextPage } from 'next/types'
+import { useState } from 'react'
 
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
@@ -16,6 +16,7 @@ import {
   selectIconStyle,
   selectMenuStyle
 } from '@/styles/pages/app/students.styled'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
 // TODO (#54): Use real data to populate the dropdown.
 const items = [
@@ -25,14 +26,10 @@ const items = [
   { id: 3, label: 'Center C' }
 ]
 
-export default function StudentsPage() {
-  const [searchInput, setSearchInput] = React.useState('')
-  const [searchCheckboxes, setSearchCheckboxes] = React.useState([
-    true,
-    false,
-    false
-  ])
-  const [center, setCenter] = React.useState<number>(0)
+const StudentsPage: WithAuthentication<NextPage> = () => {
+  const [searchInput, setSearchInput] = useState('')
+  const [searchCheckboxes, setSearchCheckboxes] = useState([true, false, false])
+  const [center, setCenter] = useState<number>(0)
 
   const handleCenterChange = (event: SelectChangeEvent<number>) => {
     setCenter(Number(event.target.value))
@@ -103,3 +100,7 @@ export default function StudentsPage() {
     </DashboardLayout>
   )
 }
+
+StudentsPage.requiresAuthentication = true
+
+export default StudentsPage

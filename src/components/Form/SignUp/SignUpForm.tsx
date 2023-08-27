@@ -14,6 +14,7 @@ import {
 
 import TextField from '@/components/Input/TextField/TextField'
 import Link from '@/components/Link/Link'
+import { frontendRoutes } from '@/config/frontend/frontend-routes'
 import { theme } from '@/styles/theme'
 
 export default function SignUpForm() {
@@ -101,7 +102,7 @@ export default function SignUpForm() {
           <StyledSignUpFormText variant="body2">
             Already have an account?
           </StyledSignUpFormText>
-          <Link href="/signin" variant="body2">
+          <Link href={frontendRoutes.auth.signin} variant="body2">
             {'Sign in'}
           </Link>
         </StyledSignUpFormLinkContainer>

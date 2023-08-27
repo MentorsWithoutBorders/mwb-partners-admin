@@ -13,24 +13,24 @@ export async function client(
 
   // TODO: Set token to request header
   // const token = window.localStorage.getItem(localStorageKey)
-  // const headers = { 'content-type': 'application/json' }
+  const headers = { 'content-type': 'application/json' }
   // if (token) {
   //   headers.Authorization = `Bearer ${token}`
   // }
   const config: RequestInit = {
     method: body ? 'POST' : 'GET',
-    ...customConfig
+    ...customConfig,
     // TODO: Set headers
-    // headers: {
-    //   ...headers,
-    //   ...customConfig.headers
-    // }
+    headers: {
+      ...headers
+      //   ...customConfig.headers
+    }
   }
   if (body) {
     config.body = JSON.stringify(body)
   }
 
-  const response = await window.fetch(`${backendApiUrl}/${endpoint}`, config)
+  const response = await fetch(`${backendApiUrl}/${endpoint}`, config)
   if (response.status === 401) {
     // TODO: Handle logout
     // logout()

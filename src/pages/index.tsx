@@ -1,11 +1,12 @@
-import { Box } from '@mui/material'
 import Head from 'next/head'
+import { NextPage } from 'next/types'
 
 import { CommonDropdown } from '@/components/Dropdown/Dropdown'
 import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
 import Popup from '@/components/Popup/Popup'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
-export default function Home() {
+const Home: WithAuthentication<NextPage> = () => {
   return (
     <>
       <Head>
@@ -30,3 +31,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home
