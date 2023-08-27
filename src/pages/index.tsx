@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { CommonDropdown } from '@/components/Dropdown/Dropdown'
 import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
 import Popup from '@/components/Popup/Popup'
+import TestimonialPopup from '@/components/TestimonialPopup/TestimonialPopup'
 
 export default function Home() {
   return (
@@ -20,6 +21,11 @@ export default function Home() {
       <Popup title="Test">
         <div></div>
       </Popup>
+
+      <TestimonialPopup
+        title="Nov 2, 2022"
+        link="https://www.youtube.com/embed/mPZkdNFkNps"
+      />
 
       <CommonDropdown defaultValue={10}>
         <StyledOption value={1}>Test1</StyledOption>
