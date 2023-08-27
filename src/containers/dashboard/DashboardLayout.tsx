@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react'
 import { ReactNode } from 'react'
 
 import {
@@ -31,6 +32,8 @@ export function DashboardLayout({
   title: ReactNode
   children: ReactNode
 }) {
+  const { data: session } = useSession()
+
   return (
     <Layout>
       <LayoutSidebar links={SIDEBAR_LINKS} />
@@ -38,7 +41,11 @@ export function DashboardLayout({
       <LayoutContent
         header={
           <LayoutHeader>
-            <UserDetails name="John Doe" email="test@email.com" avatar="" />
+            <UserDetails
+              name={session?.user?.name ?? ''}
+              email={session?.user?.email ?? ''}
+              avatar=""
+            />
             <Logout />
           </LayoutHeader>
         }

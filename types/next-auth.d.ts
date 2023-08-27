@@ -14,6 +14,15 @@ declare module 'next-auth' {
     accessToken: string
     refreshToken: string
     id: string
+    name: string
+    email: string
+    phoneNumber: string | null
+    organization: {
+      id: string
+      name: string
+    }
+    isMentor: boolean
+    isAdmin: boolean | null
   }
 }
 

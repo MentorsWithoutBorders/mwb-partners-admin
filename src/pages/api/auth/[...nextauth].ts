@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-import { signinUser } from '@/lib/auth/auth-client'
+import { getUser, signinUser } from '@/lib/auth/auth-client'
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -17,10 +17,18 @@ export const authOptions: AuthOptions = {
 
         const res = await signinUser(email, password)
 
+        const userFromBackend = await getUser(res.accessToken)
+
         const user: User = {
           id: res.userId,
           accessToken: res.accessToken,
-          refreshToken: res.refreshToken
+          refreshToken: res.refreshToken,
+          name: userFromBackend.name,
+          email: userFromBackend.email,
+          phoneNumber: userFromBackend.phoneNumber,
+          organization: userFromBackend.organization,
+          isMentor: userFromBackend.isMentor,
+          isAdmin: userFromBackend.isAdmin
         }
 
         return user

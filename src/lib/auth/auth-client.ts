@@ -10,6 +10,11 @@ export async function signinUser(email: string, password: string) {
   })
 }
 
+export async function getUser(token?: string) {
+  const headers = token ? { Authorization: `Bearer ${token}` } : undefined
+  return await client(backendApiRoutes.users.user, { headers })
+}
+
 export async function signupUser(
   name: string,
   email: string,
