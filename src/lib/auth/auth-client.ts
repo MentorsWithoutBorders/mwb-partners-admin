@@ -49,12 +49,43 @@ export async function getUser(token?: string) {
   return await client(backendApiRoutes.users.user, { headers })
 }
 
-export async function signupUser(
-  name: string,
-  email: string,
-  password: string
+async function signupUser(
+  _url: string,
+  {
+    arg: { name, email, password }
+  }: { arg: { name: string; email: string; password: string } }
 ) {
+  const timeZoneAbbreviation = new Date()
+    .toLocaleTimeString('en-us', { timeZoneName: 'short' })
+    .split(' ')[2]
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions()
+  const timeZoneOffset = new Date().getTimezoneOffset()
+
   return await client(backendApiRoutes.auth.signup, {
-    body: { name, email, password }
+    body: {
+      name,
+      email,
+      password,
+      timeZone: {
+        abbreviation: timeZoneAbbreviation,
+        name: timeZone,
+        offset: timeZoneOffset
+      }
+    }
   })
+}
+
+export function useSignupUser() {
+  const { data, error, trigger, reset, isMutating } = useSWRMutation(
+    backendApiRoutes.auth.signup,
+    signupUser
+  )
+
+  return {
+    data,
+    error,
+    trigger,
+    reset,
+    isMutating
+  }
 }
