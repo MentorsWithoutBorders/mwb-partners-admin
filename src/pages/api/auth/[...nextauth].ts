@@ -15,7 +15,9 @@ export const authOptions: AuthOptions = {
 
         const { email, password } = credentials
 
-        const res = await signinUser(email, password)
+        const res = await signinUser(email, password).catch((error) => {
+          throw error
+        })
 
         const userFromBackend = await getUser(res.accessToken)
 

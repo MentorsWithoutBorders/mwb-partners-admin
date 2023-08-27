@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react'
+import { getSession, signOut } from 'next-auth/react'
 
 export async function client(
   endpoint: string,
@@ -30,10 +30,8 @@ export async function client(
 
   const response = await fetch(`${backendApiUrl}/${endpoint}`, config)
   if (response.status === 401) {
-    // TODO: Handle logout
-    // logout()
-    // window.location.assign(window.location)
-    // return
+    signOut()
+    return
   }
   if (response.ok) {
     return await response.json()
