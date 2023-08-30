@@ -4,6 +4,7 @@ import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { DownloadCsvForm } from '@/containers/DownloadCsvForm/DownloadCsvForm'
+import DashboardMap from '@/components/DashboardMap/DashboardMap'
 
 const SAMPLE_DATA = [
   {
@@ -51,6 +52,8 @@ export default function DashboardPage() {
           />
         ))}
       </DashboardItemsWrapper>
+
+      <DashboardMap />
     </DashboardLayout>
   )
 }
