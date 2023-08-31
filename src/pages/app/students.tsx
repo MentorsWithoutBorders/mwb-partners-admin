@@ -1,29 +1,13 @@
-import ApartmentIcon from '@mui/icons-material/Apartment'
 import Box from '@mui/material/Box'
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
-import { SelectChangeEvent } from '@mui/material/Select'
 import * as React from 'react'
 
+import CentresDropdown from '@/components/CentresDropdown/CentresDropdown'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import {
   filterLeftMargin,
-  flexContainer,
-  selectButtonStyle,
-  selectIconStyle,
-  selectMenuStyle
+  flexContainer
 } from '@/styles/pages/app/students.styled'
-
-// TODO (#54): Use real data to populate the dropdown.
-const items = [
-  { id: 0, label: 'All centers' },
-  { id: 1, label: 'Center A' },
-  { id: 2, label: 'Center B' },
-  { id: 3, label: 'Center C' }
-]
 
 export default function StudentsPage() {
   const [searchInput, setSearchInput] = React.useState('')
@@ -32,25 +16,12 @@ export default function StudentsPage() {
     false,
     false
   ])
-  const [center, setCenter] = React.useState<number>(0)
+  const [centre, setCentre] = React.useState<number>(0)
 
-  const handleCenterChange = (event: SelectChangeEvent<number>) => {
-    setCenter(Number(event.target.value))
+  const handleCentreChange = (newCentre: number) => {
+    setCentre(newCentre)
+    // TODO: Should trigger search.
   }
-
-  const centerMenuItems = items.map((item) => {
-    const selected = item.id === center
-    const visibilityStyle = selected ? { display: 'none' } : {}
-
-    return (
-      <MenuItem value={item.id} style={visibilityStyle} key={item.id}>
-        <div style={selectMenuStyle}>
-          {selected && <ApartmentIcon sx={selectIconStyle} />}
-          <div>{item.label}</div>
-        </div>
-      </MenuItem>
-    )
-  })
 
   const handleSearchInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -78,15 +49,7 @@ export default function StudentsPage() {
       <div>Students Page</div>
 
       <Box sx={flexContainer}>
-        <FormControl size="small">
-          <Select
-            value={center}
-            onChange={handleCenterChange}
-            sx={selectButtonStyle}
-          >
-            {centerMenuItems}
-          </Select>
-        </FormControl>
+        <CentresDropdown value={centre} onChange={handleCentreChange} />
 
         <Box sx={filterLeftMargin}>
           <InputWithCheckboxes
