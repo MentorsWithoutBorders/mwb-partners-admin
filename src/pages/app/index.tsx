@@ -1,9 +1,11 @@
 import Image from 'next/image'
+import { NextPage } from 'next/types'
 
 import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { DownloadCsvForm } from '@/containers/DownloadCsvForm/DownloadCsvForm'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
 const SAMPLE_DATA = [
   {
@@ -28,7 +30,7 @@ const SAMPLE_DATA = [
   }
 ]
 
-export default function DashboardPage() {
+const DashboardPage: WithAuthentication<NextPage> = () => {
   return (
     <DashboardLayout title="Dashboard">
       <DownloadCsvForm sx={{ mb: 4 }} />
@@ -54,3 +56,7 @@ export default function DashboardPage() {
     </DashboardLayout>
   )
 }
+
+DashboardPage.requiresAuthentication = true
+
+export default DashboardPage

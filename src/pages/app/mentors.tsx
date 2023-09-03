@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box'
+import { NextPage } from 'next/types'
 import * as React from 'react'
 
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
@@ -8,8 +9,9 @@ import {
   filterLeftMargin,
   flexContainer
 } from '@/styles/pages/app/students.styled'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
-export default function MentorsPage() {
+const MentorsPage: WithAuthentication<NextPage> = () => {
   const [searchInput, setSearchInput] = React.useState('')
   const [searchCheckboxes, setSearchCheckboxes] = React.useState([
     true,
@@ -66,3 +68,7 @@ export default function MentorsPage() {
     </DashboardLayout>
   )
 }
+
+MentorsPage.requiresAuthentication = true
+
+export default MentorsPage
