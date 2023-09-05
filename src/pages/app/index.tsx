@@ -4,7 +4,12 @@ import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { DownloadCsvForm } from '@/containers/DownloadCsvForm/DownloadCsvForm'
-import DashboardMap from '@/components/DashboardMap/DashboardMap'
+import dynamic from 'next/dynamic'
+
+const DashboardMap = dynamic(
+  () => import('@/components/DashboardMap/DashboardMap'),
+  { ssr: false }
+)
 
 const SAMPLE_DATA = [
   {
