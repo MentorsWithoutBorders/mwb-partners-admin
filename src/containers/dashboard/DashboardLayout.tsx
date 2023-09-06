@@ -1,9 +1,4 @@
-import {
-  DashboardOutlined,
-  SchoolOutlined,
-  StarOutlined
-} from '@mui/icons-material'
-import { Typography } from '@mui/material'
+import { useSession } from 'next-auth/react'
 import { ReactNode } from 'react'
 
 import {
@@ -12,12 +7,22 @@ import {
   LayoutHeader,
   LayoutSidebar,
   SidebarLink
-} from '@/components/layout/Layout'
+} from '@/components/Layout/Layout'
+import Logout from '@/components/Logout/Logout'
+import UserDetails from '@/components/UserDetails/UserDatails'
+import DashboardIcon from '~/icons/dashboard.svg'
+import MentorIcon from '~/icons/mentors-white.svg'
+import StudentIcon from '~/icons/students-white.svg'
 
 const SIDEBAR_LINKS: SidebarLink[] = [
-  { link: '/app', title: 'Dashboard', icon: DashboardOutlined, exact: true },
-  { link: '/app/mentors', title: 'Mentors', icon: StarOutlined },
-  { link: '/app/students', title: 'Students', icon: SchoolOutlined }
+  {
+    link: '/app',
+    title: 'Dashboard',
+    icon: <DashboardIcon />,
+    exact: true
+  },
+  { link: '/app/mentors', title: 'Mentors', icon: <MentorIcon /> },
+  { link: '/app/students', title: 'Students', icon: <StudentIcon /> }
 ]
 
 export function DashboardLayout({
@@ -27,17 +32,26 @@ export function DashboardLayout({
   title: ReactNode
   children: ReactNode
 }) {
+  const { data: session } = useSession()
+
   return (
     <Layout>
       <LayoutSidebar links={SIDEBAR_LINKS} />
 
-      <LayoutHeader>
-        <Typography variant="h6" noWrap component="h2">
-          {title}
-        </Typography>
-      </LayoutHeader>
-
-      <LayoutContent>{children}</LayoutContent>
+      <LayoutContent
+        header={
+          <LayoutHeader>
+            <UserDetails
+              name={session?.user?.name ?? ''}
+              email={session?.user?.email ?? ''}
+              avatar=""
+            />
+            <Logout />
+          </LayoutHeader>
+        }
+      >
+        {children}
+      </LayoutContent>
     </Layout>
   )
 }

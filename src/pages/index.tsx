@@ -1,16 +1,13 @@
-import Head from 'next/head'
+import { redirect } from 'next/navigation'
+import { NextPage } from 'next/types'
 
-export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>Mentors Without Borders</title>
-        <meta name="description" content="MWB: Mentors Without Borders" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+import { frontendRoutes } from '@/config/frontend/frontend-routes'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
-      <main>Mentors Without Borders</main>
-    </>
-  )
+const Home: WithAuthentication<NextPage> = () => {
+  redirect(frontendRoutes.app.dashboard)
 }
+
+Home.requiresAuthentication = true
+
+export default Home

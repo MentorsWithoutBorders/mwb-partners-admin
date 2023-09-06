@@ -9,6 +9,41 @@ import DataModal from '@/components/table/DataModal'
 import DataTable from '@/components/table/DataTable'
 import { Column } from '@/components/table/interfaces'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import {
+  filterLeftMargin,
+  flexContainer
+} from '@/styles/pages/app/students.styled'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
+
+const MentorsPage: WithAuthentication<NextPage> = () => {
+  const [searchInput, setSearchInput] = React.useState('')
+  const [searchCheckboxes, setSearchCheckboxes] = React.useState([
+    true,
+    false,
+    false,
+    false
+  ])
+
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchInput(event.target.value)
+    // TODO: Should trigger search.
+  }
+
+  const handleSearchMenuChange = (isVisible: boolean) => {
+    // Chekc if search menu was hidden.
+    if (!isVisible) {
+      // If all values are false, then set the first one a true.
+      if (searchCheckboxes.indexOf(true) < 0) {
+        const newValues = [...searchCheckboxes]
+        newValues[0] = true
+        setSearchCheckboxes(newValues)
+      }
+
+      // TODO: Should trigger search.
+    }
+  }
 
 const columns: readonly Column[] = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -73,3 +108,7 @@ export default function MentorsPage() {
     </DashboardLayout>
   )
 }
+
+MentorsPage.requiresAuthentication = true
+
+export default MentorsPage
