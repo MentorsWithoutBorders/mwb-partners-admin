@@ -1,24 +1,10 @@
-import { Theme } from '@emotion/react'
-import { SxProps } from '@mui/material'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-
 import { APIDataResponse } from './interfaces'
-
-const innerModalStyle: SxProps<Theme> = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4
-}
+import { innerModalStyle } from './DataModal.styled'
 
 interface DataModalProps {
   openModal: boolean

@@ -2,7 +2,6 @@ import Box from '@mui/material/Box'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import { SxProps, Theme } from '@mui/material/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -24,28 +23,11 @@ import { SearchFilterField } from './SearchFilterField'
 import { Column } from '@/components/table/interfaces'
 import { OrderType } from '@/components/table/interfaces'
 import { APIListResponse } from '@/components/table/interfaces'
-
-const tablePaperStyle: SxProps<Theme> = {
-  borderRadius: 6,
-  borderColor: '#a29898',
-  borderStyle: 'solid',
-  borderWidth: 1,
-  fontSize: 16,
-  width: '100%',
-  overflow: 'hidden'
-}
-
-const tableThStyle: SxProps<Theme> = {
-  borderWidth: 0,
-  borderBottomWidth: 1,
-  borderStyle: 'solid',
-  borderColor: '#a29898'
-}
-
-const tableTdsStyle: SxProps<Theme> = {
-  borderWidth: 0,
-  fontSize: 16
-}
+import {
+  tablePaperStyle,
+  tableTdsStyle,
+  tableThStyle
+} from './DataTable.styled'
 
 interface DataTableProps {
   openModal: (id: number) => void
