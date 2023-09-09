@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { OutlinedInput } from '@mui/material'
+import { InputLabel, OutlinedInput } from '@mui/material'
 
 export const FilterOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
   borderRadius: 10,
@@ -15,4 +15,9 @@ export const FilterOutlinedInput = styled(OutlinedInput)(({ theme }) => ({
   margin: 6,
   padding: 10,
   fieldset: { padding: 0, margin: 0 }
+}))
+
+export const FilterInputLabel = styled(InputLabel)(({ theme }) => ({
+  top: -10,
+  fontSize: 14
 }))

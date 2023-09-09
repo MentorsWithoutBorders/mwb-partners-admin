@@ -13,11 +13,10 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import * as React from 'react'
 
-import { FilterOutlinedInput } from './FilterOutlinedInput.styled'
-const FilterInputLabel = styled(InputLabel)(({ theme }) => ({
-  top: -10,
-  fontSize: 14
-}))
+import {
+  FilterOutlinedInput,
+  FilterInputLabel
+} from './FilterOutlinedInput.styled'
 
 interface SearchFilterFieldProps {
   setSearchText: (searchText: string) => void
