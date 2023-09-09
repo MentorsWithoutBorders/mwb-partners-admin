@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
@@ -13,6 +14,10 @@ export const StyledSignInFormTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   fontSize: '1.625rem'
 })) as typeof Typography
+
+export const StyledSignInFormAlert = styled(Alert)(({ theme }) => ({
+  marginBottom: theme.spacing(2)
+})) as typeof Alert
 
 export const StyledSignInFormButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(3),

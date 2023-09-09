@@ -1,10 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { SignUpFormValue, signUpFormSchema } from './SignUpForm.schema'
 import {
+  StyledSignUpFormAlert,
   StyledSignUpFormButton,
   StyledSignUpFormLinkContainer,
   StyledSignUpFormText,
@@ -14,13 +17,25 @@ import {
 
 import TextField from '@/components/Input/TextField/TextField'
 import Link from '@/components/Link/Link'
+import { frontendRoutes } from '@/config/frontend/frontend-routes'
+import { useSignupUser } from '@/lib/auth/auth-client'
 import { theme } from '@/styles/theme'
 
 export default function SignUpForm() {
-  const onSubmit = (values: SignUpFormValue) => {
-    // TODO: backend integration
-    console.log(values)
+  const router = useRouter()
+  const { data, error, trigger, isMutating } = useSignupUser()
+
+  const onSubmit = async (values: SignUpFormValue) => {
+    const { name, email, password } = values
+
+    await trigger({ name, email, password })
   }
+
+  useEffect(() => {
+    if (data) {
+      router.push(frontendRoutes.auth.signin)
+    }
+  }, [data, router])
 
   const {
     register,
@@ -47,6 +62,18 @@ export default function SignUpForm() {
         </StyledSignUpFormTitle>
       </StyledSignUpFormTitleContainer>
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        {error && (
+          <StyledSignUpFormAlert severity="error">
+            {error.toString()}
+          </StyledSignUpFormAlert>
+        )}
+        {data && (
+          <StyledSignUpFormAlert severity="success">
+            {
+              "Successfully created account! You're being redirected to login page..."
+            }
+          </StyledSignUpFormAlert>
+        )}
         <TextField
           margin="normal"
           required
@@ -94,14 +121,19 @@ export default function SignUpForm() {
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword?.message ?? null}
         />
-        <StyledSignUpFormButton type="submit" fullWidth variant="contained">
-          Create account
+        <StyledSignUpFormButton
+          type="submit"
+          fullWidth
+          variant="contained"
+          disabled={isMutating}
+        >
+          {isMutating ? 'Creating account...' : 'Create account'}
         </StyledSignUpFormButton>
         <StyledSignUpFormLinkContainer container>
           <StyledSignUpFormText variant="body2">
             Already have an account?
           </StyledSignUpFormText>
-          <Link href="/signin" variant="body2">
+          <Link href={frontendRoutes.auth.signin} variant="body2">
             {'Sign in'}
           </Link>
         </StyledSignUpFormLinkContainer>

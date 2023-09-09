@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box'
-import * as React from 'react'
+import { NextPage } from 'next/types'
+import { useState } from 'react'
 
 import CentresDropdown from '@/components/CentresDropdown/CentresDropdown'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
@@ -8,15 +9,12 @@ import {
   filterLeftMargin,
   flexContainer
 } from '@/styles/pages/app/students.styled'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
-export default function StudentsPage() {
-  const [searchInput, setSearchInput] = React.useState('')
-  const [searchCheckboxes, setSearchCheckboxes] = React.useState([
-    true,
-    false,
-    false
-  ])
-  const [centre, setCentre] = React.useState<number>(0)
+const StudentsPage: WithAuthentication<NextPage> = () => {
+  const [searchInput, setSearchInput] = useState('')
+  const [searchCheckboxes, setSearchCheckboxes] = useState([true, false, false])
+  const [centre, setCentre] = useState<number>(0)
 
   const handleCentreChange = (newCentre: number) => {
     setCentre(newCentre)
@@ -66,3 +64,7 @@ export default function StudentsPage() {
     </DashboardLayout>
   )
 }
+
+StudentsPage.requiresAuthentication = true
+
+export default StudentsPage

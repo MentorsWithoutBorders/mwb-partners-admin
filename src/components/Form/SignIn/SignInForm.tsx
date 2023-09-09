@@ -8,6 +8,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 import { SignInFormValue, signInFormSchema } from './SignInForm.schema'
 import {
+  StyledSignInFormAlert,
   StyledSignInFormButton,
   StyledSignInFormCheckboxContainer,
   StyledSignInFormLinkContainer,
@@ -18,12 +19,17 @@ import {
 
 import TextField from '@/components/Input/TextField/TextField'
 import Link from '@/components/Link/Link'
+import { frontendRoutes } from '@/config/frontend/frontend-routes'
+import { useSigninUser } from '@/lib/auth/auth-client'
 import { theme } from '@/styles/theme'
 
 export default function SignInForm() {
-  const onSubmit = (values: SignInFormValue) => {
-    // TODO: backend integration
-    console.log(values)
+  const { error, trigger, isMutating } = useSigninUser()
+
+  const onSubmit = async (values: SignInFormValue) => {
+    const { email, password } = values
+
+    await trigger({ email, password })
   }
 
   const {
@@ -52,6 +58,11 @@ export default function SignInForm() {
         </StyledSignInFormTitle>
       </StyledSignInFormTitleContainer>
       <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        {error && (
+          <StyledSignInFormAlert severity="error">
+            {error.toString()}
+          </StyledSignInFormAlert>
+        )}
         <TextField
           margin="normal"
           required
@@ -99,14 +110,19 @@ export default function SignInForm() {
             </Link>
           </Grid>
         </StyledSignInFormCheckboxContainer>
-        <StyledSignInFormButton type="submit" fullWidth variant="contained">
-          Sign In
+        <StyledSignInFormButton
+          type="submit"
+          disabled={isMutating}
+          fullWidth
+          variant="contained"
+        >
+          {isMutating ? 'Signing In...' : 'Sign In'}
         </StyledSignInFormButton>
         <StyledSignInFormLinkContainer container>
           <StyledSignInFormText variant="body2">
             {`Don't have an account?`}
           </StyledSignInFormText>
-          <Link href="/signup" variant="body2">
+          <Link href={frontendRoutes.auth.signup} variant="body2">
             {'Sign up now'}
           </Link>
         </StyledSignInFormLinkContainer>
