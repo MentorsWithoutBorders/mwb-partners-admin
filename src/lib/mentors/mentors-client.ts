@@ -11,7 +11,16 @@ export function createProjectAPI(partnerId: string, projectName: string) {
   })
 }
 
-export function useMentorStats() {
+export function useMentorStats(params: {
+  searchString?: string
+  courseFromDate?: string
+  courseToDate?: string
+  searchByName?: boolean
+  searchByEmail?: boolean
+  searchByStudent?: boolean
+  searchByStudentOrganization?: boolean
+}) {
   const orgId = useSession().data?.user?.organization.id
-  return useSWR<MentorsStats>([`partners/${orgId}/mentors/stats`])
+  const query = new URLSearchParams(params as Record<string, string>).toString()
+  return useSWR<MentorsStats>(`partners/${orgId}/mentors/stats?${query}`)
 }

@@ -1,13 +1,14 @@
 import Box from '@mui/material/Box'
 import Image from 'next/image'
 import { NextPage } from 'next/types'
-import * as React from 'react'
+import { type ChangeEvent, useState } from 'react'
 
 import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import ProjectsDropdown from '@/components/ProjectsDropdown/ProjectsDropdown'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import { useDebounce } from '@/lib/hooks/useDebounce'
 import { useMentorStats } from '@/lib/mentors/mentors-client'
 import {
   filterLeftMargin,
@@ -16,15 +17,29 @@ import {
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
 const MentorsPage: WithAuthentication<NextPage> = () => {
-  const [searchInput, setSearchInput] = React.useState('')
-  const [searchCheckboxes, setSearchCheckboxes] = React.useState([
+  const [searchInput, setSearchInput] = useState('')
+  const searchCheckboxLabels = [
+    'By name',
+    'By email',
+    'By student name',
+    'By student organization'
+  ]
+  const [searchCheckboxes, setSearchCheckboxes] = useState([
     true,
     false,
     false,
     false
   ])
 
-  const { data, isLoading } = useMentorStats()
+  const debouncedSearch = useDebounce(searchInput, 300)
+  const { data, isLoading } = useMentorStats({
+    searchString: debouncedSearch,
+
+    searchByName: searchCheckboxes[0],
+    searchByEmail: searchCheckboxes[1],
+    searchByStudent: searchCheckboxes[2],
+    searchByStudentOrganization: searchCheckboxes[3]
+  })
 
   const stats = [
     {
@@ -49,9 +64,7 @@ const MentorsPage: WithAuthentication<NextPage> = () => {
     }
   ]
 
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value)
     // TODO: Should trigger search.
   }
@@ -80,12 +93,7 @@ const MentorsPage: WithAuthentication<NextPage> = () => {
             placeholder="Search"
             inputValue={searchInput}
             onInputChange={handleSearchInputChange}
-            checkboxesLabels={[
-              'By name',
-              'By email',
-              'By student name',
-              'By student organization'
-            ]}
+            checkboxesLabels={searchCheckboxLabels}
             checkboxesValues={searchCheckboxes}
             onCheckboxesChange={setSearchCheckboxes}
             onMenuChange={handleSearchMenuChange}
