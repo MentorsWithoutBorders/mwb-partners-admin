@@ -11,7 +11,7 @@ import {
 interface DashboardItemProps {
   title: string
   icon: React.ReactNode
-  value: string
+  value: string | number
 }
 
 const DashboardItem = ({ title, icon, value }: DashboardItemProps) => {
