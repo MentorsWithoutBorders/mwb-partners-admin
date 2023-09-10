@@ -21,7 +21,8 @@ export const palette = {
   mineShaft: '#232323',
   doveGray: '#6F6B6B',
   nobel: '#B5B5B5',
-  mariner: '#1D54E1'
+  mariner: '#1D54E1',
+  dustyGray: '#a29898'
 } as const
 
 export const theme = createTheme({
