@@ -30,12 +30,12 @@ export const DashboardItemValue = styled(Typography)(({ theme }) => ({
 }))
 
 export const DashboardItemsWrapper = styled(Box)<{ $isLoading?: boolean }>(
-  ({ $isLoading }) => ({
+  ({ $isLoading, theme }) => ({
     display: 'flex',
     gap: '20px',
     flexWrap: 'wrap',
     padding: '20px',
-    backgroundColor: '#E0E8F8',
+    backgroundColor: theme.palette.azureish,
     borderRadius: '10px',
     justifyContent: 'space-between',
     alignItems: 'center',
