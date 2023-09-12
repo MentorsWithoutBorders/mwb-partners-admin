@@ -4,6 +4,8 @@ export interface StudentTableRows {
   email: string
   whatsapp: string
   courses: number
-  status: 'Certificate sent' | 'In progress' | 'Cancelled'
+  status: StudentStatusType
   testimonials: string[]
 }
+
+export type StudentStatusType = 'Certificate sent' | 'In progress' | 'Cancelled'

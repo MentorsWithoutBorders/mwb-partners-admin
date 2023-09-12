@@ -14,7 +14,7 @@ import { visuallyHidden } from '@mui/utils'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-import InfoIcon from '~/info-details.svg'
+import InfoIcon from '~/icons/info-details.svg'
 
 import { FilterButton } from '../FilterButton/FilterButton.styled'
 import { FilterOutlinedInput } from '../FilterButton/FilterOutlinedInput.styled'

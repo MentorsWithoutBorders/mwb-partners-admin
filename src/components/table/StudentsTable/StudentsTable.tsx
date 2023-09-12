@@ -19,6 +19,11 @@ import { StudentTableRows } from '@/types/students/table-types'
 
 // hooks
 import { useState } from 'react'
+import { StudentStatusText, TestimonialContainer } from './StudentsTable.styled'
+
+// icons
+import EyeIcon from '~/icons/eye.svg'
+import UploadIcon from '~/icons/upload.svg'
 
 const TABLE_HEADERS = [
   { label: 'Name' },
@@ -96,15 +101,23 @@ export default function StudentsTable() {
                         <TableCell sx={tableTdsStyle}>{row.name}</TableCell>
                         <TableCell sx={tableTdsStyle}>{row.email}</TableCell>
                         <TableCell sx={tableTdsStyle} align="center">
-                          <a href={`whatsapp://send?phone=${row.whatsapp}`}>
-                            {row.whatsapp}
-                          </a>
+                          {row.whatsapp}
                         </TableCell>
                         <TableCell sx={tableTdsStyle} align="center">
-                          {row.status}
+                          <StudentStatusText status={row.status}>
+                            {row.status}
+                          </StudentStatusText>
                         </TableCell>
                         <TableCell sx={tableTdsStyle} align="center">
                           {row.courses}
+                        </TableCell>
+
+                        <TableCell sx={tableTdsStyle} align="center">
+                          <TestimonialContainer>
+                            <EyeIcon />
+
+                            <UploadIcon />
+                          </TestimonialContainer>
                         </TableCell>
                       </TableRow>
                     )
