@@ -17,6 +17,7 @@ import {
   selectMenuStyle
 } from '@/styles/pages/app/students.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
+import StudentsTable from '@/components/table/StudentsTable'
 
 // TODO (#54): Use real data to populate the dropdown.
 const items = [
@@ -73,7 +74,6 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
   return (
     <DashboardLayout title="Students">
       <div>Students Page</div>
-
       <Box sx={flexContainer}>
         <FormControl size="small">
           <Select
@@ -97,10 +97,12 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
           />
         </Box>
       </Box>
+
+      <StudentsTable />
     </DashboardLayout>
   )
 }
 
-StudentsPage.requiresAuthentication = true
+// StudentsPage.requiresAuthentication = true
 
 export default StudentsPage
