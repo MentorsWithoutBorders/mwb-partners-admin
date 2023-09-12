@@ -14,15 +14,15 @@ import { visuallyHidden } from '@mui/utils'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-import InfoIcon from '../../../public/info-details.svg'
+import InfoIcon from '~/info-details.svg'
 
-import { FilterButton } from './FilterButton.styled'
-import { FilterOutlinedInput } from './FilterOutlinedInput.styled'
-import { SearchFilterField } from './SearchFilterField'
+import { FilterButton } from '../FilterButton/FilterButton.styled'
+import { FilterOutlinedInput } from '../FilterButton/FilterOutlinedInput.styled'
+import { SearchFilterField } from '../FilterButton/SearchFilterField'
 
-import { Column } from '@/components/table/interfaces'
-import { OrderType } from '@/components/table/interfaces'
-import { APIListResponse } from '@/components/table/interfaces'
+import { Column } from '@/components/Table/interfaces'
+import { OrderType } from '@/components/Table/interfaces'
+import { APIListResponse } from '@/components/Table/interfaces'
 import {
   tablePaperStyle,
   tableTdsStyle,

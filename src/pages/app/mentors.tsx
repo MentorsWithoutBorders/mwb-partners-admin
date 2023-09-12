@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import { fetchMentorAPI, fetchMentorsAPI } from '@/api/mentors'
-import DataModal from '@/components/table/DataModal'
-import DataTable from '@/components/table/DataTable'
-import { Column } from '@/components/table/interfaces'
+import DataModal from '@/components/Table/DataModal/DataModal'
+import DataTable from '@/components/Table/DataTable/DataTable'
+import { Column } from '@/components/Table/interfaces'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'

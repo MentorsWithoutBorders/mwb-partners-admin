@@ -1,4 +1,4 @@
-import { OrderType } from '@/components/table/interfaces'
+import { OrderType } from '@/components/Table/interfaces'
 
 export const fetchMentorsAPI = (
   page: number = 1,

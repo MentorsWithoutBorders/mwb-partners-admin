@@ -17,7 +17,7 @@ import {
   selectMenuStyle
 } from '@/styles/pages/app/students.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
-import StudentsTable from '@/components/table/StudentsTable'
+import StudentsTable from '@/components/Table/StudentsTable/StudentsTable'
 
 // TODO (#54): Use real data to populate the dropdown.
 const items = [

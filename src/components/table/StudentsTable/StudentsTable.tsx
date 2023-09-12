@@ -14,7 +14,7 @@ import {
   tablePaperStyle,
   tableThStyle,
   tableTdsStyle
-} from './DataTable.styled'
+} from '../DataTable/DataTable.styled'
 import { StudentTableRows } from '@/types/students/table-types'
 
 // hooks

@@ -3,7 +3,7 @@ import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { APIDataResponse } from './interfaces'
+import { APIDataResponse } from '../interfaces'
 import { innerModalStyle } from './DataModal.styled'
 
 interface DataModalProps {
