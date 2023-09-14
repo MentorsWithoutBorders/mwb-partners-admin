@@ -3,7 +3,8 @@ import FormControl from '@mui/material/FormControl'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import { SelectChangeEvent } from '@mui/material/Select'
-import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 
 import {
   selectButtonStyle,
@@ -11,14 +12,15 @@ import {
   selectMenuStyle
 } from './CentresDropdown.styled'
 
-const DUMMY_DATA = [1, 2, 3].map((number) => ({
-  id: number,
-  name: `Centre ${number}`,
-  organization_id: number,
-  address: `Fake street ${number * 5}`
-}))
+import { getCentresList } from '@/lib/centres/centres-client'
+import { Centre } from '@/types/centre.type'
 
-const ALL_CENTRES = { id: 0, name: 'All Centres' }
+const ALL_CENTRES: Centre = {
+  id: 0,
+  name: 'All Centres',
+  organization_id: null,
+  address: null
+}
 
 export default function CentresDropdown({
   value,
@@ -27,7 +29,17 @@ export default function CentresDropdown({
   value: Number
   onChange: Function
 }) {
-  const [centres, setCentres] = useState<typeof DUMMY_DATA>(DUMMY_DATA)
+  const { data: session } = useSession()
+  const [centres, setCentres] = useState<Array<Centre>>([ALL_CENTRES])
+
+  useEffect(() => {
+    const orgId: string | null = session?.user?.organization.id ?? null
+    if (orgId && centres.length < 2) {
+      getCentresList(orgId).then((list: Array<Centre>) =>
+        setCentres(list.concat([ALL_CENTRES]))
+      )
+    }
+  }, [centres, session])
 
   const handleChange = (event: SelectChangeEvent<Number>) => {
     onChange(Number(event.target.value))
