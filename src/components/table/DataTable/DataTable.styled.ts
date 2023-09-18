@@ -7,7 +7,8 @@ export const tablePaperStyle: SxProps<Theme> = {
   borderWidth: 1,
   fontSize: 16,
   width: '100%',
-  overflow: 'hidden'
+  overflow: 'hidden',
+  backgroundColor: 'white'
 }
 
 export const tableThStyle: SxProps<Theme> = {

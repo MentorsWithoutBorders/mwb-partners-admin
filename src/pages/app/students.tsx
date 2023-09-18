@@ -10,6 +10,7 @@ import {
   flexContainer
 } from '@/styles/pages/app/students.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
+import StudentsTable from '@/components/Table/StudentsTable/StudentsTable'
 
 const StudentsPage: WithAuthentication<NextPage> = () => {
   const [searchInput, setSearchInput] = useState('')
@@ -45,7 +46,6 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
   return (
     <DashboardLayout title="Students">
       <div>Students Page</div>
-
       <Box sx={flexContainer}>
         <CentresDropdown value={centre} onChange={handleCentreChange} />
 
@@ -61,10 +61,12 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
           />
         </Box>
       </Box>
+
+      <StudentsTable />
     </DashboardLayout>
   )
 }
 
-StudentsPage.requiresAuthentication = true
+// StudentsPage.requiresAuthentication = true
 
 export default StudentsPage
