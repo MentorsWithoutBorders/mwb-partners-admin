@@ -1,11 +1,13 @@
 // components
+import YouTubeIcon from '@mui/icons-material/YouTube'
+
 import Popup from '../Popup/Popup'
+
 import {
   TestimonialTrigger,
   TestimonialVideo,
   VideoWrapper
 } from './TestimonialPopup.styled'
-import YouTubeIcon from '@mui/icons-material/YouTube'
 
 interface TestimonialPopupProps {
   title: string
