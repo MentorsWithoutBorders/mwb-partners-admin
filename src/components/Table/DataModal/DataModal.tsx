@@ -1,21 +1,21 @@
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
-import * as React from 'react'
 import { useEffect, useState } from 'react'
+
 import { APIDataResponse } from '../interfaces'
+
 import { innerModalStyle } from './DataModal.styled'
 
 interface DataModalProps {
-  openModal: boolean
   handleClose: () => void
   title: string
   fetchData: (id: number) => APIDataResponse
-  dataId: number | undefined
+  dataId: number | null
 }
 
 export default function DataModal(props: DataModalProps) {
-  const { openModal, handleClose, title, fetchData, dataId } = props
+  const { handleClose, title, fetchData, dataId } = props
   const [data, setData] = useState<APIDataResponse>()
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function DataModal(props: DataModalProps) {
 
   return (
     <Modal
-      open={openModal}
+      open={!!dataId}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"

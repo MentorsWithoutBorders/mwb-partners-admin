@@ -31,7 +31,8 @@ export const palette = {
   doveGray: '#6F6B6B',
   nobel: '#B5B5B5',
   mariner: '#1D54E1',
-  dustyGray: '#a29898'
+  dustyGray: '#a29898',
+  azureish: '#E0E8F8'
 } as const
 
 export const theme = createTheme({
