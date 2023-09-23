@@ -8,20 +8,17 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
+import { useState } from 'react'
 
-// styles
 import {
   tablePaperStyle,
-  tableThStyle,
-  tableTdsStyle
+  tableTdsStyle,
+  tableThStyle
 } from '../DataTable/DataTable.styled'
-import { StudentTableRows } from '@/types/students/table-types'
 
-// hooks
-import { useState } from 'react'
 import { StudentStatusText, TestimonialContainer } from './StudentsTable.styled'
 
-// icons
+import { StudentTableRows } from '@/types/students/table-types'
 import EyeIcon from '~/icons/eye.svg'
 import UploadIcon from '~/icons/upload.svg'
 

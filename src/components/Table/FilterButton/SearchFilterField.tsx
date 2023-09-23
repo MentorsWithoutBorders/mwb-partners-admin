@@ -11,8 +11,8 @@ import MenuItem from '@mui/material/MenuItem'
 import * as React from 'react'
 
 import {
-  FilterOutlinedInput,
-  FilterInputLabel
+  FilterInputLabel,
+  FilterOutlinedInput
 } from './FilterOutlinedInput.styled'
 
 interface SearchFilterFieldProps {

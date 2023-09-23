@@ -4,13 +4,13 @@ import { useState } from 'react'
 
 import CentresDropdown from '@/components/CentresDropdown/CentresDropdown'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
+import StudentsTable from '@/components/Table/StudentsTable/StudentsTable'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import {
   filterLeftMargin,
   flexContainer
 } from '@/styles/pages/app/students.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
-import StudentsTable from '@/components/Table/StudentsTable/StudentsTable'
 
 const StudentsPage: WithAuthentication<NextPage> = () => {
   const [searchInput, setSearchInput] = useState('')
@@ -67,6 +67,6 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
   )
 }
 
-// StudentsPage.requiresAuthentication = true
+StudentsPage.requiresAuthentication = true
 
 export default StudentsPage

@@ -29,13 +29,18 @@ export const DashboardItemValue = styled(Typography)(({ theme }) => ({
   color: theme.palette.mineShaft
 }))
 
-export const DashboardItemsWrapper = styled(Box)(() => ({
-  display: 'flex',
-  gap: '20px',
-  flexWrap: 'wrap',
-  padding: '20px',
-  backgroundColor: '#E0E8F8',
-  borderRadius: '10px',
-  justifyContent: 'space-between',
-  alignItems: 'center'
-}))
+export const DashboardItemsWrapper = styled(Box)<{ $isLoading?: boolean }>(
+  ({ $isLoading, theme }) => ({
+    display: 'flex',
+    gap: '20px',
+    flexWrap: 'wrap',
+    padding: '20px',
+    backgroundColor: theme.palette.azureish,
+    borderRadius: '10px',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    ...($isLoading && {
+      animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+    })
+  })
+)

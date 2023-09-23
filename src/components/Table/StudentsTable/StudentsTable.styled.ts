@@ -1,5 +1,6 @@
-import { StudentStatusType } from '@/types/students/table-types'
 import styled from '@emotion/styled'
+
+import { StudentStatusType } from '@/types/students/table-types'
 
 export const StudentStatusText = styled.span<{ status: StudentStatusType }>(
   ({ theme, status }) => ({
