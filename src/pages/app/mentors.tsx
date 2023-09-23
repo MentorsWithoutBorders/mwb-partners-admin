@@ -3,10 +3,14 @@ import Image from 'next/image'
 import { NextPage } from 'next/types'
 import { type ChangeEvent, useState } from 'react'
 
+import { fetchMentorAPI, fetchMentorsAPI } from '@/api/mentors'
 import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import ProjectsDropdown from '@/components/ProjectsDropdown/ProjectsDropdown'
+import DataModal from '@/components/Table/DataModal/DataModal'
+import DataTable from '@/components/Table/DataTable/DataTable'
+import { Column } from '@/components/Table/interfaces'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 import { useMentorStats } from '@/lib/mentors/mentors-client'
@@ -16,7 +20,40 @@ import {
 } from '@/styles/pages/app/students.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
+const columns: readonly Column[] = [
+  { id: 'name', label: 'Name', minWidth: 170 },
+  { id: 'email', label: 'Email', minWidth: 100 },
+  {
+    id: 'courses',
+    label: 'Courses',
+    minWidth: 170,
+    align: 'center'
+  },
+  {
+    id: 'students',
+    label: 'Students',
+    minWidth: 170,
+    align: 'center'
+  },
+  {
+    id: 'hours',
+    label: 'Hours',
+    minWidth: 170,
+    align: 'center',
+    format: (value: number) => value.toFixed(1)
+  }
+]
+
+const filterValues = [
+  'By name',
+  'By email',
+  'By student name',
+  'By student organization'
+]
+
 const MentorsPage: WithAuthentication<NextPage> = () => {
+  const [dataId, setDataId] = useState<number | null>(null)
+
   const [searchInput, setSearchInput] = useState('')
   const searchCheckboxLabels = [
     'By name',
@@ -83,6 +120,11 @@ const MentorsPage: WithAuthentication<NextPage> = () => {
     }
   }
 
+  // TODO properly implement download data for each page
+  const downloadMentorsData = () => {
+    console.log('Downlaod menthors Data')
+  }
+
   return (
     <DashboardLayout title="Mentors">
       <Box sx={flexContainer}>
@@ -119,6 +161,20 @@ const MentorsPage: WithAuthentication<NextPage> = () => {
           />
         ))}
       </DashboardItemsWrapper>
+
+      <DataModal
+        handleClose={() => setDataId(null)}
+        title="Mentor Data"
+        fetchData={fetchMentorAPI}
+        dataId={dataId}
+      />
+      <DataTable
+        openModal={setDataId}
+        downloadData={downloadMentorsData}
+        fetchData={fetchMentorsAPI}
+        columns={columns}
+        filterValues={filterValues}
+      />
     </DashboardLayout>
   )
 }

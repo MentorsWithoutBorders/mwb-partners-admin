@@ -17,11 +17,21 @@ export const palette = {
   background: {
     paper: '#F9F9F9'
   },
+  success: {
+    main: '#0FBA00'
+  },
+  error: {
+    main: '#FF0000'
+  },
+  warning: {
+    main: '#F49300'
+  },
   zircon: '#F1F4FF',
   mineShaft: '#232323',
   doveGray: '#6F6B6B',
   nobel: '#B5B5B5',
   mariner: '#1D54E1',
+  dustyGray: '#a29898',
   azureish: '#E0E8F8'
 } as const
 
