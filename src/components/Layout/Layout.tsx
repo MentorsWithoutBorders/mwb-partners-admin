@@ -113,7 +113,8 @@ export function LayoutContent({
       sx={{
         flexGrow: 1,
         backgroundColor: '#F9F9F9',
-        minHeight: '100vh'
+        minHeight: '100vh',
+        overflowX: 'hidden'
       }}
     >
       {header}

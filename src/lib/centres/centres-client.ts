@@ -1,5 +1,9 @@
-import { client } from '../api-client'
+import { useSession } from 'next-auth/react'
+import useSWR from 'swr'
 
-export function getCentresList(orgId: string | number) {
-  return client(`organizations/${orgId}/centres/`)
+import { Centre } from '@/types/centre.type'
+
+export function useGetCentres() {
+  const orgId = useSession().data?.user?.organization.id
+  return useSWR<Centre[]>(`organizations/${orgId}/centres/`)
 }
