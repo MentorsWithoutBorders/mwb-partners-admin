@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material'
+import type {} from '@mui/x-data-grid/themeAugmentation'
 import { Montserrat } from 'next/font/google'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
@@ -63,6 +64,41 @@ export const theme = createTheme({
           backgroundColor: theme.palette.secondary.main,
           color: 'white'
         })
+      }
+    },
+    MuiDataGrid: {
+      defaultProps: {
+        rowSelection: false,
+        disableColumnMenu: true
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 24,
+          // borderColor: palette.doveGray,
+          backgroundColor: 'white',
+          overflow: 'hidden'
+        },
+        virtualScroller: {
+          minHeight: 300
+        },
+        withBorderColor: {
+          // borderColor: palette.doveGray
+        },
+        columnHeader: {
+          paddingLeft: 24,
+          paddingRight: 24,
+          ':focus': {
+            outline: 'none'
+          }
+        },
+        cell: {
+          borderBottomStyle: 'none',
+          paddingLeft: 24,
+          paddingRight: 24,
+          ':focus': {
+            outline: 'none'
+          }
+        }
       }
     }
   }
