@@ -1,12 +1,16 @@
 import Box from '@mui/material/Box'
+import Image from 'next/image'
 import { NextPage } from 'next/types'
 import { ChangeEvent, useState } from 'react'
 
 import CentresDropdown from '@/components/CentresDropdown/CentresDropdown'
+import DashboardItem from '@/components/DashboardItem/DashboardItem'
+import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import StudentsTable from '@/components/Table/StudentsTable/StudentsTable'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { useDebounce } from '@/lib/hooks/useDebounce'
+import { useGetStudentStats } from '@/lib/students/students-client'
 import {
   filterLeftMargin,
   flexContainer
@@ -39,6 +43,30 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
     searchByStudentStatus: searchCheckboxes[2],
     searchByStudentOrganization: searchCheckboxes[3]
   }
+  const { data, isLoading } = useGetStudentStats(searchFilterParams)
+
+  const stats = [
+    {
+      title: 'Total students',
+      value: data?.students || 0,
+      icon: '/icons/students.svg'
+    },
+    {
+      title: 'Total mentors',
+      value: data?.mentors || 0,
+      icon: '/icons/mentors-blue.svg'
+    },
+    {
+      title: 'Total courses',
+      value: data?.courses || 0,
+      icon: '/icons/courses.svg'
+    },
+    {
+      title: 'Total hours',
+      value: data?.hours || 0,
+      icon: '/icons/total-hours.svg'
+    }
+  ]
 
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value)
@@ -78,6 +106,25 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
           />
         </Box>
       </Box>
+
+      <DashboardItemsWrapper $isLoading={isLoading} my={4}>
+        {stats.map((item, index) => (
+          <DashboardItem
+            key={index}
+            title={item.title}
+            value={item.value}
+            icon={
+              <Image
+                src={item.icon}
+                width={25}
+                height={25}
+                alt={item.title}
+                priority
+              />
+            }
+          />
+        ))}
+      </DashboardItemsWrapper>
 
       <StudentsTable filters={searchFilterParams} />
     </DashboardLayout>
