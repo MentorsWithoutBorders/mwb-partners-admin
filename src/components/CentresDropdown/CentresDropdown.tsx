@@ -3,8 +3,6 @@ import FormControl from '@mui/material/FormControl'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import { SelectChangeEvent } from '@mui/material/Select'
-import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
 
 import {
   selectButtonStyle,
@@ -12,7 +10,7 @@ import {
   selectMenuStyle
 } from './CentresDropdown.styled'
 
-import { getCentresList } from '@/lib/centres/centres-client'
+import { useGetCentres } from '@/lib/centres/centres-client'
 import { Centre } from '@/types/centre.type'
 
 const ALL_CENTRES: Centre = {
@@ -29,17 +27,7 @@ export default function CentresDropdown({
   value: Number
   onChange: Function
 }) {
-  const { data: session } = useSession()
-  const [centres, setCentres] = useState<Array<Centre>>([ALL_CENTRES])
-
-  useEffect(() => {
-    const orgId: string | null = session?.user?.organization.id ?? null
-    if (orgId && centres.length < 2) {
-      getCentresList(orgId).then((list: Array<Centre>) =>
-        setCentres(list.concat([ALL_CENTRES]))
-      )
-    }
-  }, [centres, session])
+  const { data: centres = [] } = useGetCentres()
 
   const handleChange = (event: SelectChangeEvent<Number>) => {
     onChange(Number(event.target.value))
