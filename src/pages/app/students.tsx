@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box'
 import { NextPage } from 'next/types'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 import CentresDropdown from '@/components/CentresDropdown/CentresDropdown'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import StudentsTable from '@/components/Table/StudentsTable/StudentsTable'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import { useDebounce } from '@/lib/hooks/useDebounce'
 import {
   filterLeftMargin,
   flexContainer
@@ -14,19 +15,33 @@ import { WithAuthentication } from '@/types/with-authentication/with-authenticat
 
 const StudentsPage: WithAuthentication<NextPage> = () => {
   const [searchInput, setSearchInput] = useState('')
-  const [searchCheckboxes, setSearchCheckboxes] = useState([true, false, false])
   const [centre, setCentre] = useState<number>(0)
 
-  const handleCentreChange = (newCentre: number) => {
-    setCentre(newCentre)
-    // TODO: Should trigger search.
+  const searchCheckboxLabels = [
+    'By name',
+    'By email',
+    'By status',
+    'By student organization'
+  ]
+  const [searchCheckboxes, setSearchCheckboxes] = useState([
+    true,
+    false,
+    false,
+    false
+  ])
+
+  const debouncedSearch = useDebounce(searchInput, 300)
+  const searchFilterParams = {
+    searchString: debouncedSearch,
+
+    searchByName: searchCheckboxes[0],
+    searchByEmail: searchCheckboxes[1],
+    searchByStudentStatus: searchCheckboxes[2],
+    searchByStudentOrganization: searchCheckboxes[3]
   }
 
-  const handleSearchInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value)
-    // TODO: Should trigger search.
   }
 
   const handleSearchMenuChange = (isVisible: boolean) => {
@@ -38,9 +53,11 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
         newValues[0] = true
         setSearchCheckboxes(newValues)
       }
-
-      // TODO: Should trigger search.
     }
+  }
+
+  const handleCentreChange = (newCentre: number) => {
+    setCentre(newCentre)
   }
 
   return (
@@ -54,7 +71,7 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
             placeholder="Search"
             inputValue={searchInput}
             onInputChange={handleSearchInputChange}
-            checkboxesLabels={['By name', 'By email', 'By status']}
+            checkboxesLabels={searchCheckboxLabels}
             checkboxesValues={searchCheckboxes}
             onCheckboxesChange={setSearchCheckboxes}
             onMenuChange={handleSearchMenuChange}
@@ -62,7 +79,7 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
         </Box>
       </Box>
 
-      <StudentsTable />
+      <StudentsTable filters={searchFilterParams} />
     </DashboardLayout>
   )
 }
