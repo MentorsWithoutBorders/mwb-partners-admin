@@ -14,7 +14,6 @@ export const StyledButton = styled('button')(
     color: ${theme.palette.text.primary};
     background-color: white;
     position: relative;
-    
 
     & > svg {
       font-size: 1.3rem;
@@ -49,20 +48,19 @@ export const StyledOption = styled(Option)(
     transition: all 0.2s ease-in-out;
 
     &:not(:last-child) {
-        margin-bottom: 5px;
+      margin-bottom: 5px;
     }
 
     &.${optionClasses.selected},  &:hover  {
-        background-color: ${theme.palette.mariner};
-        color: white;
+      background-color: ${theme.palette.mariner};
+      color: white;
     }
-   
-    `
+  	`
 )
 
 export const StyledPopper = styled(Popper)(
   ({ theme }) => `
-  z-index: 1;
-  gap: 5px;
-`
+		z-index: 1;
+		gap: 5px;
+	`
 )

@@ -84,7 +84,7 @@ const MentorsPage: WithAuthentication<NextPage> = () => {
 
   // TODO properly implement download data for each page
   const downloadMentorsData = () => {
-    console.log('Downlaod menthors Data')
+    console.log('Download mentors data')
   }
 
   return (

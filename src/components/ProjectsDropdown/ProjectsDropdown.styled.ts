@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { StyledTextField } from '@/components/Input/TextField/TextField.styled'
 
 export const Container = styled.div`
-  max-width: 192px;
+  width: 195px;
 `
 
 export const CreateProjectInput = styled(StyledTextField)(({ theme }) => ({
