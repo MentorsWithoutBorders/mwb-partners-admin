@@ -1,3 +1,5 @@
+import styled from '@emotion/styled'
+import OutlinedInput from '@mui/material/OutlinedInput'
 import { SxProps, Theme } from '@mui/material/styles'
 
 export const roundedInput: SxProps<Theme> = {
@@ -13,9 +15,16 @@ export const popperContent: SxProps<Theme> = {
   p: '4px'
 }
 
+export const StyledOutlineInput = styled(OutlinedInput)(({ theme }) => ({
+  '&.Mui-focused fieldset.MuiOutlinedInput-notchedOutline': {
+    border: '1px solid black'
+  }
+}))
+
 const allStyles = {
   popperContent,
-  roundedInput
+  roundedInput,
+  StyledOutlineInput
 }
 
 export default allStyles
