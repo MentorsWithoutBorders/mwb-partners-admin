@@ -67,7 +67,7 @@ function InputWithCheckboxes({
     }
   }
 
-  const handleEscKey = (event: any) => {
+  const handleEscKey = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       setShowPopperMenu(false)
     }
