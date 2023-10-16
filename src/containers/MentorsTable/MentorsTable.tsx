@@ -60,6 +60,12 @@ export default function MentorsTable({
   const { data = [], isLoading } = useGetMentors(filters)
 
   return (
-    <DataGrid loading={isLoading} rows={data} columns={columns} hideFooter />
+    <DataGrid
+      loading={isLoading}
+      rows={data}
+      columns={columns}
+      hideFooter
+      getRowId={(d) => d.email}
+    />
   )
 }
