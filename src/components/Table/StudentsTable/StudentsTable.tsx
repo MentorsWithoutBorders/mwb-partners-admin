@@ -5,7 +5,7 @@ import {
   GridRowParams
 } from '@mui/x-data-grid'
 
-import { StudentStatusText } from './StudentsTable.styled'
+import { StudentStatusText, TestimonialsWrapper } from './StudentsTable.styled'
 
 import {
   StudentsSearchParams,
@@ -14,6 +14,8 @@ import {
 import { Student } from '@/types/students/student.type'
 import EyeIcon from '~/icons/eye.svg'
 import UploadIcon from '~/icons/upload.svg'
+import Popup from '@/components/Popup/Popup'
+import TestimonialPopup from '@/components/TestimonialPopup/TestimonialPopup'
 
 const columns: GridColDef<Student>[] = [
   { field: 'name', headerName: 'Name', flex: 1, sortable: false },
@@ -47,11 +49,29 @@ const columns: GridColDef<Student>[] = [
     headerName: 'Testimonials',
     type: 'actions',
     flex: 1,
-    getActions: (params: GridRowParams) => [
+    getActions: (params: GridRowParams<Student>) => [
       <GridActionsCellItem
         key="view"
-        icon={<EyeIcon />}
-        onClick={() => console.log('View Testimonials', params.id)}
+        icon={
+          <Popup
+            title={`Video Testimonials ${params.row.name}`}
+            maxWidth={700}
+            toggleElement={<EyeIcon />}
+          >
+            <TestimonialsWrapper>
+              {params.row.testimonials.map((testimonial) => (
+                <TestimonialPopup
+                  key={testimonial}
+                  title={params.row.name}
+                  link={testimonial}
+                />
+              ))}
+              {params.row.testimonials.length < 1 && (
+                <p>No testimonials found</p>
+              )}
+            </TestimonialsWrapper>
+          </Popup>
+        }
         label="View"
       />,
       <GridActionsCellItem

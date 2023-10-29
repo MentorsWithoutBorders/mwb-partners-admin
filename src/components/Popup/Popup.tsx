@@ -31,7 +31,7 @@ export default function Popup({
   }
 
   return (
-    <div>
+    <>
       {toggleElement ? (
         React.cloneElement(toggleElement as React.ReactElement<any>, {
           onClick: handleOpen
@@ -41,7 +41,7 @@ export default function Popup({
           Toggle Popper
         </button>
       )}
-      <Popper open={open}>
+      <Popper open={open} sx={{ zIndex: 9999 }}>
         <Backdrop open={true} onClick={handleClose as any}>
           <PopupBody maxWidth={maxWidth ?? 1170}>
             <CloseButton onClick={handleClose as any} />
@@ -50,6 +50,6 @@ export default function Popup({
           </PopupBody>
         </Backdrop>
       </Popper>
-    </div>
+    </>
   )
 }

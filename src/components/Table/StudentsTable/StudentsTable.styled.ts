@@ -13,3 +13,10 @@ export const StudentStatusText = styled.span<{
       : theme.palette.error!.main,
   fontWeight: 500
 }))
+
+export const TestimonialsWrapper = styled.div(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+  alignItems: 'center'
+}))
