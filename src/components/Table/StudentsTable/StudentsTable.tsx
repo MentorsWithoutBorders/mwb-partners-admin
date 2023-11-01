@@ -61,9 +61,9 @@ const columns: GridColDef<Student>[] = [
             <TestimonialsWrapper>
               {params.row.testimonials.map((testimonial) => (
                 <TestimonialPopup
-                  key={testimonial}
-                  title={params.row.name}
-                  link={testimonial}
+                  key={testimonial.url}
+                  title={testimonial.uploadedDateTime}
+                  link={testimonial.url}
                 />
               ))}
               {params.row.testimonials.length < 1 && (
