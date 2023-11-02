@@ -11,6 +11,9 @@ export interface Student {
   phoneNumber?: number
   certificationStatus: StudentCertificationStatus
   organizationName: string
-  testimonials: string[]
+  testimonials: {
+    url: string
+    uploadedDateTime: string
+  }[]
   totalCoursesAttended: number
 }
