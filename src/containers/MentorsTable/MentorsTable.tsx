@@ -4,6 +4,7 @@ import {
   GridColDef,
   GridRowParams
 } from '@mui/x-data-grid'
+import { useRouter } from 'next/router'
 
 import {
   MentorsSearchParams,
@@ -11,6 +12,17 @@ import {
 } from '@/lib/mentors/mentors-client'
 import { Mentor } from '@/types/mentors/mentor.type'
 import InfoIcon from '~/icons/info-details.svg'
+
+function MentorDetailsAction({ mentorId }: { mentorId: string }) {
+  const router = useRouter()
+  return (
+    <GridActionsCellItem
+      icon={<InfoIcon />}
+      onClick={() => router.push({ query: { mentorId } })}
+      label="Details"
+    />
+  )
+}
 
 const columns: GridColDef<Mentor>[] = [
   { field: 'name', headerName: 'Name', flex: 2, sortable: false },
@@ -41,13 +53,8 @@ const columns: GridColDef<Mentor>[] = [
     headerName: 'Details',
     type: 'actions',
     flex: 1,
-    getActions: (params: GridRowParams) => [
-      <GridActionsCellItem
-        key="details"
-        icon={<InfoIcon />}
-        onClick={() => console.log('Mentor Details', params.id)}
-        label="Details"
-      />
+    getActions: ({ row }: GridRowParams<Mentor>) => [
+      <MentorDetailsAction key="details" mentorId={row.id} />
     ]
   }
 ]

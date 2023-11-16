@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "precommit": "lint-staged && npm run lint",
     "commit": "cz",
     "dev": "next dev",
     "eslint:check": "next lint",
@@ -15,6 +14,12 @@
     "prettier:check": "prettier --check ./**/*.{js,jsx,ts,tsx,json,*rc}",
     "prettier:fix": "prettier --write ./**/*.{js,jsx,ts,tsx,json,*rc}",
     "start": "next start"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "config": {
     "commitizen": {
