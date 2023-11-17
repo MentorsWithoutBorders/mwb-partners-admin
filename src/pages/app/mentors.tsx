@@ -8,6 +8,7 @@ import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import ProjectsDropdown from '@/components/ProjectsDropdown/ProjectsDropdown'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
+import { MentorDetailsModal } from '@/containers/MentorDetails/MentorDetailsModal'
 import MentorsTable from '@/containers/MentorsTable/MentorsTable'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 import { useGetMentorStats } from '@/lib/mentors/mentors-client'
@@ -125,6 +126,8 @@ const MentorsPage: WithAuthentication<NextPage> = () => {
       </DashboardItemsWrapper>
 
       <MentorsTable filters={searchFilterParams} />
+
+      <MentorDetailsModal />
     </DashboardLayout>
   )
 }

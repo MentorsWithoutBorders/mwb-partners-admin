@@ -33,11 +33,11 @@ export async function client(
     signOut()
     return
   }
-  if (response.ok) {
-    return await response.json()
-  } else {
-    const errorMessage = await response.text()
-    const parsedError = JSON.parse(errorMessage)
-    return Promise.reject(parsedError.message ?? errorMessage)
+  if (response.ok) return await response.json()
+  try {
+    const errorMessage = await response.json()
+    return Promise.reject(errorMessage.message || errorMessage)
+  } catch {
+    return Promise.reject(await response.text())
   }
 }

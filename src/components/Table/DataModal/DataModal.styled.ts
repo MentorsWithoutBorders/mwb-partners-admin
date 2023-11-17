@@ -1,13 +1,14 @@
 import { SxProps, Theme } from '@mui/material'
 
 export const innerModalStyle: SxProps<Theme> = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: 'calc(100% - 1rem)',
+  maxWidth: '1100px',
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
-  p: 4
+  borderRadius: '2rem',
+  p: [4, 4, 8]
 }
