@@ -1,4 +1,4 @@
-import ClickAwayListener from '@mui/base/ClickAwayListener'
+import { ClickAwayListener } from '@mui/base/ClickAwayListener'
 import TuneIcon from '@mui/icons-material/Tune'
 import Box from '@mui/material/Box'
 import Checkbox from '@mui/material/Checkbox'
