@@ -1,4 +1,4 @@
-import Select, { SelectProps, SelectRootSlotProps } from '@mui/base/Select'
+import { Select, SelectProps, SelectRootSlotProps } from '@mui/base/Select'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import React from 'react'
 
