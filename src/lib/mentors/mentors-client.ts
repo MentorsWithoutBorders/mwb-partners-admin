@@ -7,7 +7,7 @@ import { Mentor, MentorDetails } from '@/types/mentors/mentor.type'
 import { MentorsStats } from '@/types/mentors/stats.type'
 
 export function createProjectAPI(partnerId: string, projectName: string) {
-  return client(`/partners/${partnerId}/projects`, {
+  return client(`partners/${partnerId}/projects`, {
     body: { projectName }
   })
 }
