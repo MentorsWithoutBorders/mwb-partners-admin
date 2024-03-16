@@ -1,3 +1,4 @@
+import { useState,useEffect } from 'react'
 import { YouTube } from '@mui/icons-material'
 import {
   Box,
@@ -7,7 +8,7 @@ import {
   Typography
 } from '@mui/material'
 import dayjs from 'dayjs'
-
+import BasicSelect from '@/components/Select/BasicSelect'
 import { MentorDetails } from '@/types/mentors/mentor.type'
 
 function getCourseEndDate({
@@ -21,12 +22,48 @@ function getCourseEndDate({
   if (canceledDate) return dayjs(canceledDate).format('ll')
   return dayjs(startDate).add(duration, 'months').format('ll')
 }
+const DUMMY_DATA = [
+  {
+    id: '0',
+    name: 'None'
+  },
+  {
+    id: '1',
+    name: 'Project 1'
+  },
+  {
+    id: '2',
+    name: 'Project 2'
+  },
+  {
+    id: '3',
+    name: 'Project 3'
+  }
+]
 
 export function MentorDetailsCourse({
   course
 }: {
   course: MentorDetails['courses'][number]
 }) {
+  const [createProject, setCreateProject] = useState<boolean>(false)
+  const [selectedProject, setSelectedProject] = useState<string>('0')
+  const [projects, setProjects] = useState<typeof DUMMY_DATA>(DUMMY_DATA)
+  
+  useEffect(()=>{
+    if(course.project?.id){
+      setSelectedProject(course.project?.id??'0')
+    }
+  },[course.project?.id])
+
+  const handleChange = ( value: string) => {
+    if (value === 'create') {
+      setCreateProject(true)
+    } else {
+      setSelectedProject(value)
+    }
+  }
+
   return (
     <div>
       <hr />
@@ -45,8 +82,13 @@ export function MentorDetailsCourse({
         </Grid>
       </Grid>
 
-      <Box mb={2}>
-        <strong>Part of project:</strong> {course.project?.name || 'None'}
+      <Box m={2}  display={'flex'} alignItems={'center'} flexDirection={'row'}>
+        <strong>Part of project:</strong> 
+        {/* {course.project?.name || 'None'} */}
+        <div>
+        <BasicSelect options={projects} value={selectedProject} handleChange={handleChange} />
+        </div>
+
       </Box>
 
       <div>
