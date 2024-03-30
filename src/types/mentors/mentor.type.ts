@@ -33,3 +33,8 @@ export interface MentorDetails {
     }[]
   }[]
 }
+
+export interface PartnerProject {
+  id?: string;
+  name: string;
+}

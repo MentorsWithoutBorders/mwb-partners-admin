@@ -9,8 +9,8 @@ import {
 } from '@mui/material'
 import dayjs from 'dayjs'
 import BasicSelect from '@/components/Select/BasicSelect'
-import { MentorDetails } from '@/types/mentors/mentor.type'
-
+import { MentorDetails ,PartnerProject} from '@/types/mentors/mentor.type'
+import useMentorDetails from './hooks/useMentorDetails'
 function getCourseEndDate({
   startDate,
   duration,
@@ -22,7 +22,7 @@ function getCourseEndDate({
   if (canceledDate) return dayjs(canceledDate).format('ll')
   return dayjs(startDate).add(duration, 'months').format('ll')
 }
-const DUMMY_DATA = [
+const DUMMY_DATA:PartnerProject[] = [
   {
     id: '0',
     name: 'None'
@@ -49,12 +49,13 @@ export function MentorDetailsCourse({
   const [createProject, setCreateProject] = useState<boolean>(false)
   const [selectedProject, setSelectedProject] = useState<string>('0')
   const [projects, setProjects] = useState<typeof DUMMY_DATA>(DUMMY_DATA)
-  
+  const {data} = useMentorDetails()
   useEffect(()=>{
-    if(course.project?.id){
+    if(course.project?.id && data?.length){
+      setProjects([...data])
       setSelectedProject(course.project?.id??'0')
     }
-  },[course.project?.id])
+  },[course.project?.id,data])
 
   const handleChange = ( value: string) => {
     if (value === 'create') {

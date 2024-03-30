@@ -2,14 +2,14 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import { StyledSelect,StyledMenuItem } from './BasicSelect.styled';
-
+import { PartnerProject } from '@/types/mentors/mentor.type';
 
 export type SelectType = {
   id: string;
   name: string
 }
 export type BasicSelectProps = {
-  options: SelectType[]
+  options: PartnerProject[]
   value: string;
   handleChange: (value: string) => void
 

@@ -3,7 +3,7 @@ import useSWR from 'swr'
 
 import { client } from '../api-client'
 
-import { Mentor, MentorDetails } from '@/types/mentors/mentor.type'
+import { Mentor, MentorDetails,PartnerProject } from '@/types/mentors/mentor.type'
 import { MentorsStats } from '@/types/mentors/stats.type'
 
 export function createProjectAPI(partnerId: string, projectName: string) {
@@ -38,5 +38,12 @@ export function useGetMentorDetails(mentorId: string | null) {
   const orgId = useSession().data?.user?.organization.id
   return useSWR<MentorDetails>(
     mentorId ? `partners/${orgId}/mentors/${mentorId}` : null
+  )
+}
+
+export function useGetProjectDetails() {
+  const orgId = useSession().data?.user?.organization.id
+  return useSWR<PartnerProject[]>(
+    orgId ? `partners/${orgId}/projects` : null
   )
 }
