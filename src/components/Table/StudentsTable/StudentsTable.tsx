@@ -7,6 +7,8 @@ import {
 
 import { StudentStatusText, TestimonialsWrapper } from './StudentsTable.styled'
 
+import Popup from '@/components/Popup/Popup'
+import TestimonialPopup from '@/components/TestimonialPopup/TestimonialPopup'
 import {
   StudentsSearchParams,
   useGetStudents
@@ -14,8 +16,6 @@ import {
 import { Student } from '@/types/students/student.type'
 import EyeIcon from '~/icons/eye.svg'
 import UploadIcon from '~/icons/upload.svg'
-import Popup from '@/components/Popup/Popup'
-import TestimonialPopup from '@/components/TestimonialPopup/TestimonialPopup'
 
 const columns: GridColDef<Student>[] = [
   { field: 'name', headerName: 'Name', flex: 1, sortable: false },

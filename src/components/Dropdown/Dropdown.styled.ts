@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
-import { Option, optionClasses } from '@mui/base/Option'
-import { Popper } from '@mui/base/Popper'
+import Option, { optionClasses } from '@mui/base/Option'
+import Popper from '@mui/base/Popper'
 
 export const StyledButton = styled('button')(
   ({ theme }) => `

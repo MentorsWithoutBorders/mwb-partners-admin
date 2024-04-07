@@ -35,6 +35,6 @@ export interface MentorDetails {
 }
 
 export interface PartnerProject {
-  id?: string;
-  name: string;
+  id?: string
+  name: string
 }
