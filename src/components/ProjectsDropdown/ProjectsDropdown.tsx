@@ -3,19 +3,21 @@ import CloseIcon from '@mui/icons-material/Close'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import Divider from '@mui/material/Divider'
-import { KeyboardEvent, useState,useEffect } from 'react'
-import { useGetProjectDetails } from "@/lib/mentors/mentors-client"
+import { KeyboardEvent, useEffect, useState } from 'react'
+
 import {
   Container,
   CreateProjectInput,
   IconContainer
 } from './ProjectsDropdown.styled'
-import { PartnerProject } from '@/types/mentors/mentor.type'
+
 import { CommonDropdown } from '@/components/Dropdown/Dropdown'
 import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
+import { useGetProjectDetails } from '@/lib/mentors/mentors-client'
 import { createProjectAPI } from '@/lib/mentors/mentors-client'
+import { PartnerProject } from '@/types/mentors/mentor.type'
 
-const DUMMY_DATA:PartnerProject[] = [
+const DUMMY_DATA: PartnerProject[] = [
   {
     id: '1',
     name: 'Project 1'
@@ -44,12 +46,12 @@ export default function ProjectsDropdown() {
       setSelectedProject(value as string)
     }
   }
-  const {data}  = useGetProjectDetails()
-  useEffect(()=>{
-   if(data?.length){
-    setProjects([...data])
-   }
-  },[data])
+  const { data } = useGetProjectDetails()
+  useEffect(() => {
+    if (data?.length) {
+      setProjects([...data])
+    }
+  }, [data])
 
   const handleCreateProject = async (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key !== 'Enter') return

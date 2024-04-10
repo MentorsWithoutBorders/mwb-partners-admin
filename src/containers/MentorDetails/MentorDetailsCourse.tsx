@@ -1,4 +1,3 @@
-import { useState,useEffect } from 'react'
 import { YouTube } from '@mui/icons-material'
 import {
   Box,
@@ -8,9 +7,12 @@ import {
   Typography
 } from '@mui/material'
 import dayjs from 'dayjs'
-import BasicSelect from '@/components/Select/BasicSelect'
-import { MentorDetails ,PartnerProject} from '@/types/mentors/mentor.type'
+import { useEffect, useState } from 'react'
+
 import useMentorDetails from './hooks/useMentorDetails'
+
+import BasicSelect from '@/components/Select/BasicSelect'
+import { MentorDetails, PartnerProject } from '@/types/mentors/mentor.type'
 function getCourseEndDate({
   startDate,
   duration,
@@ -22,7 +24,7 @@ function getCourseEndDate({
   if (canceledDate) return dayjs(canceledDate).format('ll')
   return dayjs(startDate).add(duration, 'months').format('ll')
 }
-const DUMMY_DATA:PartnerProject[] = [
+const DUMMY_DATA: PartnerProject[] = [
   {
     id: '0',
     name: 'None'
@@ -49,15 +51,15 @@ export function MentorDetailsCourse({
   const [createProject, setCreateProject] = useState<boolean>(false)
   const [selectedProject, setSelectedProject] = useState<string>('0')
   const [projects, setProjects] = useState<typeof DUMMY_DATA>(DUMMY_DATA)
-  const {data} = useMentorDetails()
-  useEffect(()=>{
-    if(course.project?.id && data?.length){
+  const { data } = useMentorDetails()
+  useEffect(() => {
+    if (course.project?.id && data?.length) {
       setProjects([...data])
-      setSelectedProject(course.project?.id??'0')
+      setSelectedProject(course.project?.id ?? '0')
     }
-  },[course.project?.id,data])
+  }, [course.project?.id, data])
 
-  const handleChange = ( value: string) => {
+  const handleChange = (value: string) => {
     if (value === 'create') {
       setCreateProject(true)
     } else {
@@ -83,13 +85,16 @@ export function MentorDetailsCourse({
         </Grid>
       </Grid>
 
-      <Box m={2}  display={'flex'} alignItems={'center'} flexDirection={'row'}>
-        <strong>Part of project:</strong> 
+      <Box m={2} display={'flex'} alignItems={'center'} flexDirection={'row'}>
+        <strong>Part of project:</strong>
         {/* {course.project?.name || 'None'} */}
         <div>
-        <BasicSelect options={projects} value={selectedProject} handleChange={handleChange} />
+          <BasicSelect
+            options={projects}
+            value={selectedProject}
+            handleChange={handleChange}
+          />
         </div>
-
       </Box>
 
       <div>
