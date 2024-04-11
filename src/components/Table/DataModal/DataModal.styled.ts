@@ -7,6 +7,8 @@ export const innerModalStyle: SxProps<Theme> = {
   transform: 'translate(-50%, -50%)',
   width: 'calc(100% - 1rem)',
   maxWidth: '1100px',
+  maxHeight: '100%',
+  overflowY: 'auto',
   bgcolor: 'background.paper',
   boxShadow: 24,
   borderRadius: '2rem',
