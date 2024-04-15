@@ -63,7 +63,7 @@ export default function CenterExpensesModal({
 
   const addExpense = () =>
     append({
-      id: '',
+      id: crypto.getRandomValues(new Uint32Array(1))[0].toString(),
       expense: '',
       amount: 0,
       isRecurring: false,
@@ -122,67 +122,65 @@ export default function CenterExpensesModal({
   }
 
   return (
-    <DashboardLayout title="Expenses">
-      <Modal aria-labelledby={centerExpensesModalTitle} open={true}>
-        <Box sx={innerModalStyle} position={'relative'}>
-          <Loader isLoading={saving}>
-            <Typography
-              id={centerExpensesModalTitle}
-              variant="h5"
-              component="h2"
-              textAlign="center"
-              fontWeight={500}
-              paddingBottom={'36px'}
+    <Modal aria-labelledby={centerExpensesModalTitle} open={true}>
+      <Box sx={innerModalStyle} position={'relative'}>
+        <Loader isLoading={saving}>
+          <Typography
+            id={centerExpensesModalTitle}
+            variant="h5"
+            component="h2"
+            textAlign="center"
+            fontWeight={500}
+            paddingBottom={'36px'}
+          >
+            Anchor of Hope - expenses
+          </Typography>
+          <ExpenseFilters
+            month={parseInt(month)}
+            year={parseInt(year)}
+            onFilterChange={onFilterChange}
+          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {fields?.map((field, index) => (
+              <ExpenseRow
+                index={index}
+                key={field.key}
+                expense={field}
+                control={control}
+                register={register}
+                removeExpense={removeExpense}
+              />
+            ))}
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              sx={{ mt: 2 }}
+              onClick={addExpense}
             >
-              Anchor of Hope - expenses
-            </Typography>
-            <ExpenseFilters
-              month={parseInt(month)}
-              year={parseInt(year)}
-              onFilterChange={onFilterChange}
-            />
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {fields?.map((field, index) => (
-                <ExpenseRow
-                  index={index}
-                  key={field.key}
-                  expense={field}
-                  control={control}
-                  register={register}
-                  removeExpense={removeExpense}
-                />
-              ))}
+              Add item
+            </Button>
+            <Box display={'flex'} justifyContent={'end'} gap={'16px'}>
               <Button
-                type="button"
-                variant="contained"
-                color="primary"
+                type="submit"
+                color="secondary"
+                variant="outlined"
                 sx={{ mt: 2 }}
-                onClick={addExpense}
               >
-                Add item
+                Cancel
               </Button>
-              <Box display={'flex'} justifyContent={'end'} gap={'16px'}>
-                <Button
-                  type="submit"
-                  color="secondary"
-                  variant="outlined"
-                  sx={{ mt: 2 }}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  color="success"
-                  variant="contained"
-                  sx={{ mt: 2 }}
-                >
-                  Save
-                </Button>
-              </Box>
-            </form>
-          </Loader>
-        </Box>
-      </Modal>
-    </DashboardLayout>
+              <Button
+                type="submit"
+                color="success"
+                variant="contained"
+                sx={{ mt: 2 }}
+              >
+                Save
+              </Button>
+            </Box>
+          </form>
+        </Loader>
+      </Box>
+    </Modal>
   )
 }
