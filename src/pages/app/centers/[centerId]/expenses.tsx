@@ -1,11 +1,13 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import { getServerSession } from 'next-auth'
 import React from 'react'
 
 import CenterExpensesModal from '@/containers/CenterExpenses/CenterExpensesModal'
+import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { client } from '@/lib/api-client'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import type { Expense } from '@/types/expenses/expense.type'
+import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
 export const getServerSideProps = (async (context) => {
   const accessToken = (
@@ -24,8 +26,16 @@ export const getServerSideProps = (async (context) => {
   return { props: { expenses: response } }
 }) satisfies GetServerSideProps<{ expenses: Expense[] }>
 
-function CenterExpenses({ expenses }: { expenses: Expense[] }) {
-  return <CenterExpensesModal expenses={expenses} />
+const CenterExpenses: WithAuthentication<
+  NextPage<{
+    expenses: Expense[]
+  }>
+> = ({ expenses }) => {
+  return (
+    <DashboardLayout title="Expenses">
+      <CenterExpensesModal expenses={expenses} />
+    </DashboardLayout>
+  )
 }
 
 CenterExpenses.requiresAuthentication = true

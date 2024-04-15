@@ -14,8 +14,9 @@ async function createExpense(
   url: string,
   { arg: { expense } }: { arg: { expense: Expense } }
 ) {
-  return await client(url.replaceAll(':centerId', expense.centerId), {
-    body: expense
+  const { centerId, id, ...body } = expense
+  return await client(url.replaceAll(':centerId', centerId), {
+    body
   }).then((res) => res.json())
 }
 export function useCreateExpense() {
