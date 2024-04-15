@@ -1,8 +1,21 @@
 import { getSession, signOut } from 'next-auth/react'
 
+function isServer() {
+  return typeof window === 'undefined'
+}
+
 export async function client(
   endpoint: string,
-  { body, ...customConfig }: { body?: object; headers?: object } = {}
+  {
+    body,
+    accessToken,
+    ...customConfig
+  }: {
+    body?: object
+    headers?: object
+    method?: 'GET' | 'POST' | 'PATCH' | 'DELETE'
+    accessToken?: string
+  } = {}
 ) {
   const backendApiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -11,11 +24,13 @@ export async function client(
   }
 
   const session = await getSession()
-
   const headers: HeadersInit = { 'content-type': 'application/json' }
-  if (session) {
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`
+  } else if (session) {
     headers.Authorization = `Bearer ${session.accessToken}`
   }
+
   const config: RequestInit = {
     method: body ? 'POST' : 'GET',
     ...customConfig,
@@ -29,11 +44,13 @@ export async function client(
   }
 
   const response = await fetch(`${backendApiUrl}/${endpoint}`, config)
-  if (response.status === 401) {
+  if (response.status === 401 && !isServer()) {
     signOut()
     return
   }
+
   if (response.ok) return await response.json()
+
   try {
     const errorMessage = await response.json()
     return Promise.reject(errorMessage.message || errorMessage)
