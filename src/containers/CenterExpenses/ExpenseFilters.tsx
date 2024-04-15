@@ -64,7 +64,7 @@ function ExpenseFilters({
     }))
 
   return (
-    <Box display={'flex'} gap={'16px'}>
+    <Box display={'flex'} gap={'16px'} paddingBottom={'8px'}>
       <Box width={'200px'}>
         <CommonDropdown id="month" value={month} onChange={handleMonthChange}>
           {monthOptions.map((month) => (
