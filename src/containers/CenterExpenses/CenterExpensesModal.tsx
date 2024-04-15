@@ -3,19 +3,19 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 
+import ExpenseFilters from './ExpenseFilters'
 import ExpenseRow from './ExpenseRow'
+import { Months } from './Months.type'
 
 import Button from '@/components/Button/Button'
 import Loader from '@/components/Loader/Loader'
 import { innerModalStyle } from '@/components/Table/DataModal/DataModal.styled'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
-import { client } from '@/lib/api-client'
 import {
   useCreateExpense,
   useDeleteExpense,
   useUpdateExpense
 } from '@/lib/expenses/expenses-client'
-import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import type { Expense } from '@/types/expenses/expense.type'
 
 function hasExpenseChanged(originalExpense: Expense, newExpense: Expense) {
@@ -34,9 +34,15 @@ export default function CenterExpensesModal({
   expenses: Expense[]
 }) {
   const [saving, setSaving] = useState(false)
+
   const [deletedExpenses, setDeletedExpenses] = useState<string[]>([])
+
   const router = useRouter()
-  const { centerId } = router.query as { centerId: string }
+  const { centerId, month, year } = router.query as {
+    centerId: string
+    month: string
+    year: string
+  }
 
   const { trigger: createExpense } = useCreateExpense()
 
@@ -62,8 +68,8 @@ export default function CenterExpensesModal({
       amount: 0,
       isRecurring: false,
       centerId,
-      month: 1,
-      year: 2024
+      month: parseInt(month),
+      year: parseInt(year)
     })
 
   const pushDeletedExpense = (expenseId: string) => {
@@ -111,6 +117,10 @@ export default function CenterExpensesModal({
       .finally(() => setSaving(false))
   }
 
+  const onFilterChange = (month: Months, year: number) => {
+    router.push(`/app/centers/${centerId}/expenses?month=${month}&year=${year}`)
+  }
+
   return (
     <DashboardLayout title="Expenses">
       <Modal aria-labelledby={centerExpensesModalTitle} open={true}>
@@ -125,6 +135,11 @@ export default function CenterExpensesModal({
             >
               Anchor of Hope - expenses
             </Typography>
+            <ExpenseFilters
+              month={parseInt(month)}
+              year={parseInt(year)}
+              onFilterChange={onFilterChange}
+            />
             <form onSubmit={handleSubmit(onSubmit)}>
               {fields?.map((field, index) => (
                 <ExpenseRow
@@ -138,22 +153,31 @@ export default function CenterExpensesModal({
               ))}
               <Button
                 type="button"
-                fullWidth
                 variant="contained"
-                color="success"
+                color="primary"
                 sx={{ mt: 2 }}
                 onClick={addExpense}
               >
-                Add
+                Add item
               </Button>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 2 }}
-              >
-                Save
-              </Button>
+              <Box display={'flex'} justifyContent={'end'} gap={'16px'}>
+                <Button
+                  type="submit"
+                  color="secondary"
+                  variant="outlined"
+                  sx={{ mt: 2 }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  color="success"
+                  variant="contained"
+                  sx={{ mt: 2 }}
+                >
+                  Save
+                </Button>
+              </Box>
             </form>
           </Loader>
         </Box>

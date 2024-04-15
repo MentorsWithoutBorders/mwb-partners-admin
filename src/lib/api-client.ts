@@ -9,12 +9,14 @@ export async function client(
   {
     body,
     accessToken,
+    query,
     ...customConfig
   }: {
     body?: object
+    accessToken?: string
     headers?: object
     method?: 'GET' | 'POST' | 'PATCH' | 'DELETE'
-    accessToken?: string
+    query?: Record<string, string>
   } = {}
 ) {
   const backendApiUrl = process.env.NEXT_PUBLIC_API_URL
@@ -25,6 +27,7 @@ export async function client(
 
   const session = await getSession()
   const headers: HeadersInit = { 'content-type': 'application/json' }
+
   if (accessToken) {
     headers.Authorization = `Bearer ${accessToken}`
   } else if (session) {
@@ -43,7 +46,14 @@ export async function client(
     config.body = JSON.stringify(body)
   }
 
-  const response = await fetch(`${backendApiUrl}/${endpoint}`, config)
+  let url = `${backendApiUrl}/${endpoint}`
+
+  if (query) {
+    url += '?' + new URLSearchParams(query).toString()
+  }
+
+  new URLSearchParams(query)
+  const response = await fetch(url, config)
   if (response.status === 401 && !isServer()) {
     signOut()
     return
