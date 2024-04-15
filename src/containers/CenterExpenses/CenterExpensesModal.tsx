@@ -132,6 +132,7 @@ export default function CenterExpensesModal({
               component="h2"
               textAlign="center"
               fontWeight={500}
+              paddingBottom={'36px'}
             >
               Anchor of Hope - expenses
             </Typography>
