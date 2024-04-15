@@ -11,10 +11,14 @@ export const getServerSideProps = (async (context) => {
   const accessToken = (
     await getServerSession(context.req, context.res, authOptions)
   )?.accessToken
+
+  const { month, year } = context.query
+
   const response = await client(
     `centers/${context?.params?.centerId}/expenses`,
     {
-      accessToken
+      accessToken,
+      query: { month: month as string, year: year as string }
     }
   )
   return { props: { expenses: response } }

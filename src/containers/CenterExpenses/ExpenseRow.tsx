@@ -41,7 +41,9 @@ export default function ExpenseRow({
           fullWidth
           placeholder="Expense item"
           margin="normal"
-          {...register(`expenses.${index}.expense`)}
+          {...register(`expenses.${index}.expense`, {
+            required: 'This field is required'
+          })}
         />
       </Grid>
       <Grid item xs={2}>
@@ -52,7 +54,9 @@ export default function ExpenseRow({
           id="amount"
           placeholder="Amount"
           type="number"
-          {...register(`expenses.${index}.amount`)}
+          {...register(`expenses.${index}.amount`, {
+            required: 'This field is required'
+          })}
         />
       </Grid>
       <Grid item xs={2}>

@@ -60,7 +60,7 @@ export const StyledOption = styled(Option)(
 
 export const StyledPopper = styled(Popper)(
   ({ theme }) => `
-		z-index: 1;
+		z-index: 1300;
 		gap: 5px;
 	`
 )
