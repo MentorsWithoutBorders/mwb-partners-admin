@@ -6,6 +6,10 @@ import { useState } from 'react'
 import Button from '@/components/Button/Button'
 import DashboardItem from '@/components/DashboardItem/DashboardItem'
 import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
+import GeoMap, { IGeoMapLocation } from '@/components/GeoMap/GeoMap'
+import GeoMapPopover, {
+  IGeoMapPopoverDetails
+} from '@/components/GeoMapPopover/GeoMapPopover'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { DownloadCsvForm } from '@/containers/DownloadCsvForm/DownloadCsvForm'
 import { flexContainer, toggleButton } from '@/styles/pages/app/index.styled'
@@ -33,6 +37,37 @@ const SAMPLE_DATA = [
     icon: './icons/mentors-blue.svg'
   }
 ]
+
+const SAMPLE_LOCATIONS = [
+  {
+    lonLat: [41.68832658348843, 44.811985973507895],
+    markerLabel: '120',
+    details: {
+      country: 'Georgia'
+    }
+  },
+  {
+    lonLat: [41.91091088009691, 12.453041129607207],
+    markerLabel: '20',
+    details: {
+      country: 'Italy'
+    }
+  },
+  {
+    lonLat: [40.40910810436468, -3.7109913179473026],
+    markerLabel: '110',
+    details: {
+      country: 'Spain'
+    }
+  },
+  {
+    lonLat: [-1.333412007165954, 36.714870832750265],
+    markerLabel: '55',
+    details: {
+      country: 'Kenia'
+    }
+  }
+] as IGeoMapLocation<IGeoMapPopoverDetails>[]
 
 const DashboardPage: WithAuthentication<NextPage> = () => {
   const [allParticipants, setAllParticipants] = useState<boolean>(false)
@@ -77,6 +112,12 @@ const DashboardPage: WithAuthentication<NextPage> = () => {
           />
         ))}
       </DashboardItemsWrapper>
+      <br />
+      <GeoMap
+        height="500px"
+        popoverRenderer={GeoMapPopover}
+        locations={SAMPLE_LOCATIONS}
+      />
     </DashboardLayout>
   )
 }
