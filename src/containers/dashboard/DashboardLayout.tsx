@@ -23,7 +23,11 @@ const SIDEBAR_LINKS: SidebarLink[] = [
   },
   { link: '/app/mentors', title: 'Mentors', icon: <MentorIcon /> },
   { link: '/app/students', title: 'Students', icon: <StudentIcon /> },
-  { link: '/app/centers', title: 'Centers', icon: <DashboardIcon /> }
+  {
+    link: `app/centers/00a6fa25-df29-4701-9077-557932591766/expenses?month=${new Date().getMonth()}&year=${new Date().getFullYear()}`,
+    title: 'Centers',
+    icon: <StudentIcon />
+  }
 ]
 
 export function DashboardLayout({
