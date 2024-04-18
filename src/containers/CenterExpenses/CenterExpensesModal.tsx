@@ -121,8 +121,16 @@ export default function CenterExpensesModal({
     router.push(`/app/centers/${centerId}/expenses?month=${month}&year=${year}`)
   }
 
+  const onClose = () => {
+    router.push(`/app`)
+  }
+
   return (
-    <Modal aria-labelledby={centerExpensesModalTitle} open={true}>
+    <Modal
+      open={true}
+      aria-labelledby={centerExpensesModalTitle}
+      onClose={onClose}
+    >
       <Box sx={innerModalStyle} position={'relative'}>
         <Loader isLoading={saving}>
           <Typography
@@ -162,10 +170,11 @@ export default function CenterExpensesModal({
             </Button>
             <Box display={'flex'} justifyContent={'end'} gap={'16px'}>
               <Button
-                type="submit"
+                type="button"
                 color="secondary"
                 variant="outlined"
                 sx={{ mt: 2 }}
+                onClick={onClose}
               >
                 Cancel
               </Button>
