@@ -4,13 +4,15 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  IconButton,
-  TextField
+  IconButton
 } from '@mui/material'
 import React from 'react'
 import { Control, Controller, UseFormRegister } from 'react-hook-form'
 
-import type { Expense } from '@/types/expenses/expense.type'
+import { ExpensesForm } from './ExpensesForm.type'
+
+import TextField from '@/components/Input/TextField/TextField'
+import type { CenterExpense } from '@/types/expenses/centerExpense.type'
 
 export default function ExpenseRow({
   index,
@@ -20,17 +22,10 @@ export default function ExpenseRow({
   expense
 }: {
   index: number
-  register: UseFormRegister<{
-    expenses: Expense[]
-  }>
+  register: UseFormRegister<ExpensesForm>
   removeExpense: (expenseIndex: number, expenseId: string) => void
-  control: Control<
-    {
-      expenses: Expense[]
-    },
-    any
-  >
-  expense: Expense
+  control: Control<ExpensesForm, any>
+  expense: CenterExpense
 }) {
   return (
     <Grid container spacing={4} alignItems={'center'}>
@@ -84,7 +79,6 @@ export default function ExpenseRow({
         <IconButton
           aria-label="delete expense"
           onClick={() => removeExpense(index, expense.id)}
-          edge="end"
         >
           <Close color={'error'} />
         </IconButton>

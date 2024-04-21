@@ -1,24 +1,31 @@
-import { Box, Modal, Typography } from '@mui/material'
+import { Box, Grid, Modal, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 
 import ExpenseFilters from './ExpenseFilters'
 import ExpenseRow from './ExpenseRow'
+import { ExpensesForm } from './ExpensesForm.type'
 import { Months } from './Months.type'
 
 import Button from '@/components/Button/Button'
+import TextField from '@/components/Input/TextField/TextField'
 import Loader from '@/components/Loader/Loader'
 import { innerModalStyle } from '@/components/Table/DataModal/DataModal.styled'
-import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import {
   useCreateExpense,
   useDeleteExpense,
-  useUpdateExpense
+  useUpdateExpense,
+  useUpdateExpensePaid
 } from '@/lib/expenses/expenses-client'
-import type { Expense } from '@/types/expenses/expense.type'
+import type { CenterBalance } from '@/types/expenses/centerBalance.type'
+import type { CenterExpense } from '@/types/expenses/centerExpense.type'
+import { CenterExpensePaid } from '@/types/expenses/centerExpensePaid.type'
 
-function hasExpenseChanged(originalExpense: Expense, newExpense: Expense) {
+function hasExpenseChanged(
+  originalExpense: CenterExpense,
+  newExpense: CenterExpense
+) {
   return (
     originalExpense.expense !== newExpense.expense ||
     originalExpense.amount !== newExpense.amount ||
@@ -29,9 +36,13 @@ function hasExpenseChanged(originalExpense: Expense, newExpense: Expense) {
 const centerExpensesModalTitle = 'center-expenses-modal-title'
 
 export default function CenterExpensesModal({
-  expenses
+  expenses,
+  balance,
+  expensePaid
 }: {
-  expenses: Expense[]
+  expenses: CenterExpense[]
+  balance: CenterBalance
+  expensePaid: CenterExpensePaid
 }) {
   const [saving, setSaving] = useState(false)
 
@@ -50,10 +61,13 @@ export default function CenterExpensesModal({
 
   const { trigger: deleteExpense } = useDeleteExpense()
 
-  const { register, handleSubmit, control } = useForm({
-    defaultValues: { expenses },
-    values: { expenses }
-  })
+  const { trigger: updateExpensePaid } = useUpdateExpensePaid()
+
+  const { register, handleSubmit, control, getValues, reset } =
+    useForm<ExpensesForm>({
+      defaultValues: { expenses, expensePaidAmount: '' },
+      values: { expenses, expensePaidAmount: '' }
+    })
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -84,8 +98,28 @@ export default function CenterExpensesModal({
     remove(expenseIndex)
   }
 
-  const onSubmit = (values: { expenses: Expense[] }) => {
+  const onSubmit = (values: ExpensesForm) => {
     const allPromises: Promise<any>[] = []
+
+    const expensePaidAmountNumber = Number.parseInt(
+      `${values?.expensePaidAmount}`,
+      10
+    )
+
+    if (!Number.isNaN(expensePaidAmountNumber)) {
+      const previousExpensePaid = expensePaid?.amount || 0
+      allPromises.push(
+        updateExpensePaid({
+          expensePaid: {
+            centerId,
+            amount: previousExpensePaid + expensePaidAmountNumber,
+            month: parseInt(month),
+            year: parseInt(year)
+          }
+        })
+      )
+    }
+
     values.expenses.forEach((expense) => {
       const originalExpense = expenses.find((e) => e.id === expense.id)
 
@@ -112,7 +146,7 @@ export default function CenterExpensesModal({
     setSaving(true)
     Promise.all(allPromises)
       .then(() => {
-        router.push(`/app/centers/${centerId}/expenses`)
+        router.reload()
       })
       .finally(() => setSaving(false))
   }
@@ -124,6 +158,11 @@ export default function CenterExpensesModal({
   const onClose = () => {
     router.push(`/app`)
   }
+
+  const totalExpenseCurrentMonth = expenses.reduce(
+    (acc, expense) => acc + expense.amount,
+    0
+  )
 
   return (
     <Modal
@@ -168,6 +207,34 @@ export default function CenterExpensesModal({
             >
               Add item
             </Button>
+            <Grid container alignItems={'center'} columns={12}>
+              <Grid item xs={8} display={'flex'} justifyContent={'end'}>
+                <Typography width={'100px'}>Total:</Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <div>{`$ ${totalExpenseCurrentMonth} USD`}</div>
+              </Grid>
+              <Grid item xs={8} display={'flex'} justifyContent={'end'}>
+                <Typography width={'100px'}>Paid:</Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <TextField
+                  id="expensePaidAmount"
+                  type="number"
+                  margin="normal"
+                  placeholder="Amount"
+                  {...register('expensePaidAmount')}
+                />
+              </Grid>
+              <Grid item xs={8} display={'flex'} justifyContent={'end'}>
+                <Typography width={'100px'}>Balance (Till date):</Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Box color={balance.balance > 0 ? 'green' : 'red'}>
+                  {`$ ${balance.balance} USD`}
+                </Box>
+              </Grid>
+            </Grid>
             <Box display={'flex'} justifyContent={'end'} gap={'16px'}>
               <Button
                 type="button"
