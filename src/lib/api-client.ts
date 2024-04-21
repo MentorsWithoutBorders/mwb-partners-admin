@@ -59,12 +59,20 @@ export async function client(
     return
   }
 
-  if (response.ok) return await response.json()
+  const responseClone = response.clone()
+
+  if (response.ok) {
+    try {
+      return await response.json()
+    } catch (e) {
+      return await responseClone.text()
+    }
+  }
 
   try {
     const errorMessage = await response.json()
     return Promise.reject(errorMessage.message || errorMessage)
   } catch {
-    return Promise.reject(await response.text())
+    return Promise.reject(await responseClone.text())
   }
 }

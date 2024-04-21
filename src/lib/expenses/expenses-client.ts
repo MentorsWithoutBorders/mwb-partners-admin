@@ -4,20 +4,21 @@ import useSWRMutation from 'swr/mutation'
 
 import { client } from '../api-client'
 
-import { Expense } from '@/types/expenses/expense.type'
+import { CenterExpense } from '@/types/expenses/centerExpense.type'
+import { CenterExpensePaid } from '@/types/expenses/centerExpensePaid.type'
 
 export function useGetExpenses(centerId: string) {
-  return useSWR<Expense[]>(`centers/${centerId}/expenses`)
+  return useSWR<CenterExpense[]>(`centers/${centerId}/expenses`)
 }
 
 async function createExpense(
   url: string,
-  { arg: { expense } }: { arg: { expense: Expense } }
+  { arg: { expense } }: { arg: { expense: CenterExpense } }
 ) {
   const { centerId, id, ...body } = expense
   return await client(url.replaceAll(':centerId', centerId), {
     body
-  }).then((res) => res.json())
+  })
 }
 export function useCreateExpense() {
   return useSWRMutation(`centers/:centerId/expenses`, createExpense)
@@ -25,7 +26,7 @@ export function useCreateExpense() {
 
 async function updateExpense(
   url: string,
-  { arg: { expense } }: { arg: { expense: Expense } }
+  { arg: { expense } }: { arg: { expense: CenterExpense } }
 ) {
   const { id, ...others } = expense
   return await client(
@@ -34,7 +35,7 @@ async function updateExpense(
       method: 'PATCH',
       body: others
     }
-  ).then((res) => res.json())
+  )
 }
 export function useUpdateExpense() {
   return useSWRMutation(`centers/:centerId/expenses/:expenseId`, updateExpense)
@@ -49,8 +50,24 @@ async function deleteExpense(
   return await client(
     url.replaceAll(':centerId', centerId).replaceAll(':expenseId', expenseId),
     { method: 'DELETE' }
-  ).then((res) => res.json())
+  )
 }
 export function useDeleteExpense() {
   return useSWRMutation(`centers/:centerId/expenses/:expenseId`, deleteExpense)
+}
+
+async function updateExpensePaid(
+  url: string,
+  {
+    arg: { expensePaid }
+  }: { arg: { expensePaid: Omit<CenterExpensePaid, 'id'> } }
+) {
+  const { centerId, ...body } = expensePaid
+  return await client(url.replaceAll(':centerId', centerId), {
+    method: 'PATCH',
+    body
+  })
+}
+export function useUpdateExpensePaid() {
+  return useSWRMutation(`centers/:centerId/expenses/paid`, updateExpensePaid)
 }

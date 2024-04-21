@@ -10,6 +10,7 @@ import {
 } from '@/components/Layout/Layout'
 import Logout from '@/components/Logout/Logout'
 import UserDetails from '@/components/UserDetails/UserDatails'
+import CentersIcon from '~/icons/centers-white.svg'
 import DashboardIcon from '~/icons/dashboard.svg'
 import MentorIcon from '~/icons/mentors-white.svg'
 import StudentIcon from '~/icons/students-white.svg'
@@ -26,7 +27,7 @@ const SIDEBAR_LINKS: SidebarLink[] = [
   {
     link: `app/centers/00a6fa25-df29-4701-9077-557932591766/expenses?month=${new Date().getMonth()}&year=${new Date().getFullYear()}`,
     title: 'Centers',
-    icon: <StudentIcon />
+    icon: <CentersIcon />
   }
 ]
 
