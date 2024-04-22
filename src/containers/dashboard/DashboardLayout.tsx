@@ -22,7 +22,8 @@ const SIDEBAR_LINKS: SidebarLink[] = [
     exact: true
   },
   { link: '/app/mentors', title: 'Mentors', icon: <MentorIcon /> },
-  { link: '/app/students', title: 'Students', icon: <StudentIcon /> }
+  { link: '/app/students', title: 'Students', icon: <StudentIcon /> },
+  { link: '/app/centers', title: 'Centers', icon: <DashboardIcon /> }
 ]
 
 export function DashboardLayout({

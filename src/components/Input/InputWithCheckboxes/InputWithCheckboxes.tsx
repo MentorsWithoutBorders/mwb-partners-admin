@@ -24,7 +24,8 @@ function InputWithCheckboxes({
   onCheckboxesChange,
   onInputChange,
   onMenuChange,
-  placeholder
+  placeholder,
+  showEndAdornment = true
 }: {
   checkboxesLabels: Array<string>
   checkboxesValues: Array<boolean>
@@ -33,6 +34,7 @@ function InputWithCheckboxes({
   onInputChange?: Function
   onMenuChange?: Function
   placeholder?: string
+  showEndAdornment?: boolean
 }) {
   const inputRef = React.useRef(null)
   const [showPopperMenu, setShowPopperMenu] = React.useState(false)
@@ -107,15 +109,17 @@ function InputWithCheckboxes({
           value={inputValue}
           onChange={handleInputChange}
           endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle menu visibility"
-                onClick={handleIconBtnClick}
-                edge="end"
-              >
-                <TuneIcon color={showPopperMenu ? 'disabled' : 'action'} />
-              </IconButton>
-            </InputAdornment>
+            showEndAdornment && (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle menu visibility"
+                  onClick={handleIconBtnClick}
+                  edge="end"
+                >
+                  <TuneIcon color={showPopperMenu ? 'disabled' : 'action'} />
+                </IconButton>
+              </InputAdornment>
+            )
           }
         />
 
