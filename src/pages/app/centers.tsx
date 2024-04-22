@@ -6,7 +6,7 @@ import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWit
 import CentersTable from '@/components/Table/CentersTable/CentersTable'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { useDebounce } from '@/lib/hooks/useDebounce'
-import { flexContainer } from '@/styles/pages/app/students.styled'
+import { flexContainer } from '@/styles/pages/app/centers.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
 const CentersPage: WithAuthentication<NextPage> = () => {
@@ -27,14 +27,6 @@ const CentersPage: WithAuthentication<NextPage> = () => {
   ])
 
   const debouncedSearch = useDebounce(searchInput, 300)
-  const searchFilterParams = {
-    searchString: debouncedSearch,
-
-    searchByName: searchCheckboxes[0],
-    searchByEmail: searchCheckboxes[1],
-    searchByStudentStatus: searchCheckboxes[2],
-    searchByStudentOrganization: searchCheckboxes[3]
-  }
 
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value)
@@ -50,10 +42,6 @@ const CentersPage: WithAuthentication<NextPage> = () => {
         setSearchCheckboxes(newValues)
       }
     }
-  }
-
-  const handleCentreChange = (newCentre: number) => {
-    setCentre(newCentre)
   }
 
   return (
@@ -72,7 +60,7 @@ const CentersPage: WithAuthentication<NextPage> = () => {
         />
       </Box>
 
-      <CentersTable searchString={searchInput} />
+      <CentersTable searchString={debouncedSearch} />
     </DashboardLayout>
   )
 }
