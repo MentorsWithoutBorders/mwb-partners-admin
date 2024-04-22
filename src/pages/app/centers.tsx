@@ -1,24 +1,15 @@
 import Box from '@mui/material/Box'
-import Image from 'next/image'
 import { NextPage } from 'next/types'
 import { ChangeEvent, useState } from 'react'
 
-import CentresDropdown from '@/components/CentresDropdown/CentresDropdown'
-import DashboardItem from '@/components/DashboardItem/DashboardItem'
-import { DashboardItemsWrapper } from '@/components/DashboardItem/DashboardItem.styled'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import CentersTable from '@/components/Table/CentersTable/CentersTable'
-// import StudentsTable from '@/components/Table/StudentsTable/StudentsTable'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { useDebounce } from '@/lib/hooks/useDebounce'
-import { useGetStudentStats } from '@/lib/students/students-client'
-import {
-  filterLeftMargin,
-  flexContainer
-} from '@/styles/pages/app/students.styled'
+import { flexContainer } from '@/styles/pages/app/students.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
-const StudentsPage: WithAuthentication<NextPage> = () => {
+const CentersPage: WithAuthentication<NextPage> = () => {
   const [searchInput, setSearchInput] = useState('')
   const [centre, setCentre] = useState<number>(0)
 
@@ -86,6 +77,6 @@ const StudentsPage: WithAuthentication<NextPage> = () => {
   )
 }
 
-StudentsPage.requiresAuthentication = true
+CentersPage.requiresAuthentication = true
 
-export default StudentsPage
+export default CentersPage
