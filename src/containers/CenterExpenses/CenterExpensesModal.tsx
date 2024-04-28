@@ -28,7 +28,7 @@ function hasExpenseChanged(
 ) {
   return (
     originalExpense.expense !== newExpense.expense ||
-    originalExpense.amount !== newExpense.amount ||
+    originalExpense.amount != newExpense.amount ||
     originalExpense.isRecurring !== newExpense.isRecurring
   )
 }
