@@ -4,7 +4,8 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  IconButton
+  IconButton,
+  Typography
 } from '@mui/material'
 import React from 'react'
 import { Control, Controller, UseFormRegister } from 'react-hook-form'
@@ -12,6 +13,7 @@ import { Control, Controller, UseFormRegister } from 'react-hook-form'
 import { ExpensesForm } from './ExpensesForm.type'
 
 import TextField from '@/components/Input/TextField/TextField'
+import Months from '@/lib/enums/months'
 import type { CenterExpense } from '@/types/expenses/centerExpense.type'
 
 export default function ExpenseRow({
@@ -56,8 +58,12 @@ export default function ExpenseRow({
           })}
         />
       </Grid>
-      {!isUnsavedRecurringExpense && (
-        <Grid item xs={2}>
+      <Grid item xs={2}>
+        {isUnsavedRecurringExpense ? (
+          <Box textAlign={'center'}>
+            Recurring since {Months[expense.month]} - {expense.year}
+          </Box>
+        ) : (
           <Controller
             name={`expenses.${index}.isRecurring`}
             control={control}
@@ -77,8 +83,8 @@ export default function ExpenseRow({
               )
             }}
           />
-        </Grid>
-      )}
+        )}
+      </Grid>
       <Grid item xs={1}>
         <IconButton
           aria-label="delete expense"

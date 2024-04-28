@@ -10,21 +10,7 @@ import React, { FocusEvent, KeyboardEvent, MouseEvent } from 'react'
 
 import { CommonDropdown } from '@/components/Dropdown/Dropdown'
 import { StyledOption } from '@/components/Dropdown/Dropdown.styled'
-
-enum Months {
-  'January' = 0,
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-}
+import Months from '@/lib/enums/months'
 
 interface ExpenseFiltersProps {
   month: Months
