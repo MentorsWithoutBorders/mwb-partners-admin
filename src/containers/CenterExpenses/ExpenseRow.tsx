@@ -19,13 +19,15 @@ export default function ExpenseRow({
   register,
   removeExpense,
   control,
-  expense
+  expense,
+  isUnsavedRecurringExpense
 }: {
   index: number
   register: UseFormRegister<ExpensesForm>
   removeExpense: (expenseIndex: number, expenseId: string) => void
   control: Control<ExpensesForm, any>
   expense: CenterExpense
+  isUnsavedRecurringExpense: boolean
 }) {
   return (
     <Grid container spacing={4} alignItems={'center'}>
@@ -54,27 +56,29 @@ export default function ExpenseRow({
           })}
         />
       </Grid>
-      <Grid item xs={2}>
-        <Controller
-          name={`expenses.${index}.isRecurring`}
-          control={control}
-          render={({ field }) => {
-            return (
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id={'isRecurring'}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    checked={field.value}
-                  />
-                }
-                label={'Recurring'}
-              />
-            )
-          }}
-        />
-      </Grid>
+      {!isUnsavedRecurringExpense && (
+        <Grid item xs={2}>
+          <Controller
+            name={`expenses.${index}.isRecurring`}
+            control={control}
+            render={({ field }) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      id={'isRecurring'}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      checked={field.value}
+                    />
+                  }
+                  label={'Recurring'}
+                />
+              )
+            }}
+          />
+        </Grid>
+      )}
       <Grid item xs={1}>
         <IconButton
           aria-label="delete expense"
