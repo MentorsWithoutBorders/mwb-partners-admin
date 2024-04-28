@@ -13,9 +13,9 @@ export function useGetExpenses(centerId: string) {
 
 async function createExpense(
   url: string,
-  { arg: { expense } }: { arg: { expense: CenterExpense } }
+  { arg: { expense } }: { arg: { expense: Omit<CenterExpense, 'id'> } }
 ) {
-  const { centerId, id, ...body } = expense
+  const { centerId, ...body } = expense
   return await client(url.replaceAll(':centerId', centerId), {
     body
   })

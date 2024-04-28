@@ -94,8 +94,17 @@ export default function CenterExpensesModal({
   }
 
   const removeExpense = (expenseIndex: number, expenseId: string) => {
-    pushDeletedExpense(fields[expenseIndex]?.id)
+    if (!isUnsavedRecurringExpense(fields[expenseIndex])) {
+      pushDeletedExpense(fields[expenseIndex]?.id)
+    }
     remove(expenseIndex)
+  }
+
+  const isUnsavedRecurringExpense = (expense: CenterExpense) => {
+    return (
+      (expense.month !== parseInt(month) || expense.year !== parseInt(year)) &&
+      expense.isRecurring
+    )
   }
 
   const onSubmit = (values: ExpensesForm) => {
@@ -124,7 +133,20 @@ export default function CenterExpensesModal({
       const originalExpense = expenses.find((e) => e.id === expense.id)
 
       if (originalExpense) {
-        if (hasExpenseChanged(originalExpense, expense)) {
+        if (isUnsavedRecurringExpense(expense)) {
+          allPromises.push(
+            createExpense({
+              expense: {
+                expense: expense.expense,
+                amount: expense.amount,
+                month: parseInt(month),
+                year: parseInt(year),
+                centerId: expense.centerId,
+                isRecurring: false
+              }
+            })
+          )
+        } else if (hasExpenseChanged(originalExpense, expense)) {
           allPromises.push(updateExpense({ expense }))
         }
       } else {
@@ -146,7 +168,7 @@ export default function CenterExpensesModal({
     setSaving(true)
     Promise.all(allPromises)
       .then(() => {
-        router.reload()
+        router.replace(router.asPath)
       })
       .finally(() => setSaving(false))
   }
@@ -196,6 +218,7 @@ export default function CenterExpensesModal({
                 control={control}
                 register={register}
                 removeExpense={removeExpense}
+                isUnsavedRecurringExpense={isUnsavedRecurringExpense(field)}
               />
             ))}
             <Button
@@ -227,7 +250,7 @@ export default function CenterExpensesModal({
                 />
               </Grid>
               <Grid item xs={8} display={'flex'} justifyContent={'end'}>
-                <Typography width={'100px'}>Balance (Till date):</Typography>
+                <Typography width={'100px'}>Balance:</Typography>
               </Grid>
               <Grid item xs={4}>
                 <Box color={balance.balance > 0 ? 'green' : 'red'}>
