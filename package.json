@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "commit": "cz",
-    "dev": "next dev -p 3001",
+    "dev": "next dev",
     "eslint:check": "next lint",
     "eslint:fix": "npm run eslint:check -- --fix",
     "lint": "npm run eslint:check && npm run prettier:check",
