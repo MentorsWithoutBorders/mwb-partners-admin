@@ -38,33 +38,82 @@ const SAMPLE_DATA = [
   }
 ]
 
+const SAMPLE_LOCATION_DATA = [
+  {
+    org: {
+      id: 1,
+      name: 'Education for All Children',
+      url: 'https://google.com'
+    },
+    students: [
+      {
+        id: 1,
+        fullName: 'John Doe',
+        videoUrl: 'https://youtube.com',
+        videoTitle: 'Testimonial'
+      },
+      {
+        id: 2,
+        fullName: 'Jane Doe',
+        videoUrl: 'https://youtube.com',
+        videoTitle: 'Testimonial'
+      }
+    ]
+  },
+  {
+    org: {
+      id: 2,
+      name: 'The Leo Project',
+      url: 'https://google.com'
+    },
+    students: [
+      {
+        id: 3,
+        fullName: 'John Doe',
+        videoUrl: 'https://youtube.com',
+        videoTitle: 'Testimonial'
+      },
+      {
+        id: 4,
+        fullName: 'Jane Doe',
+        videoUrl: 'https://youtube.com',
+        videoTitle: 'Testimonial'
+      }
+    ]
+  }
+]
+
 const SAMPLE_LOCATIONS = [
   {
     lonLat: [41.68832658348843, 44.811985973507895],
     markerLabel: '120',
     details: {
-      country: 'Georgia'
+      country: 'Georgia',
+      data: SAMPLE_LOCATION_DATA
     }
   },
   {
     lonLat: [41.91091088009691, 12.453041129607207],
     markerLabel: '20',
     details: {
-      country: 'Italy'
+      country: 'Italy',
+      data: SAMPLE_LOCATION_DATA
     }
   },
   {
     lonLat: [40.40910810436468, -3.7109913179473026],
     markerLabel: '110',
     details: {
-      country: 'Spain'
+      country: 'Spain',
+      data: SAMPLE_LOCATION_DATA
     }
   },
   {
     lonLat: [-1.333412007165954, 36.714870832750265],
     markerLabel: '55',
     details: {
-      country: 'Kenia'
+      country: 'Kenia',
+      data: SAMPLE_LOCATION_DATA
     }
   }
 ] as IGeoMapLocation<IGeoMapPopoverDetails>[]
@@ -114,7 +163,7 @@ const DashboardPage: WithAuthentication<NextPage> = () => {
       </DashboardItemsWrapper>
       <br />
       <GeoMap
-        height="500px"
+        height="600px"
         popoverRenderer={GeoMapPopover}
         locations={SAMPLE_LOCATIONS}
       />

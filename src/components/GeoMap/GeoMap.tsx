@@ -49,10 +49,10 @@ export default function GeoMap<T>({
   popoverRenderer,
   center = [0, 0],
   zoom = {
-    onFocus: 10,
-    onBlur: 5,
     default: 2,
-    duration: 500
+    duration: 500,
+    onFocus: 2,
+    onBlur: 2
   }
 }: Props<T>) {
   const mapRef = useRef<HTMLDivElement>(null)
