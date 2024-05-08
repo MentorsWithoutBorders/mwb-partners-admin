@@ -10,6 +10,7 @@ import {
 } from '@/components/Layout/Layout'
 import Logout from '@/components/Logout/Logout'
 import UserDetails from '@/components/UserDetails/UserDatails'
+import CentersIcon from '~/icons/centers-white.svg'
 import DashboardIcon from '~/icons/dashboard.svg'
 import MentorIcon from '~/icons/mentors-white.svg'
 import StudentIcon from '~/icons/students-white.svg'
@@ -23,7 +24,11 @@ const SIDEBAR_LINKS: SidebarLink[] = [
   },
   { link: '/app/mentors', title: 'Mentors', icon: <MentorIcon /> },
   { link: '/app/students', title: 'Students', icon: <StudentIcon /> },
-  { link: '/app/centers', title: 'Centers', icon: <DashboardIcon /> }
+  {
+    link: `/app/centers`,
+    title: 'Centers',
+    icon: <CentersIcon />
+  }
 ]
 
 export function DashboardLayout({

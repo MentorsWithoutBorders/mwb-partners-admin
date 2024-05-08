@@ -5,7 +5,7 @@ import { CenterTableEntry, Centre } from '@/types/centre.type'
 
 export function useGetCentres() {
   const orgId = useSession().data?.user?.organization.id
-  return useSWR<Centre[]>(`organizations/${orgId}/centres/`)
+  return useSWR<Centre[]>(`organizations/${orgId}/centers/`)
 }
 
 export function useGetCentresTable(searchString: string) {

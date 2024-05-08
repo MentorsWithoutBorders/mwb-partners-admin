@@ -1,8 +1,23 @@
 import { getSession, signOut } from 'next-auth/react'
 
+function isServer() {
+  return typeof window === 'undefined'
+}
+
 export async function client(
   endpoint: string,
-  { body, ...customConfig }: { body?: object; headers?: object } = {}
+  {
+    body,
+    accessToken,
+    query,
+    ...customConfig
+  }: {
+    body?: object
+    accessToken?: string
+    headers?: object
+    method?: 'GET' | 'POST' | 'PATCH' | 'DELETE'
+    query?: Record<string, string>
+  } = {}
 ) {
   const backendApiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -11,11 +26,14 @@ export async function client(
   }
 
   const session = await getSession()
-
   const headers: HeadersInit = { 'content-type': 'application/json' }
-  if (session) {
+
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`
+  } else if (session) {
     headers.Authorization = `Bearer ${session.accessToken}`
   }
+
   const config: RequestInit = {
     method: body ? 'POST' : 'GET',
     ...customConfig,
@@ -28,16 +46,33 @@ export async function client(
     config.body = JSON.stringify(body)
   }
 
-  const response = await fetch(`${backendApiUrl}/${endpoint}`, config)
-  if (response.status === 401) {
+  let url = `${backendApiUrl}/${endpoint}`
+
+  if (query) {
+    url += '?' + new URLSearchParams(query).toString()
+  }
+
+  new URLSearchParams(query)
+  const response = await fetch(url, config)
+  if (response.status === 401 && !isServer()) {
     signOut()
     return
   }
-  if (response.ok) return await response.json()
+
+  const responseClone = response.clone()
+
+  if (response.ok) {
+    try {
+      return await response.json()
+    } catch (e) {
+      return await responseClone.text()
+    }
+  }
+
   try {
     const errorMessage = await response.json()
     return Promise.reject(errorMessage.message || errorMessage)
   } catch {
-    return Promise.reject(await response.text())
+    return Promise.reject(await responseClone.text())
   }
 }

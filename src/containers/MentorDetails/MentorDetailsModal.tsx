@@ -52,8 +52,6 @@ export function MentorDetailsModal() {
   const router = useRouter()
   const { mentorId } = router.query as { mentorId?: string }
 
-  const { data: mentor } = useGetMentorDetails(mentorId || null)
-
   return (
     <Modal
       aria-labelledby={mentorDetailsModalTitle}

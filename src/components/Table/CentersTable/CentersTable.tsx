@@ -1,4 +1,5 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { useRouter } from 'next/router'
 
 import { CenterStatusText } from './CentersTable.styled'
 
@@ -20,14 +21,31 @@ const columns: GridColDef<CenterTableEntry>[] = [
   }
 ]
 
+const useOpenExpenseModal = () => {
+  const router = useRouter()
+
+  return (centerId: string) => {
+    router.push(
+      `/app/centers/${centerId}/expenses?month=${new Date().getMonth()}&year=${new Date().getFullYear()}`
+    )
+  }
+}
+
 export default function CentersTable({
   searchString
 }: {
   searchString: string
 }) {
+  const openModal = useOpenExpenseModal()
   const { data = [], isLoading } = useGetCentresTable(searchString)
 
   return (
-    <DataGrid loading={isLoading} rows={data} columns={columns} hideFooter />
+    <DataGrid
+      loading={isLoading}
+      rows={data}
+      columns={columns}
+      hideFooter
+      onRowClick={(r) => openModal(`${r.id}`)}
+    />
   )
 }
