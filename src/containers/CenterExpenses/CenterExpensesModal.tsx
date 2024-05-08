@@ -178,7 +178,7 @@ export default function CenterExpensesModal({
   }
 
   const onClose = () => {
-    router.push(`/app`)
+    router.push(`/app/centers`)
   }
 
   const totalExpenseCurrentMonth = expenses.reduce(

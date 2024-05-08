@@ -1,9 +1,14 @@
 import { useSession } from 'next-auth/react'
 import useSWR from 'swr'
 
-import { Centre } from '@/types/centre.type'
+import { CenterTableEntry, Centre } from '@/types/centre.type'
 
 export function useGetCentres() {
   const orgId = useSession().data?.user?.organization.id
   return useSWR<Centre[]>(`organizations/${orgId}/centers/`)
+}
+
+export function useGetCentresTable(searchString: string) {
+  const query = new URLSearchParams({ searchString }).toString()
+  return useSWR<CenterTableEntry[]>(`centers?${query}`)
 }
