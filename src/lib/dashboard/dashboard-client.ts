@@ -5,7 +5,7 @@ export interface NgoStatsCount {
   totalCourses: string
   totalHours: string
   totalStudents: string
-  totalMetors: string
+  totalMentors: string
 }
 export interface NgoStats {
   ngoStats: NgoStatsCount

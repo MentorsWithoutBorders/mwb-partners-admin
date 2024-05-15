@@ -42,7 +42,7 @@ const SAMPLE_DATA = [
   {
     title: 'Total mentors',
     value: '20',
-    itemName: 'totalMetors',
+    itemName: 'totalMentors',
     icon: './icons/mentors-blue.svg'
   }
 ]
