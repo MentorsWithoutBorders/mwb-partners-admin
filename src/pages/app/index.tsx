@@ -10,30 +10,36 @@ import GeoMap, { IGeoMapLocation } from '@/components/GeoMap/GeoMap'
 import GeoMapPopover, {
   IGeoMapPopoverDetails
 } from '@/components/GeoMapPopover/GeoMapPopover'
+import LoadingPage from '@/components/LoadingPage/LoadingPage'
 import { DashboardLayout } from '@/containers/dashboard/DashboardLayout'
 import { DownloadCsvForm } from '@/containers/DownloadCsvForm/DownloadCsvForm'
+import {
+  NgoStatsCount,
+  useGetDashboardDetails
+} from '@/lib/dashboard/dashboard-client'
 import { flexContainer, toggleButton } from '@/styles/pages/app/index.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
-const SAMPLE_DATA = [
+const STATS_ITEMS = [
   {
     title: 'Total students',
-    value: '20',
+    itemName: 'totalStudents',
     icon: './icons/students.svg'
   },
   {
     title: 'Total courses',
-    value: '3',
+    itemName: 'totalCourses',
     icon: './icons/courses.svg'
   },
   {
     title: 'Total hours',
-    value: '32',
+    itemName: 'totalHours',
     icon: './icons/total-hours.svg'
   },
   {
     title: 'Total mentors',
     value: '20',
+    itemName: 'totalMentors',
     icon: './icons/mentors-blue.svg'
   }
 ]
@@ -126,6 +132,8 @@ const DashboardPage: WithAuthentication<NextPage> = () => {
     // TODO: Should re-trigger search.
   }
 
+  const { data, isLoading } = useGetDashboardDetails(allParticipants)
+
   return (
     <DashboardLayout title="Dashboard">
       <Box sx={{ ...flexContainer, mb: 4 }}>
@@ -143,30 +151,38 @@ const DashboardPage: WithAuthentication<NextPage> = () => {
         </Button>
       </Box>
 
-      <DashboardItemsWrapper>
-        {SAMPLE_DATA.map((item, index) => (
-          <DashboardItem
-            key={index}
-            title={item.title}
-            value={item.value}
-            icon={
-              <Image
-                src={item.icon}
-                width={25}
-                height={25}
-                alt={item.title}
-                priority
+      {isLoading ? (
+        <LoadingPage />
+      ) : (
+        <DashboardItemsWrapper>
+          {data?.ngoStats &&
+            STATS_ITEMS.map((item, index) => (
+              <DashboardItem
+                key={index}
+                title={item.title}
+                value={
+                  data?.ngoStats[item.itemName as keyof NgoStatsCount] ?? 0
+                }
+                icon={
+                  <Image
+                    src={item.icon}
+                    width={25}
+                    height={25}
+                    alt={item.title}
+                    priority
+                  />
+                }
               />
-            }
+            ))}
+
+          <br />
+          <GeoMap
+            height="600px"
+            popoverRenderer={GeoMapPopover}
+            locations={SAMPLE_LOCATIONS}
           />
-        ))}
-      </DashboardItemsWrapper>
-      <br />
-      <GeoMap
-        height="600px"
-        popoverRenderer={GeoMapPopover}
-        locations={SAMPLE_LOCATIONS}
-      />
+        </DashboardItemsWrapper>
+      )}
     </DashboardLayout>
   )
 }
