@@ -20,22 +20,19 @@ import {
 import { flexContainer, toggleButton } from '@/styles/pages/app/index.styled'
 import { WithAuthentication } from '@/types/with-authentication/with-authentication.type'
 
-const SAMPLE_DATA = [
+const STATS_ITEMS = [
   {
     title: 'Total students',
-    value: '20',
     itemName: 'totalStudents',
     icon: './icons/students.svg'
   },
   {
     title: 'Total courses',
-    value: '3',
     itemName: 'totalCourses',
     icon: './icons/courses.svg'
   },
   {
     title: 'Total hours',
-    value: '32',
     itemName: 'totalHours',
     icon: './icons/total-hours.svg'
   },
@@ -159,7 +156,7 @@ const DashboardPage: WithAuthentication<NextPage> = () => {
       ) : (
         <DashboardItemsWrapper>
           {data?.ngoStats &&
-            SAMPLE_DATA.map((item, index) => (
+            STATS_ITEMS.map((item, index) => (
               <DashboardItem
                 key={index}
                 title={item.title}
