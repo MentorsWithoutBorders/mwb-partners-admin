@@ -7,15 +7,15 @@ export function DownloadCsvForm(props: BoxProps) {
   const { start, end, handleStartChange, handleEndChange } = useDateRange()
 
   return (
-    <Box {...props}>
-      From{' '}
+    <Box {...props} sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ mr: 1 }}>From</Box>
       <DatePicker
         disableFuture
         value={start}
         onChange={handleStartChange}
         sx={{ mr: 2 }}
       />
-      To{' '}
+      <Box sx={{ mr: 1 }}>To</Box>
       <DatePicker
         disableFuture
         value={end}
