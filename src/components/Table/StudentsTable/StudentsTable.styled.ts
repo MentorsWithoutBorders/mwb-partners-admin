@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { Snackbar } from '@mui/material'
 
 import { StudentCertificationStatus } from '@/types/students/student.type'
 
@@ -20,3 +21,16 @@ export const TestimonialsWrapper = styled.div(() => ({
   gap: '10px',
   alignItems: 'center'
 }))
+
+export const TestimonialForm = styled.div`
+  .input-wrapper {
+    width: 100%;
+  }
+
+  .actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+`

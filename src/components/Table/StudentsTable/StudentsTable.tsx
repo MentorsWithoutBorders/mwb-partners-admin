@@ -6,6 +6,7 @@ import {
 } from '@mui/x-data-grid'
 
 import { StudentStatusText, TestimonialsWrapper } from './StudentsTable.styled'
+import TestimonialFormPopup from './TestimonialFormPopup'
 
 import Popup from '@/components/Popup/Popup'
 import TestimonialPopup from '@/components/TestimonialPopup/TestimonialPopup'
@@ -15,7 +16,6 @@ import {
 } from '@/lib/students/students-client'
 import { Student } from '@/types/students/student.type'
 import EyeIcon from '~/icons/eye.svg'
-import UploadIcon from '~/icons/upload.svg'
 
 const columns: GridColDef<Student>[] = [
   { field: 'name', headerName: 'Name', flex: 1, sortable: false },
@@ -74,11 +74,10 @@ const columns: GridColDef<Student>[] = [
         }
         label="View"
       />,
-      <GridActionsCellItem
-        key="upload"
-        icon={<UploadIcon />}
-        onClick={() => console.log('Upload Testimonials', params.id)}
-        label="Upload"
+      <TestimonialFormPopup
+        key="testimonial-popup"
+        name={params.row.name}
+        id={params.id}
       />
     ]
   }

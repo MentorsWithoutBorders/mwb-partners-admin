@@ -108,6 +108,7 @@ function InputWithCheckboxes({
           sx={roundedInput}
           value={inputValue}
           onChange={handleInputChange}
+          className="input-wrapper"
           endAdornment={
             showEndAdornment && (
               <InputAdornment position="end">
