@@ -7,7 +7,7 @@ import { TestimonialForm } from './StudentsTable.styled'
 import Button from '@/components/Button/Button'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import Popup from '@/components/Popup/Popup'
-import { client } from '@/lib/api-client'
+import { useUploadTestimonial } from '@/lib/students/students-client'
 import UploadIcon from '~/icons/upload.svg'
 
 interface Props {
@@ -20,6 +20,7 @@ export default function TestimonialFormPopup({ name, id }: Props) {
   const [isSnackOpen, setIsSnackOpen] = useState(false)
   const [inputVal, setInputVal] = useState('')
   const [err, setErr] = useState('')
+  const uploadTestimonial = useUploadTestimonial()
 
   const onClose = () => {
     setIsOpen(false)
@@ -31,15 +32,7 @@ export default function TestimonialFormPopup({ name, id }: Props) {
   const onSubmit = (e: any) => {
     e.preventDefault()
 
-    // TODO: get real partner id
-    const DUMMY_PARTNER_ID = '1'
-
-    client(`partners/${DUMMY_PARTNER_ID}/students/${id}/testimonials`, {
-      method: 'POST',
-      body: {
-        url: inputVal
-      }
-    })
+    uploadTestimonial(id as string, inputVal)
       .then(() => {
         setInputVal('')
         setErr('')
