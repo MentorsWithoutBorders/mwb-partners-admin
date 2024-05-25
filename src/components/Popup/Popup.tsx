@@ -9,26 +9,40 @@ interface IPopupProps {
   toggleElement?: React.ReactNode
   maxWidth?: number
   title: string
+  onClose?: () => void
+  onOpen?: () => void
+  isOpen?: boolean
 }
 
 export default function Popup({
   children,
   maxWidth,
   toggleElement,
-  title
+  title,
+  onClose,
+  isOpen,
+  onOpen
 }: IPopupProps) {
   const [open, setOpen] = React.useState(false)
 
   const handleOpen = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
     setOpen(true)
+    onOpen?.()
   }
 
   const handleClose = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation()
     if (e.target !== e.currentTarget) return
     setOpen(false)
+    onClose?.()
   }
+
+  React.useEffect(() => {
+    if (isOpen !== undefined) {
+      setOpen(isOpen)
+    }
+  }, [isOpen])
 
   return (
     <>

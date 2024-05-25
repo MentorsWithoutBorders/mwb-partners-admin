@@ -25,7 +25,9 @@ function InputWithCheckboxes({
   onInputChange,
   onMenuChange,
   placeholder,
-  showEndAdornment = true
+  showEndAdornment = true,
+  type = 'text',
+  required
 }: {
   checkboxesLabels: Array<string>
   checkboxesValues: Array<boolean>
@@ -35,6 +37,8 @@ function InputWithCheckboxes({
   onMenuChange?: Function
   placeholder?: string
   showEndAdornment?: boolean
+  type?: string
+  required?: boolean
 }) {
   const inputRef = React.useRef(null)
   const [showPopperMenu, setShowPopperMenu] = React.useState(false)
@@ -108,6 +112,9 @@ function InputWithCheckboxes({
           sx={roundedInput}
           value={inputValue}
           onChange={handleInputChange}
+          className="input-wrapper"
+          type={type}
+          required={required}
           endAdornment={
             showEndAdornment && (
               <InputAdornment position="end">
