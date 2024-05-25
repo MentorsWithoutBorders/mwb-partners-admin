@@ -22,7 +22,7 @@ export const TestimonialsWrapper = styled.div(() => ({
   alignItems: 'center'
 }))
 
-export const TestimonialForm = styled.div`
+export const TestimonialForm = styled.form`
   .input-wrapper {
     width: 100%;
   }

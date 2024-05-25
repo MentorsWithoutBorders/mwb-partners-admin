@@ -7,6 +7,7 @@ import { TestimonialForm } from './StudentsTable.styled'
 import Button from '@/components/Button/Button'
 import InputWithCheckboxes from '@/components/Input/InputWithCheckboxes/InputWithCheckboxes'
 import Popup from '@/components/Popup/Popup'
+import { client } from '@/lib/api-client'
 import UploadIcon from '~/icons/upload.svg'
 
 interface Props {
@@ -18,23 +19,40 @@ export default function TestimonialFormPopup({ name, id }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [isSnackOpen, setIsSnackOpen] = useState(false)
   const [inputVal, setInputVal] = useState('')
+  const [err, setErr] = useState('')
 
   const onClose = () => {
     setIsOpen(false)
     setInputVal('')
     setIsSnackOpen(false)
+    setErr('')
   }
 
-  const onSubmit = () => {
-    // TODO: submit the form
-    console.log('Submit Testimonial', inputVal)
-    console.log('Submit Testimonial', id)
-    setInputVal('')
-    setIsSnackOpen(true)
+  const onSubmit = (e: any) => {
+    e.preventDefault()
+
+    // TODO: get real partner id
+    const DUMMY_PARTNER_ID = '1'
+
+    client(`partners/${DUMMY_PARTNER_ID}/students/${id}/testimonials`, {
+      method: 'POST',
+      body: {
+        url: inputVal
+      }
+    })
+      .then(() => {
+        setInputVal('')
+        setErr('')
+        setIsSnackOpen(true)
+      })
+      .catch(() => {
+        setErr('Failed to upload the testimonial')
+      })
   }
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputVal(e.target.value)
+    setErr('')
   }
 
   return (
@@ -49,12 +67,11 @@ export default function TestimonialFormPopup({ name, id }: Props) {
         <GridActionsCellItem
           key="upload"
           icon={<UploadIcon />}
-          onClick={() => console.log('Upload Testimonials', id)}
           label="Upload"
         />
       }
     >
-      <TestimonialForm>
+      <TestimonialForm onSubmit={onSubmit}>
         {isSnackOpen ? (
           <Alert>Testimonial Saved Successfully!</Alert>
         ) : (
@@ -66,6 +83,8 @@ export default function TestimonialFormPopup({ name, id }: Props) {
               placeholder="Paste YouTube link here"
               showEndAdornment={false}
               onInputChange={onInput}
+              type="url"
+              required
             />
             <div className="actions">
               <Button
@@ -82,11 +101,16 @@ export default function TestimonialFormPopup({ name, id }: Props) {
                 color="success"
                 variant="contained"
                 sx={{ mt: 2 }}
-                onClick={onSubmit}
               >
                 Upload
               </Button>
             </div>
+          </>
+        )}
+        {err && (
+          <>
+            <br />
+            <Alert color="error">{err}</Alert>
           </>
         )}
       </TestimonialForm>
